@@ -1,0 +1,69 @@
+/* Cosmic Liquid Glass — design tokens */
+:root {
+  --void: #04070F;
+  --night: #0A1B2E;
+  --abyss: #0D2438;
+  --deep: #123049;
+
+  --cyan: #5FE6FF;
+  --cyan-soft: #9DEAFF;
+  --crystal: #38B6E8;
+  --ice: #EAF7FF;
+  --mist: #9FB8C8;
+  --dim: #6E8A9C;
+
+  --holo-v: #8FA0FF;
+  --holo-g: #7FF0D4;
+
+  --ok: #7FE0B0;
+  --warn: #FFD08A;
+  --err: #FF8FA3;
+
+  --glass-1: rgba(10, 27, 46, .55);
+  --glass-2: rgba(13, 36, 56, .68);
+  --glass-3: rgba(18, 48, 73, .82);
+  --line: rgba(157, 234, 255, .14);
+  --line-strong: rgba(157, 234, 255, .30);
+
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --t-fast: 160ms;
+  --t-med: 240ms;
+  --t-slow: 320ms;
+
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+
+  --shadow-1: 0 12px 32px -12px rgba(0, 0, 0, .6);
+  --shadow-2: 0 24px 60px -20px rgba(0, 0, 0, .72);
+  --blur: 20px;
+
+  --topbar-h: 60px;
+  --max-w: 1240px;
+}
+
+body[data-glass="solid"] {
+  --glass-1: rgba(8, 20, 35, .96);
+  --glass-2: rgba(10, 26, 43, .98);
+  --glass-3: rgba(13, 33, 52, .99);
+  --blur: 0px;
+}
+
+body[data-motion="reduced"] *,
+body[data-motion="reduced"] *::before,
+body[data-motion="reduced"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
