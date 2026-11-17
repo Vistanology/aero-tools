@@ -1,0 +1,23 @@
+{
+  "name": "Vistanology Open",
+  "short_name": "Vistanology",
+  "description": "Useful technology. Open possibilities. A growing hub of local-first browser tools — your files, keys, texts and images never leave your device.",
+  "id": "vistanology-open",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#026DA7",
+  "theme_color": "#026DA7",
+  "lang": "en",
+  "categories": ["utilities", "developer tools", "productivity", "design"],
+  "icons": [
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Library", "short_name": "Library", "url": "./#/library", "description": "Browse all tools" },
+    { "name": "Settings", "short_name": "Settings", "url": "./#/settings", "description": "Language, motion, glass, data" }
+  ]
+}

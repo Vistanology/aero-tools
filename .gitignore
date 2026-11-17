@@ -1,0 +1,10 @@
+# Dev artifacts: QA scripts, validation reports, WIP screenshots
+_dev/
+
+# OS / editor / logs
+.DS_Store
+Thumbs.db
+*.log
+
+# Dependencies
+node_modules/
