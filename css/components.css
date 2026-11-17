@@ -1,0 +1,453 @@
+/* Aero components — glossy buttons, daylight fields, frosted overlays
+ * Selector list is unchanged from the previous system; only the treatment moved.
+ */
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 9px 16px; border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .55) 48%, rgba(214, 240, 251, .72)),
+    var(--glass-2);
+  border: 1px solid rgba(12, 124, 176, .26);
+  color: var(--ice); font-size: 13px; font-weight: 550;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(150%); backdrop-filter: blur(var(--blur)) saturate(150%);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(160, 214, 238, .5), 0 8px 18px -10px rgba(11, 72, 102, .3);
+  transition: border-color var(--t-fast) var(--ease-aero), transform var(--t-fast) var(--ease-aero), box-shadow var(--t-fast) var(--ease-aero), background var(--t-fast) var(--ease-aero);
+  white-space: nowrap;
+}
+.btn svg { width: 15px; height: 15px; flex: none; }
+.btn:hover {
+  border-color: rgba(12, 124, 176, .46); transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(160, 214, 238, .6), 0 14px 26px -12px rgba(11, 72, 102, .34), 0 0 0 3px rgba(31, 160, 216, .10);
+}
+.btn:active { transform: scale(.985); }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+/* Primary action: the Aero gloss split — a hard 49/51 stop, deeper below,
+   lifted again at the base. Structure measured from .aero-button-primary on the
+   brand site, but every stop is held at or below luminance .17: the brand's own
+   top stop gives white only 2.5:1, and the gloss reads from the inset specular
+   line, not from a pale upper half. */
+.btn-primary {
+  background: linear-gradient(180deg, #0F7BB4 0%, #0A72A8 49%, #05567F 51%, #0A7CB4 100%);
+  border-color: rgba(6, 74, 112, .55); color: #fff; font-weight: 650;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -8px 14px -8px rgba(2, 32, 50, .55), var(--shadow-aqua);
+  text-shadow: 0 1px 0 rgba(4, 42, 62, .34);
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, #0E80B8 0%, #0A76AC 49%, #055C88 51%, #0A7CB4 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .62), inset 0 -8px 14px -8px rgba(2, 32, 50, .5), 0 18px 40px -14px rgba(24, 160, 216, .6);
+}
+.btn-primary svg .ia { stroke: #fff; }
+
+/* Buttons that live on the deep field rather than on a work surface. */
+.btn-field {
+  background: var(--gloss-ghost);
+  border: 1px solid var(--field-line); color: var(--on-field);
+  box-shadow: inset 0 1px 0 rgba(213, 253, 255, .4), 0 12px 28px -16px rgba(0, 20, 40, .7);
+  text-shadow: none;
+}
+.btn-field:hover {
+  background: linear-gradient(rgba(196, 240, 255, .2), rgba(20, 130, 190, .26));
+  border-color: rgba(213, 253, 255, .6);
+  box-shadow: inset 0 1px 0 rgba(224, 250, 255, .55), 0 18px 34px -16px rgba(0, 20, 40, .75);
+}
+.btn-field.btn-primary { color: #fff; }
+
+.btn-aqua { color: var(--cyan); border-color: rgba(12, 124, 176, .38); background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(31, 160, 216, .16)); }
+.btn-danger { color: var(--err); border-color: rgba(192, 63, 92, .38); background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(192, 63, 92, .14)); }
+.btn-ghost { background: transparent; border-color: transparent; box-shadow: none; color: var(--fg-3); }
+/* Ghost means quiet, not invisible: on a work surface a toolbar row has to read
+   as controls before the pointer arrives. On the open field it stays transparent,
+   where the surrounding scrim already frames it. Declared before :hover so the
+   hover step still wins. */
+.glass .btn-ghost, .glass-2 .btn-ghost, .glass-3 .btn-ghost, .bench .btn-ghost {
+  background: rgba(255, 255, 255, .42); border-color: var(--hair);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72);
+}
+.btn-ghost:hover {
+  color: var(--fg); background: var(--hover-fill); border-color: var(--hover-line);
+  box-shadow: inset 0 1px 0 var(--hover-spec);
+}
+.btn-sm { padding: 6px 11px; font-size: 12px; border-radius: 999px; }
+.btn-icon { width: 34px; height: 34px; padding: 0; }
+.btn-icon.btn-sm { width: 28px; height: 28px; }
+
+/* Fields */
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+.field > label {
+  font-size: 10.5px; font-weight: 650; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--fg-3);
+}
+.field.fixed { flex: 0 0 auto; }
+.field-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.field-row > .field { min-width: 120px; }
+
+.input {
+  width: 100%; padding: 9px 13px; border-radius: var(--r-field);
+  background: rgba(255, 255, 255, .82); border: 1px solid rgba(12, 110, 150, .24);
+  color: var(--ice); font-size: 13px;
+  box-shadow: inset 0 1px 2px rgba(11, 72, 102, .07), inset 0 1px 0 rgba(255, 255, 255, .9);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+  color-scheme: light;
+}
+.input::placeholder { color: var(--dim); }
+.input:focus {
+  outline: none; border-color: rgba(22, 147, 204, .6); background: #fff;
+  box-shadow: 0 0 0 3px rgba(31, 160, 216, .18), inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+.input[readonly] { color: var(--mist); background: rgba(240, 250, 255, .7); }
+textarea.input { resize: vertical; min-height: 60px; line-height: 1.5; }
+select.input {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--mist) 50%), linear-gradient(135deg, var(--mist) 50%, transparent 50%);
+  background-position: calc(100% - 16px) 55%, calc(100% - 11px) 55%;
+  background-size: 5px 5px; background-repeat: no-repeat; padding-right: 32px;
+}
+input[type="color"].input { padding: 3px; height: 38px; width: 56px; cursor: pointer; border-radius: 12px; }
+/* Native widgets are the one place where we deliberately do NOT redraw the control: the
+   browser keeps the checkbox's keyboard behaviour, its indeterminate state and its
+   high-contrast rendering, and `accent-color` is what pulls it into our palette. Because the
+   widget is the browser's, the only things we own are its colour and its box — so both live
+   here, once. Tools used to restate this at 15, 16 and 18px in ten different sections, which
+   is how three checkbox sizes ended up in one product. If a control needs a different size,
+   it needs a different component, not a per-tool override. */
+input[type="range"] { accent-color: var(--cyan); width: 100%; }
+input[type="checkbox"] { accent-color: var(--cyan); width: 15px; height: 15px; }
+
+.check-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--fg-2); cursor: pointer; }
+.copy-row { display: flex; gap: 8px; align-items: stretch; }
+.copy-row .input { flex: 1; }
+
+/* Segmented tabs — glossy aqua pill for the selected segment */
+.tabs {
+  display: inline-flex; gap: 3px; padding: 4px; border-radius: 999px;
+  background: rgba(255, 255, 255, .62); border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(255, 255, 255, .4);
+  max-width: 100%; overflow-x: auto;
+}
+.tab {
+  padding: 7px 15px; border-radius: 999px; font-size: 12.5px; font-weight: 550;
+  color: var(--mist); white-space: nowrap;
+  transition: color var(--t-fast) var(--ease), background var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.tab:hover { color: var(--ice); }
+.tab[aria-selected="true"] {
+  color: #fff; background: linear-gradient(180deg, #0F7BB4 0%, #0A72A8 49%, #065B86 51%, #0A7CB4 100%);
+  text-shadow: 0 1px 0 rgba(4, 42, 62, .3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), inset 0 -6px 10px -6px rgba(2, 32, 50, .5), 0 6px 16px -8px rgba(12, 124, 176, .7);
+}
+
+/* Toasts */
+#toasts {
+  position: fixed; right: 20px; bottom: 20px; z-index: 200;
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto; display: flex; align-items: center; gap: 9px;
+  padding: 11px 17px; border-radius: 999px; max-width: min(380px, calc(100vw - 40px));
+  background: var(--glass-3); border: 1px solid rgba(12, 124, 176, .28);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(160%); backdrop-filter: blur(var(--blur)) saturate(160%);
+  box-shadow: inset 0 1px 0 #fff, var(--shadow-2);
+  font-size: 13px; color: var(--ice); font-weight: 500;
+  animation: vt-toast-in var(--t-med) var(--ease-aero);
+}
+.toast svg { width: 15px; height: 15px; flex: none; }
+.toast-success svg { color: var(--ok); }
+.toast-error svg { color: var(--err); }
+.toast-warn svg { color: var(--warn); }
+.toast-info svg { color: var(--cyan); }
+.toast.leaving { opacity: 0; transform: translateY(6px); transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease); }
+@keyframes vt-toast-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+
+/* Modals */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 150;
+  background: var(--scrim);
+  -webkit-backdrop-filter: var(--scrim-filter); backdrop-filter: var(--scrim-filter);
+  display: grid; place-items: center; padding: 20px;
+  animation: vt-fade-in var(--t-med) var(--ease);
+}
+@keyframes vt-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  width: min(560px, 100%); max-height: min(84vh, 760px);
+  display: flex; flex-direction: column;
+  border-radius: var(--r-xl); overflow: hidden;
+  box-shadow: var(--shadow-overlay);
+  animation: vt-modal-in var(--t-med) var(--ease-aero);
+}
+.modal.wide { width: min(780px, 100%); }
+@keyframes vt-modal-in { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 18px 22px; border-bottom: 1px solid var(--hair);
+  background: var(--surface-head);
+}
+.modal-head h2 { font-family: var(--font-display); font-size: var(--display-s); color: var(--fg); }
+.modal-body { padding: 22px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+/* What VT.ui.confirm renders for its message. The text used to carry
+   style="font-size:13.5px;line-height:1.6" from js/core/ui.js — a magic number inside the
+   shared core, so every confirm dialog in seven tools was sized by a value no token could
+   name and no stylesheet could change. */
+.modal-msg { font-size: var(--body-size); line-height: var(--body-lead); color: var(--fg-2); }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 16px 22px; border-top: 1px solid var(--hair); flex-wrap: wrap; background: var(--surface-foot); }
+
+/* Tooltips */
+[data-tip] { position: relative; }
+[data-tip]:hover::after, [data-tip]:focus-visible::after {
+  content: attr(data-tip);
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  padding: 5px 10px; border-radius: 999px; white-space: nowrap;
+  background: rgba(255, 255, 255, .94); border: 1px solid rgba(12, 124, 176, .3);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 #fff, 0 10px 24px -12px rgba(11, 72, 102, .45);
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--cyan);
+  pointer-events: none; z-index: 90;
+  animation: vt-tip-in var(--t-fast) var(--ease);
+}
+.topbar-right [data-tip]:hover::after, .topbar-right [data-tip]:focus-visible::after,
+.app-actions [data-tip]:hover::after, .app-actions [data-tip]:focus-visible::after {
+  left: auto; right: 0; transform: none;
+}
+@keyframes vt-tip-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Command palette — the second floating layer, and the reason the five layer tokens exist:
+   everything below was an independent restatement of the modal's scrim, elevation, head
+   and foot. It now consumes the same names, so the two can no longer disagree. */
+.pal-backdrop {
+  position: fixed; inset: 0; z-index: 170;
+  background: var(--scrim);
+  -webkit-backdrop-filter: var(--scrim-filter); backdrop-filter: var(--scrim-filter);
+  display: grid; place-items: start center; padding: max(10vh, 60px) 20px 20px;
+  animation: vt-fade-in var(--t-med) var(--ease);
+}
+.pal {
+  width: min(620px, 100%); max-height: min(70vh, 560px);
+  display: flex; flex-direction: column; overflow: hidden;
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-overlay);
+  animation: vt-modal-in var(--t-med) var(--ease-aero);
+}
+.pal[hidden] , .pal-backdrop[hidden] { display: none; }
+.pal-search {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px; border-bottom: 1px solid var(--hair);
+  background: var(--surface-head);
+}
+.pal-search svg { width: 18px; height: 18px; color: var(--cyan); flex: none; }
+.pal-search input {
+  flex: 1; min-width: 0; background: none; border: 0; outline: none;
+  color: var(--fg); font-family: var(--font-ui); font-size: var(--body-size);
+}
+.pal-search input::placeholder { color: var(--fg-3); }
+/* Mesmo caso da chapa de busca da Library: o campo é sem borda dentro de uma banda que é o
+   controle. O anel entra por dentro (offset negativo) porque a banda encosta na borda do
+   diálogo, e um anel por fora seria recortado pela própria chapa. */
+.pal-search:focus-within { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
+.pal-list { overflow-y: auto; padding: 8px; }
+.pal-row {
+  display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  padding: 8px 10px; border-radius: var(--r-md); cursor: pointer;
+}
+.pal-row .orb { width: 34px; height: 34px; border-radius: var(--r-sm); }
+.pal-row .orb svg { width: 16px; height: 16px; }
+/* The cursor row is the selected state of a list, so it is the selection pair like every
+   other discrete control. It used to be a third recipe (a .16 cyan wash inside a white
+   gradient under a rgba(12,124,176,.34) rim). The specular stays because the palette cursor
+   has to read as raised, not merely tinted — the rim is what the contract governs. */
+.pal-row.on { background: linear-gradient(180deg, var(--spec), var(--sel-tint)); box-shadow: inset 0 0 0 1px var(--sel-line), inset 0 1px 0 var(--spec); }
+.pal-txt { display: flex; flex-direction: column; min-width: 0; }
+.pal-title { color: var(--fg); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pal-hit { color: var(--accent-ink); font-weight: 650; }
+.pal-sub { color: var(--fg-3); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pal-meta {
+  font-family: var(--font-mono); font-size: 10px; color: var(--fg-2);
+  border: 1px solid var(--chip-line); border-radius: var(--r-pill); padding: 3px 8px; white-space: nowrap;
+  background: var(--chip-bg);
+}
+.pal-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 34px 20px; color: var(--fg-3); text-align: center; font-size: 13.5px;
+}
+.pal-empty svg { width: 22px; height: 22px; opacity: .6; }
+.pal-foot {
+  display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  padding: 10px 16px; border-top: 1px solid var(--hair);
+  font-size: 11px; color: var(--fg-3); background: var(--surface-foot);
+}
+/* ── Editor bench ────────────────────────────────────────────────────────────
+ * The shared vocabulary for canvas editors (Diagram, Mind Map, SVG Editor).
+ * A bench is deliberately three different materials, not glass all the way down:
+ *
+ *   .bench          porcelain rail — the tools
+ *   .mat            recessed drafting surface; .mat-sheet is the paper on it
+ *   .bench-sec      glass section — the inspector, each one named by a head
+ *
+ * Ink comes from the substrate contract, so .mat and .bench-sec are always
+ * paired with .glass (daylight) and never used bare on the open field.
+ */
+.mat {
+  position: relative; overflow: auto; display: flex; min-height: 360px; padding: 24px;
+  border-radius: var(--r-md);
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(238, 248, 254, .96), rgba(198, 228, 246, .92)),
+    radial-gradient(rgba(11, 110, 150, .15) 1px, transparent 1.5px);
+  background-size: auto, 22px 22px;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .7), inset 0 3px 18px rgba(11, 72, 102, .2);
+  /* The desk is darker than the bench around it, so tier-3 ink needs a step more
+     weight to hold AA on the mat itself: --dim measures 4.49 against the composited
+     desk, --mist measures 5.34. Declared here, after glass.css, so .mat wins over
+     the .glass it is paired with. */
+  --fg-3: var(--mist); --fg-4: var(--mist);
+}
+.mat-sheet { margin: auto; flex: none; border-radius: 4px; box-shadow: 0 22px 46px -24px rgba(11, 72, 102, .5), 0 0 0 1px rgba(12, 110, 150, .16); }
+.mat-empty {
+  position: absolute; inset: 0; display: grid; place-content: center; justify-items: center;
+  gap: 10px; padding: 28px; text-align: center; pointer-events: none;
+}
+.mat-empty .orb { opacity: .55; }
+.mat-empty-title { font-family: var(--font-display); font-size: 20px; letter-spacing: -.02em; color: var(--fg); }
+.mat-empty-body { margin: 0; max-width: 42ch; font-size: 13px; line-height: 1.55; color: var(--fg-2); }
+.mat-empty-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 4px; pointer-events: auto; }
+.mat-empty-keys { font-size: 11px; color: var(--fg-3); }
+/* One keycap, three homes. The same atom used to carry three recipes: 6px and
+   rgba(255,255,255,.85) in the empty-state undo hints, 7px and opaque #fff in the command
+   palette foot, a 999px pill with --gloss-ghost in the search bar. A keycap is functional
+   chrome, so it takes the crisp end of the ladder and the substrate's own hairline — which
+   is what lets one rule serve the bench, a dialog and the open field without a per-surface
+   copy. --gloss-ghost over the near-white of a glass panel is a faint cool wash; over the
+   navy field it is the lit chip it already was on the search bar. */
+.kbd {
+  font-family: var(--font-mono); font-size: 10px; color: var(--fg-2);
+  border: 1px solid var(--hair); border-radius: var(--r-xs); padding: 2px 6px;
+  background: var(--gloss-ghost);
+}
+
+.bench-sec { display: flex; flex-direction: column; gap: 10px; padding: 14px; }
+.bench-sec-head { margin: 0; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; font-weight: 650; color: var(--fg-3); }
+.bench-sec--quiet p { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--fg-3); }
+.bench-rail-group { display: inline-flex; align-items: center; gap: 6px; }
+.bench-sep { width: 1px; height: 24px; background: var(--hair); margin: 0 4px; opacity: .8; }
+/* The one segmented control of the bench: Page Builder's width switch, Document
+   Workshop's view mode and Data Workspace's Pretty/Minified all had their own
+   version of this, two of them with a hardcoded blue gradient. Inside a porcelain
+   rail a bordered pill group would be a frame inside a frame, so the control has
+   no box of its own: the buttons are flat and only the selected one gets a fill. */
+.bench-seg { display: inline-flex; align-items: center; gap: 2px; }
+.bench-seg .btn { border: 0; background: transparent; box-shadow: none; }
+.bench-seg .btn[aria-pressed="true"] { background: var(--hover-fill); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--hair); }
+/* A field on porcelain must read as recessed, not as a white plate on white
+   porcelain: the fill darkens and the top highlight becomes an inner shadow.
+   The two values are the well contract, so a chooser tray and a text field are
+   the same gesture and cannot drift apart. The three scopes are the product's
+   porcelain work surfaces — `.bench` (rails), `.step` (the staged workflow, 11
+   tools) and `.bench-sec` (the rail section) — because a white input on a white
+   panel was the exact "white panel, blue border" tell.
+   background-color, never the `background` shorthand: this rule is more specific
+   than `select.input` (components.css:102), and the shorthand erased the chevron
+   gradient — the selects in Favicon Studio's rail lost their only affordance and
+   became indistinguishable from a text field. Measured in the before/after sheet. */
+.bench .input, .step .input, .bench-sec .input {
+  background-color: var(--well-fill);
+  border-color: var(--hair);
+  box-shadow: inset 0 1px 3px var(--well-shadow);
+}
+.bench .input:focus, .step .input:focus, .bench-sec .input:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(31, 160, 216, .18), inset 0 1px 3px rgba(11, 72, 102, .07);
+}
+/* Three pieces every bench needs and every tool had written for itself:
+   the saved-project row (14 copies in apps.css, in five different fills), the
+   read-only code plate (4 copies, all with the same hardcoded
+   rgba(232,246,254,.8) that no other surface in the product uses) and the
+   monospace readout beside a range or colour control (4 copies). They come in
+   through the substrate contract, so a bench moved onto the field inherits the
+   dark plate instead of a pale one. */
+.bench-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 6px 8px; border-radius: var(--r-sm);
+  border: 1px solid var(--chip-line); background: var(--chip-bg);
+}
+.bench-code {
+  margin: 0; padding: 10px 12px; border-radius: var(--r-sm);
+  border: 1px solid var(--code-line); background: var(--code-bg); color: var(--code-ink);
+  font-family: var(--font-mono); font-size: 10.5px; line-height: 1.5;
+  white-space: pre-wrap; overflow-wrap: break-word; overflow: auto;
+}
+.bench-val {
+  flex: 0 0 auto; font-family: var(--font-mono); font-size: 11px; color: var(--fg);
+  font-variant-numeric: tabular-nums; min-width: 52px; text-align: right;
+}
+
+/* ── Rendered markdown ─────────────────────────────────────────────────── */
+/* Markdown Preview and Notes Workspace render the same CommonMark output and each
+   carried its own byte-identical copy of the inline chip and the fenced block, while the
+   rest of the product had a third recipe in `.prose code`. The same `code` span came out
+   at 4px or 8px radius and at two different tints depending on which tool you typed it
+   into. One rule now, on the same three substrate tokens the bench pieces already
+   consume, so a preview moved onto the open field gets the dark plate for free.
+   Deliberately outside this group:
+     · `.prose` — authored product copy, not user markdown; it reads as prose.
+     · Document Workshop — it prints, and paper code is a dark plate on a white sheet
+       (--paper-code-bg) with a grey inline chip (--paper-fill-2). Two different materials
+       on one substrate is a print decision, not drift, and flattening it onto the screen
+       contract would change what a user's document looks like on paper. */
+.mp-preview code, .nt-preview code {
+  font-family: var(--font-mono); font-size: .9em;
+  padding: 1px 6px; border-radius: var(--r-xs);
+  background: var(--code-bg); border: 1px solid var(--code-line); color: var(--code-ink);
+}
+.mp-preview pre, .nt-preview pre {
+  font-family: var(--font-mono); font-size: 12.5px; line-height: 1.6; margin: .8em 0;
+  padding: 12px 14px; overflow: auto;
+  background: var(--code-bg); border: 1px solid var(--code-line);
+  border-radius: var(--r-sm); color: var(--code-ink);
+}
+.mp-preview pre code, .nt-preview pre code {
+  background: none; border: 0; padding: 0; font-size: inherit; color: inherit;
+}
+/* The colour and range controls beside it. Six tools had written this trio —
+   and Favicon Studio wrote it under Image Studio's `is-` prefix, so its
+   `.is-val { min-width: 40px }` silently restyled Image Studio's readouts.
+   One piece, one name: the collision cannot come back. */
+.bench-color {
+  width: 44px; height: 28px; padding: 0; border: 1px solid var(--hair);
+  border-radius: var(--r-sm); background: transparent; cursor: pointer;
+}
+.bench-range { flex: 1 1 auto; min-width: 0; accent-color: var(--accent-ink); cursor: pointer; }
+/* The column the rows live in. Twelve tools wrote the same three declarations,
+   and one of those twelve — `.ds-proj-list`, defined inside the Design System
+   Lab block — is the rule Diagram Studio's markup was relying on: a section
+   borrowing another section's CSS. Height caps stay with the tool, because how
+   much of the rail scrolls is that tool's composition. */
+.bench-list { display: flex; flex-direction: column; gap: 6px; }
+/* The line a rail shows when it has nothing to list. Thirteen copies, split
+   between --dim and --fg-3 — the same value on porcelain, the wrong one on the
+   field — three paddings and one italic that no other empty line in the product
+   has. `Uma área de trabalho vazia não deve parecer uma tela inacabada` is about
+   this sentence, so it is one sentence in one piece. */
+.bench-empty { color: var(--fg-3); font-size: 12px; padding: 4px 2px; }
+/* The rail's status line: what just happened, in the rail itself. Seven tools
+   wrote the same three declarations, six of them in raw --cyan-soft, which is
+   correct on porcelain and illegible on the field — the same trap the ink
+   contract exists for, so the role got its own slot (--hint-ink) instead of a
+   raw token. It is deliberately not --fg-2: a status line the same colour as
+   the labels around it stops reading as feedback and starts reading as copy. */
+.bench-hint { min-height: 16px; font-size: 12px; color: var(--hint-ink); }
+/* One label dialect for a bench inspector, scoped to the bench section. The
+   simple tools use .field (uppercase, 10.5px, tracked) and read as a form; an
+   editor rail is a column of values and its labels are sentence case — which
+   four editors had each written for themselves as .ds-ctrl / .as-ctrl /
+   .is-ctrl / .fs-ctrl > label at the same 11px and the same ink. The values
+   here are those four rules, not a new decision. */
+.bench-sec .field > label {
+  font: 400 11px/1.35 var(--font-ui); letter-spacing: 0; text-transform: none;
+  color: var(--fg-2);
+}
+
+/* Layout only: the keycaps in the palette foot are read as one chord, so they overlap by
+   one border. The paint is the shared .kbd component above. */
+.pal-foot .kbd { margin-right: 4px; }
+.pal-foot .kbd + .kbd { margin-left: -2px; }

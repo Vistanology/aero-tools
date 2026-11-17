@@ -1,0 +1,211 @@
+/* Materials — two glass families, deliberately different.
+ *
+ *   .glass / .glass-2 / .glass-3   daylight glass: a work surface. Carries DARK ink.
+ *   .ocean / .ocean-2 / .ocean-3   ocean glass: a brand surface on the field. Carries LIGHT ink.
+ *
+ * Declaring the ink here once is what keeps 34 tools and the brand pages from
+ * each inventing their own text colour.
+ */
+
+/* ── Daylight glass (work surfaces) ────────────────────────────────────── */
+.glass, .glass-2, .glass-3 {
+  position: relative;
+  color: var(--ice);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .34) 40%, rgba(255, 255, 255, 0) 62%),
+    var(--glass-1);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(160%);
+  backdrop-filter: blur(var(--blur)) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 var(--spec),
+    inset 0 -1px 0 rgba(150, 215, 240, .35),
+    var(--shadow-1);
+}
+.glass-2 {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .9), rgba(255, 255, 255, .4) 42%, rgba(255, 255, 255, 0) 64%),
+    var(--glass-2);
+  box-shadow: inset 0 1px 0 var(--spec), inset 0 -1px 0 rgba(150, 215, 240, .4), var(--shadow-2);
+}
+.glass-3 {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(255, 255, 255, .5) 44%, rgba(255, 255, 255, .1)),
+    var(--glass-3);
+  box-shadow: inset 0 1px 0 var(--spec), inset 0 -1px 0 rgba(150, 215, 240, .44), var(--shadow-2);
+}
+
+/* Substrate contract — the single rule that decides what colour text is.
+ *
+ *   .glass* + tool panels  daylight bench  → dark ink
+ *   .ocean* + page field   brand surface   → light ink
+ *
+ * Swapping the tokens once here means badges, hairlines, chips and muted text
+ * inherit the right values instead of each tool inventing its own. A control
+ * that sits on the open field rather than on a bench is wrapped in .ocean.
+ */
+.glass, .glass-2, .glass-3, .bench {
+  --fg: var(--ice); --fg-2: var(--mist); --fg-3: var(--dim); --fg-4: var(--dim);
+  --hair: var(--line); --hair-soft: rgba(12, 110, 150, .09);
+  --ok-ink: var(--ok); --err-ink: var(--err); --warn-ink: var(--warn); --accent-ink: var(--cyan);
+  --badge-fg: var(--mist); --badge-line: var(--line); --badge-bg: rgba(255, 255, 255, .74);
+  --badge-ok: var(--ok); --badge-ok-line: rgba(11, 98, 71, .3); --badge-ok-bg: rgba(11, 98, 71, .1);
+  --badge-err: var(--err); --badge-err-line: rgba(151, 48, 74, .3); --badge-err-bg: rgba(151, 48, 74, .1);
+  --badge-warn: var(--warn); --badge-warn-line: rgba(125, 78, 8, .3); --badge-warn-bg: rgba(125, 78, 8, .1);
+  --badge-aqua: var(--cyan); --badge-aqua-line: rgba(10, 94, 136, .3); --badge-aqua-bg: rgba(31, 160, 216, .1);
+  --hover-fill: rgba(255, 255, 255, .82); --hover-line: var(--line); --hover-spec: var(--spec);
+  --chip-bg: rgba(255, 255, 255, .78); --chip-line: var(--line);
+  --code-bg: rgba(232, 246, 254, .8); --code-line: var(--line); --code-ink: var(--ice);
+  /* Syntax palette. Measured on the composed pane pixel, not on the token name:
+     key 6.94, str 5.19, num 6.94, lit 6.20 against rgba(255,255,255,.74) over the
+     field (_dev/probe-syntax-contrast.js). Tools consume these, never a hex. */
+  --code-key: var(--cyan); --code-str: #0F7A5F; --code-num: var(--warn);
+  --code-lit: #6C4FA8; --code-punc: var(--dim);
+  /* Selected/on fill for discrete controls (chips, stops, mode buttons). The ink is
+     white because the fill is the deep bench aqua, not a tint: 7.0:1 measured. */
+  --sel-fill: var(--cyan); --sel-ink: #FFFFFF;
+  --sel-line: rgba(31, 160, 216, .5); --sel-tint: rgba(31, 160, 216, .10);
+  --hint-ink: var(--cyan-soft);
+}
+.ocean, .ocean-2, .ocean-3 {
+  --fg: var(--on-field); --fg-2: var(--on-field-2); --fg-3: var(--on-field-3); --fg-4: var(--on-field-4);
+  --hair: var(--field-line); --hair-soft: var(--field-line-soft);
+  --ok-ink: var(--ok-on-field); --err-ink: var(--err-on-field);
+  --warn-ink: #FFE3B8; --accent-ink: #D2F7FF;
+  --badge-fg: var(--on-field-2); --badge-line: var(--field-line); --badge-bg: var(--gloss-ghost);
+  --badge-ok: var(--ok-on-field); --badge-ok-line: rgba(192, 245, 216, .4); --badge-ok-bg: rgba(11, 98, 71, .3);
+  --badge-err: var(--err-on-field); --badge-err-line: rgba(255, 221, 228, .4); --badge-err-bg: rgba(151, 48, 74, .3);
+  --badge-warn: #FFE3B8; --badge-warn-line: rgba(255, 227, 184, .4); --badge-warn-bg: rgba(125, 78, 8, .32);
+  --badge-aqua: #D2F7FF; --badge-aqua-line: rgba(210, 247, 255, .42); --badge-aqua-bg: rgba(0, 120, 170, .34);
+  --hover-fill: var(--gloss-ghost); --hover-line: var(--field-line-soft); --hover-spec: rgba(213, 253, 255, .3);
+  --chip-bg: rgba(2, 44, 72, .42); --chip-line: var(--field-line-soft);
+  --code-bg: rgba(2, 44, 72, .5); --code-line: var(--field-line-soft); --code-ink: #D2F7FF;
+  /* Same five roles on the field. Navy has no AA-safe purple, so literal is a pale
+     violet (#EFE6FF = 4.65 on --field-2) rather than the bench's #6C4FA8 inverted. */
+  --code-key: #D2F7FF; --code-str: #C9F5DE; --code-num: #FFE3B8;
+  --code-lit: #EFE6FF; --code-punc: var(--on-field-3);
+  /* On the field the selected fill is the brand aqua and the ink goes dark — the
+     measured CTA pairing (#41B4E8 under #001E31), not white on a light chip. */
+  --sel-fill: #41B4E8; --sel-ink: #001E31;
+  /* On the field a .10 cyan tint over navy is nothing at all, so selection there is the
+     pale aqua hairline the badges already use, over the deep plate the chips already use. */
+  --sel-line: rgba(210, 247, 255, .42); --sel-tint: rgba(2, 44, 72, .42);
+  /* A well on navy is not a wash — the bench's 5.5% cyan film over a dark field is
+     invisible. There, a depression is the deep plate the chips already use. */
+  --well-fill: rgba(2, 44, 72, .42); --well-shadow: rgba(0, 16, 32, .38);
+  --hint-ink: #D2F7FF;
+}
+
+/* .bench — a light work surface that is not a glass panel: toolbars, rails and
+   inspector strips. It carries the bench ink above with a porcelain fill, and
+   deliberately no blur, rim or elevation, so a strip reads as part of the
+   machine rather than as yet another card laid on the page. */
+.bench {
+  color: var(--ice);
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(226, 244, 252, .88));
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 #fff, 0 6px 16px -12px rgba(11, 72, 102, .4);
+}
+
+/* Refracted rim: white specular at the top, aqua picking up light at the base */
+.glass::before, .glass-2::before, .glass-3::before {  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: var(--edge-grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Ocean glass (brand surfaces on the field) ─────────────────────────── */
+.ocean, .ocean-2, .ocean-3 {
+  position: relative;
+  color: var(--on-field);
+  border: 1px solid var(--field-line);
+  border-radius: var(--r-xl);
+  background:
+    linear-gradient(180deg, rgba(196, 240, 255, .2), rgba(120, 208, 244, .05) 44%, rgba(0, 0, 0, 0) 68%),
+    var(--glass-on-field);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
+  backdrop-filter: blur(var(--blur)) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(213, 253, 255, .5),
+    inset 0 -1px 0 rgba(0, 96, 150, .5),
+    var(--shadow-field);
+}
+.ocean-2 {
+  background:
+    linear-gradient(180deg, rgba(196, 240, 255, .24), rgba(120, 208, 244, .06) 46%, rgba(0, 0, 0, 0) 70%),
+    var(--glass-on-field-2);
+}
+.ocean-3 {
+  background:
+    linear-gradient(180deg, rgba(196, 240, 255, .28), rgba(120, 208, 244, .08) 48%, rgba(0, 0, 0, 0) 72%),
+    var(--glass-on-field-3);
+}
+.ocean::before, .ocean-2::before, .ocean-3::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(160deg, rgba(213, 253, 255, .72), rgba(180, 244, 255, .12) 36%,
+    rgba(0, 140, 200, .22) 64%, rgba(49, 218, 255, .5));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Solid navy plate: the "systems" material, for real contrast ───────── */
+.plate {
+  border-radius: var(--r-xl);
+  border: 1px solid rgba(120, 208, 244, .22);
+  background:
+    radial-gradient(70% 90% at 12% 0%, rgba(20, 191, 191, .16), transparent 62%),
+    linear-gradient(180deg, var(--field-4), var(--field-5));
+  color: var(--on-field);
+  box-shadow: inset 0 1px 0 rgba(196, 240, 255, .18), var(--shadow-field);
+}
+
+/* ── Interactive rim (light glass only) ────────────────────────────────── */
+.rim { transition: border-color var(--t-med) var(--ease-aero), box-shadow var(--t-med) var(--ease-aero), transform var(--t-med) var(--ease-aero); }
+.rim:hover {
+  border-color: rgba(12, 110, 150, .42);
+  box-shadow: inset 0 1px 0 var(--spec), inset 0 -1px 0 rgba(150, 215, 240, .5), 0 26px 58px -20px rgba(11, 72, 102, .32), 0 0 0 3px rgba(31, 160, 216, .10);
+}
+.ocean.rim:hover, .ocean-2.rim:hover, .ocean-3.rim:hover {
+  border-color: rgba(213, 253, 255, .58);
+  box-shadow: inset 0 1px 0 rgba(224, 250, 255, .6), inset 0 -1px 0 rgba(0, 96, 150, .5),
+    0 34px 70px -26px rgba(0, 20, 40, .7), 0 0 0 3px rgba(49, 218, 255, .16);
+}
+
+/* ── Icon wells: glossy aqua tablets ───────────────────────────────────── */
+.orb {
+  display: grid; place-items: center; flex: none;
+  width: 40px; height: 40px; border-radius: var(--r-sm);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(255, 255, 255, .5) 46%, rgba(190, 232, 248, .55)),
+    var(--aero-sky-2);
+  border: 1px solid rgba(12, 124, 176, .22);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(143, 208, 234, .6), 0 8px 20px -10px rgba(12, 124, 176, .4);
+  color: var(--cyan);
+}
+.orb svg { width: 19px; height: 19px; }
+.orb-sm { width: 32px; height: 32px; border-radius: 11px; }
+.orb-sm svg { width: 15px; height: 15px; }
+.orb-lg { width: 52px; height: 52px; border-radius: var(--r-md); }
+.orb-lg svg { width: 24px; height: 24px; }
+
+/* Orb on the field: a lit sphere rather than a white tablet. */
+.orb-field {
+  background:
+    radial-gradient(60% 55% at 34% 28%, rgba(224, 250, 255, .58), rgba(120, 208, 244, .1) 70%),
+    var(--gloss-ghost);
+  border: 1px solid rgba(180, 244, 255, .42);
+  box-shadow: var(--bubble-shadow);
+  color: #DFF7FF;
+}
+
+svg .ia { stroke: var(--cyan); opacity: .95; }
+.ocean svg .ia, .ocean-2 svg .ia, .ocean-3 svg .ia, .plate svg .ia, .orb-field svg .ia { stroke: #9BE6FF; }

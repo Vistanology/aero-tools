@@ -1,0 +1,179 @@
+/* Base — the deep ocean field carries light editorial type;
+ * light surfaces (glass, tool benches) carry dark ink. That contract is
+ * declared once here and in glass.css, not per component.
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; }
+html:has(body[data-motion="reduced"]) { scroll-behavior: auto; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--field-2);
+  color: var(--on-field);
+  font-family: var(--font-ui);
+  font-size: var(--body-size);
+  line-height: var(--body-lead);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Headings: the brand voice is a light, tightly tracked sans — not a serif. */
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--track-title);
+  line-height: var(--lead);
+  color: inherit;
+}
+h1 { font-size: var(--display-l); letter-spacing: var(--track-display); }
+h2 { font-size: var(--display-m); }
+h3 { font-size: var(--display-s); letter-spacing: -.014em; }
+p { margin: 0; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, select, textarea { font: inherit; color: inherit; }
+a { color: #7FD4F5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, canvas, svg { display: block; max-width: 100%; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: rgba(49, 218, 255, .3); color: var(--on-field); }
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* Silenciar o anel de um container que recebe foco por programa é o ponto da regra.
+   Ela também valia para controle interativo: as abas do Data Workspace são `button[role=tab]`
+   com `tabindex="-1"` — padrão de tablist, onde só a aba selecionada está na fila de TAB e
+   as setas movem entre elas — e `_dev/probe-focus-loss.js` mediu as quatro sem indicador
+   nenhum. Um controle que se alcança por teclado não pode ficar invisível por projeto. */
+[tabindex="-1"]:focus:not(:is(button, a, input, select, textarea, summary, [role="tab"], [role="option"], [role="button"])) { outline: none; }
+
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: rgba(2, 60, 96, .35); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(85, 198, 239, .8), rgba(12, 124, 176, .9));
+  border-radius: 8px; border: 3px solid rgba(4, 62, 100, .5);
+}
+::-webkit-scrollbar-thumb:hover { background: #55C6EF; }
+
+/* ── Utilities ─────────────────────────────────────────────────────────── */
+.mono { font-family: var(--font-mono); }
+/* --fg-* is substrate-scoped: light on the field, dark inside a bench. */
+.dim { color: var(--fg-4); }
+.mist { color: var(--fg-2); }
+
+/* Letterspaced caps label — the brand's section marker. */
+.eyebrow {
+  font-size: var(--eyebrow-size);
+  font-weight: 650;
+  letter-spacing: var(--eyebrow-track);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+.micro {
+  font-size: var(--micro-size);
+  font-weight: 650;
+  letter-spacing: var(--micro-track);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+/* Italic is the emotional register: pull-quotes and one-line accents only. */
+.pull { font-family: var(--font-accent); font-style: italic; font-weight: 400; }
+
+.hint { font-size: 13px; color: var(--fg-4); line-height: 1.5; }
+.error-text { font-size: 13px; color: var(--err-ink); min-height: 18px; }
+
+.divider { border: 0; border-top: 1px solid var(--hair-soft); margin: 18px 0; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  padding: 0; border: 0; clip: rect(0 0 0 0); overflow: hidden; white-space: nowrap;
+}
+
+/* ── Badges ────────────────────────────────────────────────────────────── */
+/* Colour comes from substrate-scoped variables: the field gives light ink,
+ * a daylight bench (see glass.css) swaps it for dark ink. Never set these
+ * per tool. */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: var(--r-pill);
+  border: 1px solid var(--badge-line); color: var(--badge-fg); white-space: nowrap;
+  background: var(--badge-bg);
+}
+.badge-ok { color: var(--badge-ok); border-color: var(--badge-ok-line); background: var(--badge-ok-bg); }
+.badge-err { color: var(--badge-err); border-color: var(--badge-err-line); background: var(--badge-err-bg); }
+.badge-warn { color: var(--badge-warn); border-color: var(--badge-warn-line); background: var(--badge-warn-bg); }
+.badge-aqua { color: var(--badge-aqua); border-color: var(--badge-aqua-line); background: var(--badge-aqua-bg); }
+
+/* ── Empty states ──────────────────────────────────────────────────────── */
+/* A workspace that is empty is not a workspace that is unfinished: the state
+   gets its own composition, not a bare dashed box. The border used to be dashed,
+   which is the vocabulary of a drop target — it told the user the panel was waiting
+   for a file even in tools that take no file at all. Solid hairline, real panel.
+   "Real panel" is also a material claim: on the open field the old recipe painted
+   barely 20% over the background, so a bubble drifting in the atmosphere layer read
+   straight through it and the panel looked like a rendering artifact. It now carries
+   the same field-glass recipe as every other surface on the field, which means it
+   also obeys Settings → Transparency = Solid for free. */
+.empty {
+  border: 1px solid var(--hair-soft); border-radius: var(--r-lg);
+  padding: 42px 24px; text-align: center; color: var(--fg-2);
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+  background:
+    radial-gradient(70% 60% at 50% 0%, rgba(120, 210, 245, .16), rgba(4, 74, 116, .1) 70%),
+    linear-gradient(180deg, rgba(196, 240, 255, .2), rgba(120, 208, 244, .05) 44%, rgba(0, 0, 0, 0) 68%),
+    var(--glass-on-field);
+  box-shadow: inset 0 1px 0 rgba(213, 253, 255, .22);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
+  backdrop-filter: blur(var(--blur)) saturate(150%);
+}
+.empty strong { color: var(--fg); font-weight: 500; font-size: 15px; }
+.empty svg { width: 28px; height: 28px; opacity: .7; margin-bottom: 4px; }
+/* The way out of an empty state is part of the state: without an affordance the
+   panel is a dead end, and a dead end is what reads as an unfinished screen. */
+.empty .btn { margin-top: 6px; }
+/* Inside a bench the bench itself is already the surface; the panel takes a light
+   sheet instead of a second blur, so the backdrop filter is released here. */
+.glass .empty, .glass-2 .empty, .glass-3 .empty, .bench .empty {
+  background: radial-gradient(70% 60% at 50% 0%, rgba(31, 160, 216, .1), rgba(255, 255, 255, .5) 70%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+
+.spinner {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--hair); border-top-color: var(--accent-ink);
+  animation: vt-spin .8s linear infinite;
+}
+@keyframes vt-spin { to { transform: rotate(360deg); } }
+
+/* ── Prose lives on light surfaces (docs, tool panels) ─────────────────── */
+.prose { color: var(--mist); font-size: 15px; display: flex; flex-direction: column; gap: 12px; }
+.prose h2 { font-size: 26px; color: var(--ice); letter-spacing: var(--track-title); }
+.prose h3 { font-size: 20px; color: var(--cyan-soft); }
+.prose ul { display: flex; flex-direction: column; gap: 6px; padding-left: 18px; list-style: disc; }
+.prose a { color: var(--cyan-soft); }
+.prose code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: rgba(255, 255, 255, .8); border: 1px solid var(--line);
+  padding: 1px 6px; border-radius: 8px; color: var(--cyan);
+}
+.prose pre {
+  font-family: var(--font-mono); font-size: 12px; line-height: 1.6;
+  background: rgba(255, 255, 255, .78); border: 1px solid var(--line);
+  border-radius: var(--r-md); padding: 16px; overflow: auto; color: var(--mist);
+  margin: 0; box-shadow: inset 0 1px 0 var(--spec-soft);
+}

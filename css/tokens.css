@@ -1,0 +1,312 @@
+/* Brand and substrate contracts: docs/design-system/identity.md. */
+:root {
+  color-scheme: light;
+
+  /* ── Deep ocean field (measured: body #026DA7, text #F5FCFF) ───────────── */
+  --field-1: #066CAF;   /* top of the sky-to-sea ramp   */
+  --field-2: #026DA7;   /* brand base                   */
+  --field-3: #014C79;   /* lower / deeper               */
+  --field-4: #012E4A;   /* abyss — solid dark panels    */
+  --field-5: #001E33;   /* darkest — navy tech surfaces */
+
+  /* Field ink. On the brand's own #026DA7 a 4.5:1 floor forces every tier above
+     relative luminance 0.79, so the lightness steps here are deliberately small:
+     hierarchy on the field is carried by size, weight and tracking, never by
+     washing text out. Ratios are measured against --field-2 bare. */
+  --on-field: #F5FCFF;      /* tier 1 — titles, values   5.40 */
+  --on-field-2: #EAF7FF;    /* tier 2 — body, taglines   5.14 */
+  --on-field-3: #DCF3FF;    /* tier 3 — labels, chips    4.62 against the bloomed field */
+  --on-field-4: #CFF0FF;    /* tier 4 — meta, hints      4.69 */
+  --field-line: rgba(180, 244, 255, .31);
+  --field-line-soft: rgba(180, 244, 255, .16);
+  --field-bloom-a: rgba(20, 191, 191, .19);
+  --field-bloom-b: rgba(0, 189, 236, .25);
+
+  /* ── Ink (daylight surfaces: tool benches, glass tiles) ────────────────── */
+  /* Graded against the *composited* bench, not pure white: a .glass panel over
+     the deep field lands near #C7DFF1, and the previous values (dim #527A8E,
+     cyan #0C7CB0) measured 3.3–3.4:1 there. Worst-case ratios in this file are
+     re-verified by _dev/probe-contrast2.js against rendered pixels. */
+  --void: #052434;
+  --night: #0B4C6B;
+  --abyss: #0E6E9C;
+  --deep: #9CCBE4;
+
+  --cyan: #0A5E88;
+  --cyan-soft: #08557C;
+  --crystal: #1FA0D8;
+  --ice: #08293A;
+  --mist: #2C5568;
+  --dim: #3A6074;
+
+  --holo-v: #6FB6E8;
+  --holo-g: #58C89B;
+
+  /* A tinta de acento do site: o `em` das citações e das palavras de ênfase é menta,
+     não ciano (medido rgb(197, 255, 223) sobre o campo). 5,00:1 calculado contra
+     --field-2 a nu; sobre a placa da cápsula o número cai e é medido por sonda, não
+     estimado — hierarquia por cor existe sem lavar texto. */
+  --brand-mint: #C5FFDF;
+
+  --ok: #0B6247;
+  --warn: #7D4E08;
+  --err: #97304A;
+  --ok-on-field: #C0F5D8;
+  --err-on-field: #FFDDE4;
+
+  /* ── Paper substrate (Document Workshop) ─────────────────────────────── */
+  /* The sheet is content, not chrome: a print preview has to read as the page it
+     will print on, so it keeps a neutral print palette instead of the ocean ink.
+     That is a named scope, not drift — a tool adds its own greys only when they
+     are not already in one of the three documented substrates. */
+  --paper-bg: #FFFFFF;
+  --paper-ink: #1A1A1A;
+  --paper-ink-2: #444444;
+  --paper-ink-3: #555555;
+  --paper-ink-4: #999999;
+  --paper-rule: #EEEEEE;
+  --paper-rule-2: #DDDDDD;
+  --paper-line: #E3E3E3;
+  --paper-fill: #F6F6F6;
+  --paper-fill-2: #F0F0F0;
+  --paper-check: #888888;
+  --paper-link: #0B5CAD;
+  --paper-code-bg: #0F1722;
+  --paper-code-ink: #E6F3FF;
+
+  /* ── Atmosphere partners (kept for light-side compositions) ────────────── */
+  --aero-sky-1: #EDF7FD;
+  --aero-sky-2: #CFEBFA;
+  --aero-sky-3: #A8DAF2;
+  --aero-foam: #F8FDFF;
+  --aero-sun: #FFD98A;
+  --aero-water: #5FC0E8;
+  --aero-garden: #63C88C;
+  --stage: #F3FAFE;
+
+  /* ── Frosted glass elevations ─────────────────────────────────────────── */
+  --glass-1: rgba(255, 255, 255, .80);
+  --glass-2: rgba(255, 255, 255, .88);
+  --glass-3: rgba(252, 254, 255, .95);
+  --line: rgba(12, 110, 150, .16);
+  --line-strong: rgba(12, 110, 150, .34);
+
+  /* Glass that sits ON the deep field: cool, translucent, lit from above. */
+  --glass-on-field: rgba(8, 96, 148, .34);
+  --glass-on-field-2: rgba(6, 82, 128, .48);
+  --glass-on-field-3: rgba(4, 62, 100, .62);
+
+  /* The well: the depression a control sits IN, as opposed to the plate it sits ON.
+     One pair of values because a bench field and a chooser tray are the same gesture,
+     and two hand-written copies of it had already started to disagree. Substrate
+     overrides live in glass.css — on the field, a depression is a deep plate, not a wash. */
+  --well-fill: rgba(12, 110, 150, .055);
+  --well-shadow: rgba(11, 72, 102, .12);
+
+  /* ── Specular, refraction and the Aero gloss split ────────────────────── */
+  --spec: rgba(255, 255, 255, .92);
+  --spec-soft: rgba(255, 255, 255, .55);
+  --aqua-glow: rgba(24, 160, 216, .30);
+  --edge-grad: linear-gradient(155deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .18) 34%,
+    rgba(150, 215, 240, .22) 62%, rgba(95, 192, 232, .55));
+
+  /* The signature detail: a hard 49%/51% stop, light above, deeper below,
+     then a lift at the base. Measured off .aero-button-primary on the brand site. */
+  --gloss-primary: linear-gradient(rgba(49, 218, 255, .65), rgba(0, 169, 226, .83) 49%,
+    rgba(0, 141, 206, .86) 51%, rgba(3, 192, 239, .875));
+  --gloss-ghost: linear-gradient(rgba(179, 238, 255, .13), rgba(8, 115, 179, .18));
+  --gloss-plate: linear-gradient(rgba(101, 215, 255, .29), rgba(3, 151, 228, .267) 48%,
+    rgba(4, 110, 196, .48) 51%, rgba(1, 187, 239, .314));
+
+  /* ── A cápsula de navegação (assinatura institucional, medida) ─────────── */
+  /* .navbar do our-site: raio 40, altura 69, placa --gloss-plate, sem blur, e três
+     sombras — um fio de luz no topo, um brilho aqua por dentro na base e uma queda
+     larga. Números em _dev/ref/brand-2026-11-16.json, não em memória.
+     A única divergência é o fundo sólido por baixo da placa: no site a cápsula flutua
+     sobre uma fotografia parada; num app, bancadas de 34 ferramentas passam por baixo
+     em movimento, e uma placa de α .29 sem retaguarda deixa o conteúdo ler através do
+     texto. O retaguarda é --field-4 a .82, que preserva o gloss split e a profundidade. */
+  --bar-r: 40px;
+  --bar-h: 66px;
+  --bar-inset-y: 14px;
+  --bar-inset-x: 40px;
+  --bar-plate: var(--gloss-plate);
+  --bar-backing: rgba(2, 46, 74, .82);
+  --bar-shadow: inset 0 1px 1px rgba(240, 255, 255, .77),
+    inset 0 -2px 8px rgba(101, 233, 255, .44), 0 7px 30px rgba(0, 76, 145, .25);
+  --bar-ink-shadow: 0 2px 5px rgba(0, 75, 132, .44);
+  /* O link de navegação é uma pílula dentro da cápsula: raio 25, 13px/400, ícone de
+     24 à esquerda, e o estado selecionado é uma placa aqua com luz em cima e halo em
+     baixo — não uma inversão de cor. */
+  --nav-r: 25px;
+  --nav-active-plate: linear-gradient(rgba(160, 239, 255, .376), rgba(0, 167, 246, .314));
+  --nav-active-shadow: inset 0 1px 2px rgba(239, 255, 255, .44), 0 2px 9px rgba(0, 222, 255, .208);
+  --icon-btn-r: 50%;
+  --icon-btn-h: 37px;
+
+  /* Soap bubble: rim plus two opposing inset shadows give it a real sphere. */
+  --bubble-border: 1px solid rgba(213, 253, 255, .79);
+  --bubble-shadow: inset 2px 3px 5px rgba(218, 255, 255, .65),
+    inset -3px -4px 6px rgba(0, 173, 248, .6), 0 2px 10px rgba(19, 189, 255, .48);
+
+  /* ── Substrate-scoped ink ─────────────────────────────────────────────── */
+  /* Defaults are for the deep field. glass.css swaps them for dark ink
+     inside a daylight bench, so components never hardcode their own colour. */
+  --fg: var(--on-field);
+  --fg-2: var(--on-field-2);
+  --fg-3: var(--on-field-3);
+  --fg-4: var(--on-field-4);
+  --hair: var(--field-line);
+  --hair-soft: var(--field-line-soft);
+  --ok-ink: var(--ok-on-field);
+  --err-ink: var(--err-on-field);
+  --warn-ink: #FFE3B8;
+  --accent-ink: #D2F7FF;
+  --sel-fill: #41B4E8;
+  /* Selected, as a hairline plus a tint: the two roles a control takes on when it is the one
+     the user picked. Tools used to hand-write rgba(31,160,216,.5) or reach for --glass-2, so
+     three surfaces in one product each had a different idea of what "this one is selected"
+     looked like. Values are per substrate, like every other ink here. */
+  --sel-line: rgba(31, 160, 216, .5);
+  --sel-tint: rgba(31, 160, 216, .10);
+  --sel-ink: #001E31;
+  --badge-fg: var(--on-field-2);
+  --badge-line: var(--field-line);
+  --badge-bg: var(--gloss-ghost);
+  --badge-ok: var(--ok-on-field);   --badge-ok-line: rgba(192, 245, 216, .4);  --badge-ok-bg: rgba(11, 98, 71, .3);
+  --badge-err: var(--err-on-field); --badge-err-line: rgba(255, 221, 228, .4); --badge-err-bg: rgba(151, 48, 74, .3);
+  --badge-warn: #FFE3B8;            --badge-warn-line: rgba(255, 227, 184, .4); --badge-warn-bg: rgba(125, 78, 8, .32);
+  --badge-aqua: #D2F7FF;            --badge-aqua-line: rgba(210, 247, 255, .42); --badge-aqua-bg: rgba(0, 120, 170, .34);
+  --hover-fill: var(--gloss-ghost);
+  --hover-line: var(--field-line-soft);
+  --hover-spec: rgba(213, 253, 255, .3);
+  /* O anel de foco era um literal escrito em dois lugares (base.css e o tile da biblioteca)
+     e um terceiro que precisava dele não tinha como chamá-lo: a chapa de busca da Library é
+     um controle composto — o campo dentro dela é sem borda de propósito — e o anel tinha de
+     morar na chapa. Nome aqui, receita em um lugar só. */
+  --focus-ring: #55C6EF;
+  --chip-bg: rgba(2, 44, 72, .42);
+  --chip-line: var(--field-line-soft);
+
+  /* ── Typography ───────────────────────────────────────────────────────── */
+  /* v4 troca a família pelo que o site institucional realmente carrega: nenhuma
+     webfont, a pilha humana do sistema (`--font-sans` medido no our-site, e é a
+     mesma família declarada dentro do SVG do wordmark oficial). Inter continua
+     instalado porque duas ferramentas o oferecem como conteúdo (Font Preview,
+     Design Lab) — mas a interface não usa mais uma grotesca própria no lugar da
+     voz da marca. Peso 450 com Segoe UI resolve na face Regular: é assim que o
+     site renderiza, e por isso o número fica. */
+  --font-brand: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
+  --font-display: var(--font-brand);
+  --font-ui: var(--font-brand);
+  /* A serifa não é mais cromo. O acento editorial institucional é itálico leve de
+     sistema, em menta (medido: `em` do our-site 59,76px/350/italic, rgb(197,255,223),
+     sombra 0 2px 12px #00325780). --font-editorial sobrevive só como conteúdo. */
+  --font-editorial: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-accent: var(--font-brand);
+  --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
+
+  /* System font faces determine the nearest available display weight. */
+  --display-xl: clamp(44px, 6.4vw, 76px);
+  --display-l: clamp(34px, 4.4vw, 54px);
+  --display-m: 32px;
+  --display-s: 24px;
+  /* Matches the institutional headings, not the bundled content fonts. */
+  --weight-display: 450;
+  --track-display: -.032em;
+  --track-title: -.022em;
+  --lead: 1.12;
+  --body-size: 16px;
+  --body-lead: 1.65;
+  --eyebrow-size: 12px;
+  --eyebrow-track: .33em;
+  --micro-size: 9.5px;
+  --micro-track: .14em;
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --ease-aero: cubic-bezier(.16, .84, .3, 1);
+  --t-fast: 160ms;
+  --t-med: 240ms;
+  --t-slow: 320ms;
+
+  /* ── Radii: functional elements stay crisp, only compositions go soft ─── */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-2xl: 40px;
+  --r-pill: 999px;
+  /* The one radius on the ladder that is not a step but a role: the box a user types into.
+     14px sits between --r-sm (chips, tab pills) and --r-md (cards) so a field reads as a
+     field at a glance, left to right, anywhere in the product. It was a bare literal in
+     `.input`, which is how "the field radius" became a value nobody could reference; tools
+     that need a smaller box now take --r-xs rather than inventing 6px. */
+  --r-field: 14px;
+
+  /* ── Spacing rhythm (the brand site uses 100px between sections) ──────── */
+  --sp-1: 6px;
+  --sp-2: 12px;
+  --sp-3: 18px;
+  --sp-4: 24px;
+  --sp-5: 32px;
+  --sp-6: 44px;
+  --sp-7: 60px;
+  --sp-8: 100px;
+
+  --shadow-1: 0 14px 34px -14px rgba(11, 72, 102, .26);
+  --shadow-2: 0 30px 70px -24px rgba(11, 72, 102, .34);
+  --shadow-aqua: 0 16px 40px -16px rgba(24, 160, 216, .45);
+  --shadow-field: 0 34px 80px -30px rgba(0, 24, 46, .68);
+  --blur: 22px;
+
+  /* ── Floating layers (modal, confirm, command palette) ────────────────── */
+  /* These five names exist because the overlay layer was the only part of the
+     product written twice. Measured before (`_dev/probe-overlay.js`): two scrims
+     at .34/blur 10px/sat 1.2 and .32/blur 12px/sat 1.3, two elevations at
+     40px 90px -30px and 44px 96px -32px, two head gradients and one foot literal
+     restated in both files. Same role, two values, no reason — and the hard-coded
+     `blur(10px)`/`blur(12px)` meant `data-glass="solid"` silenced blur on all 34
+     benches and left it on in every dialog. One layer, one set of names. */
+  --scrim: rgba(9, 58, 86, .34);
+  --scrim-filter: blur(10px) saturate(1.2);
+  --shadow-overlay: inset 0 1px 0 var(--spec), 0 40px 90px -30px rgba(8, 52, 78, .55);
+  --surface-head: linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(234, 248, 255, .56));
+  --surface-foot: rgba(240, 250, 255, .6);
+
+  /* A banda que o chrome ocupa. É derivada, não chutada: quem faz sticky embaixo da
+     barra (.qr-stage, .gl-stage, .docs-nav) usa este mesmo número, então se o ar em
+     volta da cápsula muda, o encaixe muda junto. Nas bancadas o ar é menor — 26 px de
+     altura de trabalho valem mais que 26 px de respiro, e a cápsula continua sendo a
+     mesma cápsula. */
+  --topbar-h: calc(var(--bar-h) + var(--bar-inset-y) * 2);
+  --max-w: 1280px;
+  --view-pad-x: 24px;   /* #view gutter; anything that bleeds to the edge uses this */
+}
+
+/* Solid-surface preference keeps every elevation readable without blur. */
+body[data-glass="solid"] {
+  --glass-1: rgba(255, 255, 255, .94);
+  --glass-2: rgba(255, 255, 255, .97);
+  --glass-3: rgba(252, 254, 255, .99);
+  --glass-on-field: rgba(8, 96, 148, .86);
+  --glass-on-field-2: rgba(6, 82, 128, .92);
+  --glass-on-field-3: rgba(4, 62, 100, .96);
+  --blur: 0px;
+  --scrim-filter: blur(0px) saturate(1.2);
+}
+
+body[data-motion="reduced"] *,
+body[data-motion="reduced"] *::before,
+body[data-motion="reduced"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
