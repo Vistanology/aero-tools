@@ -1,0 +1,64 @@
+{
+  "version": "0.25.0",
+  "tools": 34,
+  "cases": [
+    {
+      "name": "home",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\home.png",
+      "label": "Home · composição de marca"
+    },
+    {
+      "name": "library",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\library.png",
+      "label": "Biblioteca · palco por categoria"
+    },
+    {
+      "name": "qr-studio",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\qr-studio.png",
+      "label": "QR Studio · família .step + poço"
+    },
+    {
+      "name": "gradient-lab",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\gradient-lab.png",
+      "label": "Gradient Lab · família .step"
+    },
+    {
+      "name": "favicon-studio",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\favicon-studio.png",
+      "label": "Favicon Studio · rail com selects e chevrons"
+    },
+    {
+      "name": "animation-studio",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\animation-studio.png",
+      "label": "CSS Animation Studio · linha do tempo"
+    },
+    {
+      "name": "notes",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\notes.png",
+      "label": "Notes Workspace · lista com seleção"
+    },
+    {
+      "name": "diagram-studio",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\diagram-studio.png",
+      "label": "Diagram Studio · bancada de editor"
+    },
+    {
+      "name": "data-workspace",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\data-workspace.png",
+      "label": "Data Workspace · bancada compacta"
+    },
+    {
+      "name": "document-workshop",
+      "file": "C:\\Users\\csarn\\OneDrive\\Documentos\\Projects\\windows\\aero-tools\\_dev\\shots-final\\document-workshop.png",
+      "label": "Document Workshop · papel claro"
+    }
+  ],
+  "brokenImages": [],
+  "consoleErrors": [],
+  "openPageLastThree": [
+    "v0.23.0",
+    "v0.24.0",
+    "v0.25.0"
+  ],
+  "shellBadge": "v0.25.0"
+}
