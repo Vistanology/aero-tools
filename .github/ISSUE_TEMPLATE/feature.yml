@@ -1,0 +1,46 @@
+name: Tool proposal / feature
+description: Propose a new tool or an improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        New tools must be local-first (no network, no server), genuinely functional,
+        and bilingual (EN/pt-BR). See CONTRIBUTING.md.
+  - type: input
+    id: name
+    attributes:
+      label: Proposed tool / feature
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: How should it work? (inputs, outputs, edge cases)
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Creative Studio
+        - Generators
+        - Media Lab
+        - Developer Tools
+        - Productivity
+        - Documents
+        - Shell / Hub / Docs
+    validations:
+      required: true
+  - type: textarea
+    id: deps
+    attributes:
+      label: Dependencies (if any) and their licenses
+      description: Prefer zero-dependency implementations; bundled MIT/OFL libraries are acceptable.
