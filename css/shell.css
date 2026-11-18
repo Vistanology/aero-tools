@@ -32,6 +32,15 @@
   border: 1px solid var(--field-line); border-radius: var(--bar-r);
   box-shadow: var(--bar-shadow); pointer-events: auto;
 }
+/* Vista sheen: a light band across the top of the capsule and an aqua breath
+   along the base edge — the same two stops the brand buttons carry. */
+.topbar-in::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .26), rgba(255, 255, 255, .04) 26%, transparent 48%),
+    linear-gradient(180deg, transparent 78%, rgba(120, 232, 255, .14) 94%, rgba(150, 240, 255, .22));
+}
+.topbar-in > * { position: relative; }
 .brand-link {
   display: flex; align-items: center; gap: 10px; flex-shrink: 0;
   color: var(--on-field); text-shadow: var(--bar-ink-shadow);
@@ -69,11 +78,38 @@
 .tt-link:hover { text-decoration: none; }
 .tt-link:focus-visible { outline-offset: -3px; }
 .lib-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin-bottom: 20px; }
+/* The sort control is a Vista glass button, not the paper well the benches use:
+   the 49/51 gloss split, a light crown, an aqua chevron. Scoped to .lib-controls
+   on purpose — the 34 tool benches keep their own .input material. */
+.lib-controls select.input {
+  appearance: none; -webkit-appearance: none; cursor: pointer;
+  color: var(--on-field); font-weight: 550; padding-right: 42px;
+  border: 1px solid var(--field-line);
+  border-radius: var(--r-field);
+  background-image:
+    url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23BFEFFF' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"),
+    var(--gloss-plate), var(--gloss-ghost);
+  background-color: rgba(2, 46, 74, .55);
+  background-repeat: no-repeat;
+  background-position: right 15px center, 0 0, 0 0;
+  background-size: 13px 13px, 100% 100%, 100% 100%;
+  box-shadow: inset 0 1px 0 rgba(216, 252, 255, .45), inset 0 -1px 0 rgba(0, 60, 96, .4),
+    0 14px 30px -18px rgba(0, 16, 34, .8);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+.lib-controls select.input:hover {
+  border-color: rgba(216, 252, 255, .5);
+  background-color: rgba(3, 58, 92, .6);
+  box-shadow: inset 0 1px 0 rgba(230, 253, 255, .55), inset 0 -1px 0 rgba(0, 60, 96, .4),
+    0 16px 34px -18px rgba(0, 16, 34, .85), 0 0 22px -6px rgba(49, 218, 255, .3);
+}
+.lib-controls select.input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.lib-controls select.input option { background: #013A5E; color: var(--on-field); }
 .aero-tube {
   height: 12px; margin: 18px 0; border-radius: 999px;
   border: 1px solid rgba(193, 245, 255, .48);
   background: linear-gradient(180deg, rgba(236, 255, 255, .64), rgba(119, 218, 244, .25) 35%, rgba(0, 57, 91, .65) 55%, rgba(68, 184, 217, .38));
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, .7), inset 0 -2px 3px rgba(0, 33, 60, .4), 0 5px 12px rgba(0, 33, 60, .22);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, .7), inset 0 -2px 3px rgba(0, 33, 60, .4), 0 5px 12px rgba(0, 33, 60, .22), 0 0 18px -4px rgba(120, 226, 255, .3);
   pointer-events: none;
 }
 body[data-view="library"] #view { animation: aero-arrive 240ms var(--ease) both; }
@@ -84,9 +120,29 @@ body[data-motion="reduced"][data-view="library"] #view { animation: none; }
 .lib-controls .input { min-height: 44px; }
 .hub-search { display: flex; gap: 12px; align-items: center; max-width: 520px; margin-top: 10px; }
 .hub-search .input { flex: 1; min-width: 0; }
+/* The hero search joins the universe: ocean glass instead of the daylight paper
+   well — same move the library search bar makes. Scoped to .hub-search, so the
+   34 tool benches keep their own .input material. background-color only, never
+   the shorthand (the components.css chevron regression lesson). */
+.hub-search .input {
+  background-color: rgba(2, 46, 74, .42);
+  border-color: var(--field-line);
+  color: var(--on-field);
+  box-shadow: inset 0 1px 0 rgba(216, 252, 255, .3), inset 0 -1px 0 rgba(0, 60, 96, .4);
+}
+.hub-search .input::placeholder { color: var(--on-field-4); }
+.hub-search .input:hover { border-color: rgba(216, 252, 255, .4); }
+.hub-search .input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 .featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
-.featured-tool { display: flex; flex-direction: column; align-items: start; gap: 14px; padding: 28px; color: var(--on-field); border-radius: var(--r-lg); background: var(--gloss-plate), var(--field-3); border: 1px solid var(--field-line); box-shadow: var(--shadow-field); }
-.featured-tool:hover { text-decoration: none; border-color: var(--brand-mint); }
+.featured-tool { display: flex; flex-direction: column; align-items: start; gap: 14px; padding: 28px; color: var(--on-field); border-radius: var(--r-lg); border: 1px solid var(--field-line);
+  background:
+    radial-gradient(90% 120% at 100% -10%, rgba(49, 218, 255, .14), transparent 64%),
+    var(--gloss-plate), var(--field-3);
+  box-shadow: inset 0 1px 0 rgba(213, 253, 255, .3), var(--shadow-field);
+  transition: transform var(--t-med) var(--ease-aero), box-shadow var(--t-med) var(--ease-aero), border-color var(--t-med) var(--ease-aero);
+}
+.featured-tool:hover { text-decoration: none; border-color: var(--brand-mint); transform: translateY(-3px);
+  box-shadow: inset 0 1px 0 rgba(224, 250, 255, .4), 0 36px 68px -28px rgba(0, 16, 34, .95), 0 0 30px -8px rgba(49, 218, 255, .3); }
 .featured-tool h3 { font-size: 25px; }
 .featured-tool p { font-size: 14px; color: var(--on-field-2); flex: 1; }
 .featured-tool .ft-open { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--brand-mint); }
@@ -243,7 +299,8 @@ body[data-view="hub"] .hero {
 }
 .world-card:hover {
   transform: translateY(-4px); text-decoration: none; border-color: var(--cat-line);
-  box-shadow: inset 0 1px 0 rgba(224, 250, 255, .42), 0 34px 64px -26px rgba(0, 16, 34, .8), 0 0 0 3px var(--cat-wash);
+  box-shadow: inset 0 1px 0 rgba(224, 250, 255, .42), 0 34px 64px -26px rgba(0, 16, 34, .8), 0 0 0 3px var(--cat-wash),
+    0 0 34px -8px color-mix(in srgb, var(--cat) 50%, transparent);
 }
 .world-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-slow) var(--ease-aero); }
 .world-card:hover .world-img { transform: scale(1.05); }
@@ -323,29 +380,53 @@ body[data-view="hub"] .hero {
 .strip-tile {
   display: flex; align-items: center; gap: 12px; padding: 14px 16px;
   border-radius: var(--r-md); color: inherit;
+  /* The strip lives on the field, so it wears ocean glass, not the daylight
+     paper it inherits from .glass — shell.css loads after glass.css, so these
+     declarations win the cascade for the same element. The substrate aliases
+     re-map its ink to light tiers. */
+  background: var(--gloss-plate), rgba(2, 46, 74, .38);
+  border: 1px solid var(--field-line);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
+  backdrop-filter: blur(var(--blur)) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(216, 252, 255, .28), 0 16px 34px -22px rgba(0, 16, 34, .8);
+  --fg: var(--on-field); --fg-2: var(--on-field-2); --fg-4: var(--on-field-4);
+  --hair: var(--field-line); --hair-soft: var(--field-line-soft);
 }
-.strip-tile:hover { text-decoration: none; }
+.strip-tile:hover {
+  text-decoration: none; border-color: rgba(180, 244, 255, .4);
+  box-shadow: inset 0 1px 0 rgba(230, 253, 255, .4), 0 20px 40px -22px rgba(0, 16, 34, .9),
+    0 0 24px -8px rgba(49, 218, 255, .3);
+}
 .strip-tile .st-name { font-family: var(--font-display); font-size: 17px; color: var(--fg); }
 .strip-tile .st-cat { font-size: 11px; color: var(--fg-4); }
 
 /* ---------- Library ---------- */
-.lib-stage { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 20px; overflow: hidden; border-radius: var(--r-lg); padding: 30px 32px; margin-bottom: 22px; min-height: 150px; }
-/* The plate is atmosphere, not content — but at .3 over a 177px strip it was not
-   even atmosphere: a 3:2 image cropped to 7:1 is a texture, not a picture. The stage
-   now has a height that lets the landscape read, and the plate comes up to .42 under
-   a directional scrim. Both numbers are the result of _dev/probe-photo-contrast.js
-   (ROUTE=library): the first attempt at .55 with a light top stop put the title at
-   2.92:1 and the eyebrow at 2.42:1, which is a regression, not a redesign. */
-.lib-stage .ls-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; opacity: .34; pointer-events: none; }
+.lib-stage {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end;
+  gap: 20px; overflow: hidden; border-radius: var(--r-xl); padding: 34px 36px 30px;
+  margin-bottom: 22px; min-height: 190px;
+}
+/* The plate is a lit window, not a charcoal strip: the art reads at .48 under a
+   deep-OCEAN scrim (hue lifted from near-black to the field's own blues), the
+   category hue beams in from the top right, and two bubble specks float in the
+   upper corner. The copy column keeps its shade so every tier holds AA — the
+   scrim stops stay in the rgba(0–2, 30–52, …) navy family, measured family of
+   --field-4/5, not the old charcoal rgba(0, 18–20, 30–34). */
+.lib-stage .ls-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; opacity: .56; pointer-events: none; }
 .lib-stage::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  /* One scrim that follows the light: clear over the art at the top, deep under the
-     copy at the bottom, and a column of shade on the left where the title actually
-     sits. The right-hand count is protected by the same bottom stop, not by a second
-     full-bleed gradient. */
   background:
-    linear-gradient(180deg, rgba(0, 20, 34, .66) 0%, rgba(0, 20, 34, .84) 38%, rgba(0, 18, 32, .97) 74%, rgba(0, 16, 30, 1) 100%),
-    linear-gradient(90deg, rgba(0, 20, 34, .84) 0%, rgba(0, 22, 38, .6) 36%, rgba(1, 40, 66, .26) 64%, rgba(0, 20, 34, .52) 100%);
+    /* specular lip along the top edge of the window */
+    linear-gradient(180deg, rgba(216, 252, 255, .34), rgba(216, 252, 255, 0) 14px),
+    /* the light that lives here: category beam from the top right + sun bloom left */
+    radial-gradient(46% 88% at 88% -14%, var(--cat-wash, rgba(49, 218, 255, .2)), transparent 68%),
+    radial-gradient(38% 60% at 8% -8%, rgba(214, 248, 255, .26), transparent 70%),
+    /* two bubble specks drifting in the upper corner */
+    radial-gradient(18px 18px at 78% 24%, rgba(216, 252, 255, .12) 42%, rgba(216, 252, 255, .3) 52%, rgba(0, 176, 248, .16) 66%, transparent 78%),
+    radial-gradient(10px 10px at 88% 44%, rgba(216, 252, 255, .22) 46%, transparent 62%),
+    /* shade under the copy — deep ocean, not charcoal */
+    linear-gradient(180deg, rgba(1, 42, 70, .52) 0%, rgba(1, 46, 76, .72) 42%, rgba(1, 38, 66, .92) 78%, rgba(0, 30, 52, .98) 100%),
+    linear-gradient(90deg, rgba(1, 42, 70, .78) 0%, rgba(1, 46, 76, .48) 38%, rgba(2, 64, 102, .14) 66%, rgba(1, 42, 70, .38) 100%);
 }
 .lib-stage > * { position: relative; z-index: 1; }
 .ls-copy h1 { font-family: var(--font-display); font-size: var(--display-l); color: var(--on-field); line-height: var(--lead); letter-spacing: var(--track-display); font-weight: var(--weight-display); margin: 6px 0 0; }
@@ -363,18 +444,29 @@ body[data-view="hub"] .hero {
 }
 
 .search-bar {
-  display: flex; align-items: center; gap: 10px; padding: 7px 10px 7px 18px;
-  border-radius: 999px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 20px;
+  border-radius: 999px; margin-bottom: 16px;
+  box-shadow: inset 0 1px 0 rgba(216, 252, 255, .4), inset 0 -1px 0 rgba(0, 60, 96, .45),
+    0 18px 40px -24px rgba(0, 16, 34, .8);
 }
-.search-bar svg { width: 17px; height: 17px; color: var(--accent-ink); flex: none; }
-.search-bar input { flex: 1; background: none; border: 0; outline: none; color: var(--fg); font-size: 14px; padding: 9px 0; min-width: 0; }
+/* Vista glass on the plate: a light band across the crown, gone by the middle. */
+.search-bar::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .03) 30%, transparent 55%);
+}
+.search-bar svg { width: 17px; height: 17px; color: var(--accent-ink); flex: none; filter: drop-shadow(0 0 6px rgba(120, 226, 255, .45)); }
+.search-bar input { flex: 1; background: none; border: 0; outline: none; color: var(--fg); font-size: 14px; padding: 9px 0; min-width: 0; position: relative; }
 .search-bar input::placeholder { color: var(--fg-4); }
 .search-bar input::-webkit-search-cancel-button { -webkit-appearance: none; }
 /* O campo dentro da chapa é sem borda de propósito: quem tem material é a chapa. O que
    faltava não era o anel do input, era o anel da chapa — `outline: none` na linha acima
    silenciava o controle inteiro e _dev/probe-focus-loss.js mediu o estado focado de
    #lib-q idêntico ao normal. O anel passa a morar no que o usuário vê. */
-.search-bar:focus-within { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.search-bar:focus-within {
+  outline: 2px solid var(--focus-ring); outline-offset: 2px;
+  box-shadow: inset 0 1px 0 rgba(230, 253, 255, .55), inset 0 -1px 0 rgba(0, 60, 96, .45),
+    0 18px 44px -22px rgba(0, 16, 34, .85), 0 0 30px -4px rgba(49, 218, 255, .28);
+}
 /* The shortcut badge is the shared .kbd component (css/components.css), not a page-level
    recipe. It used to be a 999px pill with its own padding, which made the same keycap three
    different shapes across the product. */
@@ -384,13 +476,19 @@ body[data-view="hub"] .hero {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 550;
   color: var(--fg-2); border: 1px solid var(--chip-line);
-  background: var(--chip-bg);
-  box-shadow: inset 0 1px 0 rgba(213, 253, 255, .2);
+  background:
+    linear-gradient(180deg, rgba(196, 240, 255, .12), rgba(196, 240, 255, 0) 55%),
+    var(--chip-bg);
+  box-shadow: inset 0 1px 0 rgba(213, 253, 255, .22);
   transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
 }
 .chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cat-ink, rgba(180, 244, 255, .5)); flex: none; }
 .chip[data-cat="all"]::before, .chip[data-fav]::before { display: none; }
-.chip:hover { color: var(--fg); border-color: var(--cat-line, var(--hair)); background: color-mix(in srgb, var(--chip-bg) 62%, #7FD8FF); }
+.chip:hover {
+  color: var(--fg); border-color: var(--cat-line, var(--hair));
+  background: color-mix(in srgb, var(--chip-bg) 62%, #7FD8FF);
+  box-shadow: inset 0 1px 0 rgba(230, 253, 255, .3), 0 6px 16px -8px rgba(0, 180, 255, .35);
+}
 /* Pressed = deeper water: the category hue is mixed down into the abyss ramp
    rather than brightened, which is what keeps white ink at AA on every one of
    the six hues (the brightest, #D9962E, only reaches 2.2:1 with white). */
@@ -398,39 +496,75 @@ body[data-view="hub"] .hero {
   color: #fff; border-color: color-mix(in srgb, var(--cat, #0A72A8) 40%, #04202E);
   background: linear-gradient(180deg, color-mix(in srgb, var(--cat, #17A2D8) 44%, #0B4C6B) 0%, color-mix(in srgb, var(--cat, #0A72A8) 34%, #01293F) 49%, color-mix(in srgb, var(--cat, #0A72A8) 26%, #001B2C) 51%, color-mix(in srgb, var(--cat, #0A72A8) 46%, #06395A) 100%);
   text-shadow: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 10px 22px -12px rgba(0, 20, 40, .9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 2px rgba(0, 20, 40, .4),
+    0 8px 20px -10px rgba(0, 20, 40, .9), 0 0 18px -6px color-mix(in srgb, var(--cat, #17A2D8) 60%, transparent);
 }
-.chip[aria-pressed="true"]::before { background: rgba(223, 250, 255, .92); }
+.chip[aria-pressed="true"]::before { background: rgba(223, 250, 255, .92); box-shadow: 0 0 8px rgba(150, 234, 255, .8); }
 .chip svg { width: 12px; height: 12px; }
 
-/* A tool tile is a studio door, not a white card: deep plate, category-lit
-   crest, the tool's own mark ghosted into the header. */
-.tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+/* A tool tile is a lit glass module, not a flat strip: the tile plate (light
+   passing INTO the surface, category-tinted at the crown), a refracted rim, a
+   sheen that sweeps once on hover, an entrance stagger, and a crest that beams
+   the category's own light. DOM contract untouched: .tt-link, .tt-fav,
+   data-id/data-cat, .orb — only the material changes. */
+.tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 .tool-tile {
   position: relative; padding: 0; border-radius: var(--r-lg); color: inherit;
-  display: flex; flex-direction: column; gap: 12px; cursor: pointer; overflow: hidden;
-  background: linear-gradient(180deg, var(--glass-on-field-2), var(--glass-on-field-3));
-  border: 1px solid var(--field-line-soft);
-  box-shadow: inset 0 1px 0 rgba(213, 253, 255, .22), 0 22px 48px -30px rgba(0, 16, 34, .9);
-  transition: transform var(--t-med) var(--ease-aero), box-shadow var(--t-med) var(--ease-aero), border-color var(--t-med) var(--ease-aero);
+  display: flex; flex-direction: column; cursor: pointer; overflow: hidden;
+  border: 1px solid transparent;
+  background: var(--tile-plate);
+  box-shadow: var(--tile-shadow);
+  transition: transform var(--t-med) var(--ease-aero), box-shadow var(--t-med) var(--ease-aero);
+  animation: tile-in 460ms var(--ease-aero) both;
+  animation-delay: calc(var(--i, 0) * 36ms);
 }
-.tool-tile:hover { transform: translateY(-3px); text-decoration: none; border-color: var(--cat-line); box-shadow: inset 0 1px 0 rgba(224, 250, 255, .34), 0 32px 60px -28px rgba(0, 16, 34, .95), 0 0 0 3px var(--cat-wash); }
+/* Refracted rim: bright at the crown, aqua picking up the sea light at the base. */
+.tool-tile::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: var(--tile-rim);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none; z-index: 1;
+}
+/* Hover sheen: one band of light crossing the glass, then settling. */
+.tool-tile::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: var(--sheen); background-size: 240% 100%; background-position: 130% 0;
+  opacity: 0;
+  transition: opacity var(--t-med) var(--ease);
+}
+.tool-tile:hover {
+  transform: translateY(-4px);
+  text-decoration: none;
+  box-shadow: var(--tile-hover-shadow);
+}
+.tool-tile:hover::after { opacity: 1; background-position: -30% 0; transition: opacity var(--t-med) var(--ease), background-position 900ms var(--ease-aero); }
+.tool-tile:active { transform: translateY(-1px) scale(.992); transition-duration: 90ms; }
 .tool-tile:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+@keyframes tile-in { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: none; } }
 .tt-crest {
-  position: relative; height: 78px; display: flex; align-items: flex-end; padding: 0 20px 10px;
+  position: relative; height: 84px; display: flex; align-items: flex-end; padding: 0 20px 12px;
   background:
-    radial-gradient(90% 130% at 96% 0%, var(--cat-wash), transparent 68%),
-    linear-gradient(180deg, rgba(180, 244, 255, .08), rgba(0, 40, 70, .1));
-  border-bottom: 1px solid var(--field-line-soft);
+    radial-gradient(120% 150% at 100% -20%, var(--cat-wash), transparent 64%),
+    linear-gradient(180deg, rgba(216, 252, 255, .12), rgba(0, 40, 70, .12) 78%, transparent);
+  border-bottom: 1px solid rgba(180, 244, 255, .14);
   overflow: hidden;
+}
+/* A raking light across the crest, as if the sun caught the top edge. */
+.tt-crest::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(106deg, rgba(216, 252, 255, .09), transparent 34%);
 }
 .tt-crest::after {
   content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px;
   background: linear-gradient(90deg, var(--cat), transparent);
+  box-shadow: 0 2px 12px -2px var(--cat);
 }
-.tt-mark { position: absolute; right: 40px; top: 6px; width: 64px; height: 64px; color: var(--cat-ink); opacity: .16; transition: opacity var(--t-med) var(--ease-aero), transform var(--t-med) var(--ease-aero); }
+.tt-mark { position: absolute; right: 40px; top: 6px; width: 64px; height: 64px; color: var(--cat-ink); opacity: .2; transition: opacity var(--t-med) var(--ease-aero), transform var(--t-med) var(--ease-aero); }
 .tt-mark svg { width: 64px; height: 64px; }
-.tool-tile:hover .tt-mark { opacity: .3; transform: translateY(-2px) scale(1.04); }
+.tool-tile:hover .tt-mark { opacity: .36; transform: translateY(-2px) scale(1.05); }
 .tt-cat { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--cat-ink); font-weight: 650; }
 .tt-body { display: flex; flex-direction: column; gap: 12px; padding: 0 20px; }
 .tt-top { display: flex; align-items: flex-start; gap: 13px; }
@@ -439,15 +573,17 @@ body[data-view="hub"] .hero {
 .tt-meta { display: flex; align-items: center; gap: 8px; margin-top: auto; flex-wrap: wrap; }
 .tt-fav { position: absolute; top: 12px; right: 12px; z-index: 2; }
 .tt-fav svg { width: 15px; height: 15px; }
-.tt-fav[aria-pressed="true"] { color: var(--badge-warn); border-color: rgba(255, 208, 138, .4); background: linear-gradient(180deg, rgba(255, 208, 138, .22), rgba(169, 106, 18, .2)); }
+.tt-fav[aria-pressed="true"] { color: var(--badge-warn); border-color: rgba(255, 208, 138, .4); background: linear-gradient(180deg, rgba(255, 208, 138, .22), rgba(169, 106, 18, .2)); box-shadow: 0 0 14px -4px rgba(255, 208, 138, .45); }
 .tt-open { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--cat-ink); }
 .tt-open svg { width: 13px; height: 13px; transition: transform var(--t-med) var(--ease-aero); }
-.tool-tile:hover .tt-open svg { transform: translateX(3px); }
+.tool-tile:hover .tt-open svg { transform: translateX(4px); }
 .tool-tile .orb {
   background: radial-gradient(60% 55% at 34% 28%, rgba(224, 250, 255, .5), rgba(120, 208, 244, .1) 70%), var(--gloss-ghost);
   border: 1px solid rgba(180, 244, 255, .38); box-shadow: var(--bubble-shadow); color: #DFF7FF;
+  transition: box-shadow var(--t-med) var(--ease-aero);
 }
 .tool-tile .orb svg .ia { stroke: #9BE6FF; }
+.tool-tile:hover .orb { box-shadow: var(--bubble-shadow), 0 0 20px -4px color-mix(in srgb, var(--cat, #17A2D8) 55%, transparent); }
 
 /* ---------- App frame ---------- */
 .crumbs { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--on-field-4); letter-spacing: .06em; margin-bottom: 18px; flex-wrap: wrap; }

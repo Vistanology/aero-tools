@@ -149,6 +149,22 @@
   --bubble-shadow: inset 2px 3px 5px rgba(218, 255, 255, .65),
     inset -3px -4px 6px rgba(0, 173, 248, .6), 0 2px 10px rgba(19, 189, 255, .48);
 
+  /* ── Premium tile material (library cards) ────────────────────────────── */
+  /* One recipe, four names: the plate (a glass that light passes INTO, cool at
+     the top, deeper at the base), its refracted rim, the resting shadow and the
+     hover sheen that sweeps once across the surface. Tiles consume these; the
+     49/51 gloss split from the brand buttons stays in --gloss-*. */
+  --tile-plate:
+    radial-gradient(120% 90% at 88% -12%, var(--cat-wash, rgba(49, 218, 255, .14)), transparent 52%),
+    linear-gradient(180deg, rgba(14, 118, 176, .38), rgba(6, 84, 128, .52) 52%, rgba(4, 62, 100, .68));
+  --tile-rim: linear-gradient(165deg, rgba(216, 252, 255, .62), rgba(180, 244, 255, .1) 30%,
+    rgba(0, 140, 200, .2) 58%, rgba(49, 218, 255, .48));
+  --tile-shadow: inset 0 1px 0 rgba(216, 252, 255, .3), 0 22px 48px -30px rgba(0, 16, 34, .92);
+  --tile-hover-shadow: inset 0 1px 0 rgba(230, 253, 255, .45), 0 36px 68px -28px rgba(0, 14, 30, .95),
+    0 0 0 3px var(--cat-wash, rgba(49, 218, 255, .14)), 0 0 34px -6px rgba(0, 200, 255, .22);
+  --sheen: linear-gradient(112deg, transparent 30%, rgba(213, 253, 255, .1) 44%,
+    rgba(255, 255, 255, .38) 50%, rgba(213, 253, 255, .1) 56%, transparent 70%);
+
   /* ── Substrate-scoped ink ─────────────────────────────────────────────── */
   /* Defaults are for the deep field. glass.css swaps them for dark ink
      inside a daylight bench, so components never hardcode their own colour. */
