@@ -9,7 +9,7 @@
  * (ex.: primeira visita a uma ferramenta nunca aberta), ela é buscada na rede e entra no cache.
  */
 
-const VERSION = 'v58-vistanology-brand';
+const VERSION = 'v59-aero-atmosphere';
 const SHELL_CACHE = 'vt-shell-' + VERSION;
 const ASSET_CACHE = 'vt-asset-' + VERSION;
 
