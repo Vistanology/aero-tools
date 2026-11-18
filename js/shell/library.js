@@ -117,8 +117,8 @@ VT.shell.library = (el, param) => {
       });
       return;
     }
-    grid.innerHTML = list.map((m) => `
-      <div class="tool-tile" data-id="${m.id}" data-cat="${m.cat}">
+    grid.innerHTML = list.map((m, i) => `
+      <div class="tool-tile" data-id="${m.id}" data-cat="${m.cat}" style="--i:${i}">
         <a class="tt-link" href="#/tool/${m.id}" aria-label="${VT.utils.esc(m.name[L])}">
           <div class="tt-crest">
             <span class="tt-mark" aria-hidden="true">${I[m.icon]}</span>
