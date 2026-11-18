@@ -1,98 +1,152 @@
-/* VISTANOLOGY AERO — deep ocean atmosphere (field, light rays, bubbles, sea)
+/* VISTANOLOGY AERO — living ocean atmosphere
  *
- * v3 follows the brand field measured on the official site: a saturated
- * ocean-blue substrate (#026DA7) with cyan light blooms, sun rays raking from
- * the upper left, and soap bubbles that read as spheres because they sit on
- * dark water rather than on white paper.
+ * v59 rebuilds the field as one integrated environment instead of a gradient
+ * with props: a deep abyss that opens into a luminous surface, volumetric sun
+ * shafts raking from the upper left, caustic light pooling on the water, a
+ * foam line where sky meets sea, and three bubble layers on distinct depths
+ * (far sparkles drift slow, near spheres ride faster) so the room has real
+ * parallax. Every layer is transform/opacity/background-position only.
  *
  * Markup is unchanged: .aurora = sky bloom + rays, .stars = bubbles,
- * .horizon = shimmer line, .water = reflective sea, .glow = sun glare.
+ * .horizon = foam shimmer line, .water = the sea, .glow = sun glare.
  */
 .nocturne {
   position: fixed; inset: 0; z-index: -1; overflow: hidden;
   background:
-    radial-gradient(58% 42% at 8% 37%, var(--field-bloom-a), transparent 68%),
-    radial-gradient(52% 40% at 95% 62%, var(--field-bloom-b), transparent 66%),
+    /* caustic color pools: teal left, cyan right, aqua lift under the horizon */
+    radial-gradient(56% 36% at 10% 30%, rgba(20, 208, 204, .17), transparent 62%),
+    radial-gradient(46% 34% at 90% 20%, rgba(0, 193, 244, .22), transparent 64%),
+    radial-gradient(64% 40% at 52% 104%, rgba(94, 214, 255, .26), transparent 72%),
+    /* the field: abyss opens downward into the luminous surface, then sinks */
     linear-gradient(180deg,
-      var(--field-1) 0%, var(--field-2) 26%, #02618F 52%, #015B8A 68%,
-      var(--field-3) 84%, #013A5E 100%);
+      #033D63 0%, #04619B 18%, #026DA7 34%, #0272B4 46%,
+      #01639D 62%, #024F80 78%, #013560 94%, #01294B 100%);
   transition: opacity var(--t-slow) var(--ease);
 }
 
-/* Sun bloom plus the rays raking down from it */
+/* ── Volumetric light: sun bloom plus raking shafts ────────────────────── */
 .nocturne .aurora {
-  position: absolute; inset: -14% 0 40% 0; filter: blur(38px);
+  position: absolute; inset: -12% 0 34% 0;
+  /* blur kept under the shafts so they stay light, not fog */
+  filter: blur(26px);
   background:
-    radial-gradient(40% 34% at 22% 26%, rgba(190, 244, 255, .34), transparent 70%),
-    radial-gradient(30% 26% at 64% 16%, rgba(255, 240, 200, .22), transparent 72%),
-    conic-gradient(from 196deg at 18% -6%,
-      transparent 0deg, rgba(206, 246, 255, .16) 4deg, transparent 9deg,
-      transparent 17deg, rgba(206, 246, 255, .11) 21deg, transparent 27deg,
-      transparent 38deg, rgba(206, 246, 255, .14) 42deg, transparent 48deg,
-      transparent 62deg, rgba(180, 236, 255, .09) 66deg, transparent 72deg,
+    radial-gradient(38% 30% at 20% 22%, rgba(214, 248, 255, .34), transparent 70%),
+    radial-gradient(26% 22% at 66% 12%, rgba(255, 243, 205, .17), transparent 72%),
+    conic-gradient(from 198deg at 16% -8%,
+      transparent 0deg, rgba(216, 250, 255, .16) 3.5deg, transparent 8deg,
+      transparent 15deg, rgba(206, 248, 255, .11) 19.5deg, transparent 25deg,
+      transparent 34deg, rgba(214, 250, 255, .14) 39deg, transparent 45deg,
+      transparent 58deg, rgba(186, 240, 255, .09) 63deg, transparent 70deg,
+      transparent 88deg, rgba(200, 246, 255, .06) 93deg, transparent 100deg,
       transparent 360deg);
   animation: vt-bloom 26s var(--ease) infinite alternate;
 }
 @keyframes vt-bloom {
-  from { transform: translate3d(-1.2%, 0, 0) scale(1); opacity: .88; }
-  to   { transform: translate3d(1.2%, -1.4%, 0) scale(1.05); opacity: 1; }
+  from { transform: translate3d(-1.2%, 0, 0) scale(1); opacity: .9; }
+  to   { transform: translate3d(1.2%, -1.2%, 0) scale(1.05); opacity: 1; }
 }
 
-/* Bubbles: a bright rim, a caustic inner highlight and a cool far edge.
-   On the deep field these read as spheres, not as stray rings. */
+/* ── Bubbles: three depths of spheres ──────────────────────────────────── */
+/* The parent carries the near, large spheres. Its ::before drops a far field
+   of micro-sparkles on a slower counter-drift; ::after floats two glass orbs
+   that drift on their own tide. On the deep field they read as spheres. */
 .nocturne .stars {
   position: absolute; inset: 0; opacity: .72;
   background-repeat: no-repeat;
   background-image:
-    radial-gradient(circle, rgba(180, 240, 255, .04) 0 42%, rgba(213, 253, 255, .58) 47% 53%,
-      rgba(0, 173, 248, .30) 56% 66%, rgba(255, 255, 255, .16) 70% 76%, transparent 80%),
-    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, .5) 0 12%, transparent 26%),
-    radial-gradient(circle, rgba(160, 232, 255, .03) 0 44%, rgba(200, 248, 255, .44) 48% 54%,
-      rgba(0, 158, 232, .24) 58% 68%, transparent 76%),
-    radial-gradient(circle at 36% 32%, rgba(255, 255, 255, .4) 0 14%, transparent 30%),
-    radial-gradient(circle, rgba(190, 244, 255, .30) 0 46%, rgba(213, 253, 255, .5) 50% 58%, transparent 64%),
-    radial-gradient(circle, rgba(206, 246, 255, .34) 0 52%, transparent 58%),
-    radial-gradient(circle, rgba(206, 246, 255, .26) 0 50%, transparent 56%),
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .5) 0 10%, transparent 26%),
+    radial-gradient(circle, rgba(180, 240, 255, .05) 0 44%, rgba(216, 253, 255, .5) 48% 54%,
+      rgba(0, 176, 248, .28) 57% 67%, rgba(255, 255, 255, .16) 71% 77%, transparent 82%),
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, .42) 0 14%, transparent 30%),
+    radial-gradient(circle, rgba(160, 232, 255, .04) 0 44%, rgba(202, 248, 255, .38) 48% 54%,
+      rgba(0, 160, 232, .22) 58% 68%, transparent 76%),
+    radial-gradient(circle, rgba(196, 244, 255, .3) 0 46%, rgba(216, 253, 255, .46) 50% 58%, transparent 64%),
+    radial-gradient(circle, rgba(208, 246, 255, .34) 0 52%, transparent 58%),
+    radial-gradient(circle, rgba(208, 246, 255, .26) 0 50%, transparent 56%),
     radial-gradient(circle, rgba(255, 255, 255, .5) 0 54%, transparent 60%),
-    radial-gradient(circle, rgba(255, 255, 255, .38) 0 52%, transparent 58%);
-  background-size: 74px 74px, 74px 74px, 46px 46px, 46px 46px, 28px 28px, 7px 7px, 5px 5px, 3px 3px, 4px 4px;
-  background-position: 11% 68%, 11% 68%, 31% 42%, 31% 42%, 66% 78%, 84% 34%, 44% 22%, 8% 30%, 72% 58%;
-  animation: vt-bubbles 24s linear infinite;
+    radial-gradient(circle, rgba(255, 255, 255, .4) 0 52%, transparent 58%);
+  background-size: 72px 72px, 72px 72px, 42px 42px, 42px 42px, 26px 26px, 8px 8px, 5px 5px, 3px 3px, 4px 4px;
+  background-position: 8% 70%, 8% 70%, 26% 36%, 26% 36%, 64% 82%, 88% 26%, 47% 16%, 4% 24%, 78% 62%;
+  animation: vt-bubbles 22s linear infinite;
+}
+/* far field: micro-sparkle dust, slower, barely there */
+.nocturne .stars::before {
+  content: ""; position: absolute; inset: -12% 0 0 0; opacity: .5;
+  background-repeat: repeat;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 20%, rgba(224, 250, 255, .7), transparent 100%),
+    radial-gradient(1px 1px at 38% 64%, rgba(213, 253, 255, .55), transparent 100%),
+    radial-gradient(2px 2px at 63% 32%, rgba(224, 250, 255, .4), transparent 100%),
+    radial-gradient(1px 1px at 82% 74%, rgba(213, 253, 255, .6), transparent 100%),
+    radial-gradient(1.5px 1.5px at 74% 12%, rgba(224, 250, 255, .45), transparent 100%),
+    radial-gradient(1px 1px at 25% 88%, rgba(213, 253, 255, .5), transparent 100%);
+  background-size: 320px 260px;
+  animation: vt-dust 34s linear infinite;
+}
+/* two glass orbs riding their own slow tide */
+.nocturne .stars::after {
+  content: ""; position: absolute; inset: 0;
+  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, .5) 0 6%, rgba(200, 245, 255, .16) 12% 30%,
+      rgba(0, 176, 248, .2) 44% 58%, rgba(224, 250, 255, .4) 66% 72%, transparent 78%),
+    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, .4) 0 5%, rgba(200, 245, 255, .12) 10% 26%,
+      rgba(0, 168, 240, .18) 40% 54%, rgba(224, 250, 255, .32) 62% 68%, transparent 74%);
+  background-size: 128px 128px, 84px 84px;
+  background-position: 88% 12%, 76% 88%;
+  animation: vt-orbs 30s ease-in-out infinite alternate;
 }
 @keyframes vt-bubbles {
-  from { transform: translate3d(0, 26px, 0); }
-  to   { transform: translate3d(0, -38px, 0); }
+  from { transform: translate3d(0, 30px, 0); }
+  to   { transform: translate3d(0, -42px, 0); }
+}
+@keyframes vt-dust {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-14px, -34px, 0); }
+}
+@keyframes vt-orbs {
+  from { transform: translate3d(0, -12px, 0) scale(1); }
+  to   { transform: translate3d(-8px, 14px, 0) scale(1.06); }
 }
 
-/* Shimmer line where the sky meets the sea */
+/* ── Foam line where the sky meets the sea ─────────────────────────────── */
 .nocturne .horizon {
   position: absolute; left: 0; right: 0; bottom: 27%; height: 3px;
-  background: linear-gradient(90deg, transparent 3%, rgba(190, 244, 255, .7) 30%, rgba(255, 250, 232, .6) 52%, rgba(170, 236, 255, .5) 72%, transparent 97%);
+  background: linear-gradient(90deg, transparent 2%,
+    rgba(196, 246, 255, .8) 28%, rgba(255, 252, 236, .66) 50%,
+    rgba(174, 238, 255, .56) 70%, rgba(170, 236, 255, .3) 88%, transparent 98%);
   filter: blur(1.2px);
   animation: vt-shimmer 9s var(--ease) infinite alternate;
 }
-@keyframes vt-shimmer { from { opacity: .45; } to { opacity: .9; } }
+@keyframes vt-shimmer { from { opacity: .5; } to { opacity: .95; } }
 
-/* Sea: deeper than the sky, with caustic stripes and the reflected sun */
+/* ── The sea: caustics, light shafts and the sun's column ──────────────── */
 .nocturne .water {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 28%;
+  position: absolute; left: 0; right: 0; bottom: 0; height: 32%;
   background:
-    linear-gradient(180deg, rgba(174, 236, 255, .22), rgba(174, 236, 255, 0) 30%),
-    radial-gradient(46% 60% at 50% 0%, rgba(255, 244, 208, .3), transparent 70%),
-    repeating-linear-gradient(180deg, rgba(188, 246, 255, .13) 0 1px, transparent 1px 9px),
-    linear-gradient(180deg, #0A7FB8 0%, #046A9C 46%, #014A74 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 26%);
-  mask-image: linear-gradient(180deg, transparent, #000 26%);
+    /* foam bleed at the very top edge of the sea */
+    linear-gradient(180deg, rgba(188, 240, 255, .36), rgba(188, 240, 255, 0) 22%),
+    /* sun column reflected down the middle */
+    radial-gradient(34% 78% at 50% -6%, rgba(255, 246, 214, .46), transparent 68%),
+    /* drifting caustic bands */
+    repeating-linear-gradient(180deg, rgba(196, 248, 255, .17) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(184deg, rgba(150, 220, 255, .1) 0 2px, transparent 2px 15px),
+    /* the deep */
+    linear-gradient(180deg, #0A97CF 0%, #046394 44%, #02436E 84%, #013352 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 24%);
+  mask-image: linear-gradient(180deg, transparent, #000 24%);
   animation: vt-tide 18s linear infinite;
 }
-@keyframes vt-tide { from { background-position: 0 0, 0 0, 0 0, 0 0; } to { background-position: 0 0, 0 0, 0 72px, 0 0; } }
+@keyframes vt-tide { from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; } to { background-position: 0 0, 0 0, 0 76px, 0 8px, 0 0; } }
 
-/* Sun glare sitting on the water */
+/* ── Sun glare sitting on the water ────────────────────────────────────── */
 .nocturne .glow {
-  position: absolute; left: 50%; bottom: 8%; width: 58vw; height: 16vh;
+  position: absolute; left: 50%; bottom: 6%; width: 64vw; height: 18vh;
   transform: translateX(-50%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 246, 220, .34), transparent 70%);
-  filter: blur(26px);
+  background:
+    radial-gradient(50% 50% at 50% 50%, rgba(255, 248, 226, .38), transparent 68%),
+    radial-gradient(30% 44% at 50% 62%, rgba(120, 226, 255, .22), transparent 70%);
+  filter: blur(28px);
 }
 
 /* Tool benches are work surfaces: the field stays present but recedes. */
