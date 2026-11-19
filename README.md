@@ -37,14 +37,14 @@ Frutiger Aero como ponto de partida, não como fantasia. A meta é parecer Vista
 
 ---
 
-## Status · F2 complete · U1 offline-first · U2 project store · U3 command palette · U4 worker pipeline (+ U4b evidence-gated adoption) · U5 undo/redo (+ U5b JSON/SVG) · U6 flagship Data Workspace · U7 flagship Visual Page Builder · U8 flagship Design System Lab · U9 flagship Playground · U10 flagship CSS Animation Studio · U11 flagship Component Builder · U12 flagship Image Studio · U13 flagship Favicon & Icon Studio · U14 flagship SVG Editor · U15 flagship Notes Workspace · U16 flagship Kanban Board · U17 flagship Document Workshop · U18 flagship Diagram Studio · U19 flagship Mind Map Studio · AERO full visual redesign (0.24.0) · C design-system consolidation, key art and offline re-verification (0.25.0) — 34 tools (the 31-tool target is met and exceeded)
+## Status · F2 complete · U1 offline-first · U2 project store · U3 command palette · U4 worker pipeline (+ U4b evidence-gated adoption) · U5 undo/redo (+ U5b JSON/SVG) · U6 flagship Data Workspace · U7 flagship Visual Page Builder · U8 flagship Design System Lab · U9 flagship Playground · U10 flagship CSS Animation Studio · U11 flagship Component Builder · U12 flagship Image Studio · U13 flagship Favicon & Icon Studio · U14 flagship SVG Editor · U15 flagship Notes Workspace · U16 flagship Kanban Board · U17 flagship Document Workshop · U18 flagship Diagram Studio · U19 flagship Mind Map Studio · AERO full visual redesign (0.24.0) · C design-system consolidation, key art and offline re-verification (0.25.0) — 35 tools (the 31-tool target is met and exceeded)
 
 | Category | Shipped now | Planned |
 |---|---|---|
 | 01 Creative Studio | Color Studio, Gradient Lab, Font Preview, SVG Studio, SVG Editor, Diagram Studio, Mind Map Studio | — |
 | 02 Generators | QR Studio, Password, UUID, Lorem Ipsum, Favicon & Icon Studio | — |
 | 03 Media Lab | Compressor, Converter, Resizer, Metadata | — |
-| 04 Developer Tools | JSON, Base64, URL, Regex, Timestamp, Diff, Hash, Markdown | — |
+| 04 Developer Tools | JSON, Base64, URL, Regex, Timestamp, Diff, Hash, JWT Inspector, Markdown | — |
 | 05 Productivity | Notes Workspace, Kanban Board | Focus Workspace, Pomodoro, Word Counter, Case Converter, Text Cleaner, Unit Converter |
 | 06 Documents | Document Workshop | PDF Merge, Split, PDF→Images, Image→PDF, Document Inspector |
 
@@ -239,6 +239,10 @@ legíveis e graváveis offline.
   whitespace/case, honest add/remove/unchanged counts, swap, copy and a unified `.diff` download.
 - **[Hash Generator](docs/hash-generator.md)** — SHA-1/256/384/512 of text or a local file via Web Crypto, uppercase
   hex, per-digest copy, identify-a-hash and `.txt` export.
+- **[JWT Inspector](docs/jwt-inspector.md)** — Base64url decode of header and payload into a claims table with the
+  registered names explained, local-format dates, a validity badge from `exp`/`nbf`, HS256/384/512 signature
+  verification through `crypto.subtle`, and an honest refusal for asymmetric and `alg: none` tokens. Token and
+  secret are never uploaded and never stored.
 - **[Markdown Preview](docs/markdown-preview.md)** — live local Markdown preview (split/preview/HTML), sanitized links,
   code fences, tables and nested lists, word/char/line stats, HTML/Markdown export.
 

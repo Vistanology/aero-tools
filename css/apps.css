@@ -1745,6 +1745,49 @@ textarea.nt-body { flex: 1 1 auto; min-height: 260px; resize: none; font-family:
 .mm-proj-info span{font-family:var(--font-mono);font-size:11px;color:var(--dim)}
 
 
+/* ---------- JWT Inspector (jwt) ---------- */
+/* The staged family (.step glass + .step-head) already owns the panels, so this block only
+   adds what a token needs: a code well for the decoded text, a claims table on the .mt-table
+   measure, and status ink taken from the substrate contract instead of a raw --ok/--err — the
+   same sentence has to stay AA on the bench and on the field. */
+.jwt-work { display: flex; flex-direction: column; gap: 14px; max-width: 940px; }
+.jwt-text { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.jwt-badges { display: flex; flex-wrap: wrap; gap: 6px; min-height: 21px; }
+.jwt-out, .jwt-raw {
+  margin: 0; padding: 12px 14px; border: 1px solid var(--code-line); border-radius: var(--r-sm);
+  background: var(--code-bg); color: var(--code-ink);
+  font-family: var(--font-mono); font-size: 12px; line-height: 1.6;
+  overflow: auto; overflow-wrap: anywhere;
+}
+.jwt-raw { max-height: 260px; }
+.jwt-claims { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.jwt-claims th {
+  text-align: left; padding: 0 8px 6px; border-bottom: 1px solid var(--hair);
+  font-size: 10px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-3);
+}
+.jwt-claims td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+.jwt-claims tbody tr:last-child td { border-bottom: 0; }
+.jwt-str { color: var(--code-str); }
+.jwt-lit { color: var(--code-num); }
+.jwt-struct { color: var(--code-ink); }
+.jwt-when { display: block; margin-top: 2px; font-family: var(--font-ui); font-size: 11.5px; color: var(--fg-3); }
+.jwt-note { color: var(--fg-2); }
+.jwt-time { margin-left: auto; }
+.jwt-rawtoggle { margin-left: auto; }
+.jwt-status { margin: 0; min-height: 18px; font-size: 12.5px; line-height: 1.5; color: var(--fg-2); }
+.jwt-status.ok { color: var(--ok-ink); }
+.jwt-status.bad { color: var(--err-ink); }
+.jwt-status.warn { color: var(--warn-ink); }
+/* Three columns of 12.5px ink cannot hold a phone: the claim becomes the head of its own
+   stacked row, the way the dependency table does in responsive.css. */
+@media (max-width: 560px) {
+  .jwt-claims thead { display: none; }
+  .jwt-claims tr { display: grid; gap: 2px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .jwt-claims td { padding: 0; border: 0; }
+  .jwt-claims td:first-child { font-size: 11px; letter-spacing: .08em; }
+}
+
+
 /* ---------- Narrow screens: a single-column bench never inherits its width from a <pre> ---------- */
 @media (max-width: 980px) {
   .ds-work, .dg-work, .pb-work, .pg-work, .as-work, .cb-work, .is-editor, .fs-work, .se-work, .nt-work, .nt-stage[data-mode="split"] .nt-work, .kb-work, .dwc-work, .dwc-stage[data-mode="split"] .dwc-work { grid-template-columns: minmax(0, 1fr); }
