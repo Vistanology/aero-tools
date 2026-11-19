@@ -1,7 +1,7 @@
 window.VT = window.VT || {};
 VT.shell = VT.shell || {};
 
-VT.shell.libraryState = { q: '', cat: 'all', fav: false, sort: 'collection', recent: false };
+VT.shell.libraryState = { q: '', cat: 'all', fav: false, sort: 'collection', recent: false, transitioning: false };
 
 VT.shell.library = (el, param) => {
   const t = VT.i18n.t, L = VT.i18n.lang, I = VT.icons, R = VT.registry;
@@ -164,10 +164,50 @@ VT.shell.library = (el, param) => {
   VT.utils.$$('#lib-chips .chip', el).forEach((chip) => {
     chip.addEventListener('click', () => {
       S.recent = false;
-      if (chip.dataset.fav) showCollection(!S.fav);
-      else {
-        S.cat = chip.dataset.cat;
-        showCollection(false);
+      if (chip.dataset.fav) {
+        showCollection(!S.fav);
+      } else if (chip.dataset.cat !== S.cat) {
+        // Category switch with Frutiger Aero transition
+        const newCat = chip.dataset.cat;
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+                              document.body.dataset.motion === 'reduced';
+        if (!prefersReduced) {
+          S.transitioning = true;
+          grid.classList.add('cat-switch');
+          stage.classList.add('cat-switch');
+          // Trigger reflow
+          grid.offsetHeight;
+          // Animate out
+          grid.style.setProperty('--cat-exit', '1');
+          stage.style.setProperty('--cat-exit', '1');
+          // Wait for exit animation, then swap and animate in
+          setTimeout(() => {
+            S.cat = newCat;
+            showCollection(false);
+            // Animate in
+            requestAnimationFrame(() => {
+              grid.style.setProperty('--cat-exit', '0');
+              stage.style.setProperty('--cat-exit', '0');
+              grid.classList.add('cat-enter');
+              stage.classList.add('cat-enter');
+              grid.offsetHeight; // reflow
+              grid.style.setProperty('--cat-enter', '1');
+              stage.style.setProperty('--cat-enter', '1');
+              setTimeout(() => {
+                grid.classList.remove('cat-switch', 'cat-enter');
+                stage.classList.remove('cat-switch', 'cat-enter');
+                grid.style.removeProperty('--cat-exit');
+                grid.style.removeProperty('--cat-enter');
+                stage.style.removeProperty('--cat-exit');
+                stage.style.removeProperty('--cat-enter');
+                S.transitioning = false;
+              }, 420);
+            });
+          }, 200);
+        } else {
+          S.cat = newCat;
+          showCollection(false);
+        }
       }
     });
   });

@@ -9,14 +9,14 @@
  * (ex.: primeira visita a uma ferramenta nunca aberta), ela é buscada na rede e entra no cache.
  */
 
-const VERSION = 'v59-aero-atmosphere';
+const VERSION = 'v61-cat-transition';
 const SHELL_CACHE = 'vt-shell-' + VERSION;
 const ASSET_CACHE = 'vt-asset-' + VERSION;
 
 const APPS = [
   'qr-studio', 'color-studio', 'gradient-lab', 'font-preview', 'svg-studio', 'password', 'uuid',
   'lorem-ipsum', 'image-compress', 'image-convert', 'image-resize', 'image-meta', 'json-formatter', 'data-workspace',
-  'base64', 'url-toolkit', 'regex-tester', 'timestamp', 'text-diff', 'hash-generator', 'markdown-preview', 'page-builder', 'design-lab', 'playground', 'animation-studio', 'component-builder', 'image-studio', 'favicon-studio', 'svg-editor', 'notes', 'kanban', 'document-workshop', 'diagram-studio', 'mind-map-studio'
+  'base64', 'url-toolkit', 'regex-tester', 'timestamp', 'text-diff', 'hash-generator', 'jwt-inspector', 'markdown-preview', 'page-builder', 'design-lab', 'playground', 'animation-studio', 'component-builder', 'image-studio', 'favicon-studio', 'svg-editor', 'notes', 'kanban', 'document-workshop', 'diagram-studio', 'mind-map-studio'
 ];
 
 const SHELL = [
