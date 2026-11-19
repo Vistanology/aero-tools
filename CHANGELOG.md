@@ -3,6 +3,47 @@
 All notable changes to Vistanology Open are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [SemVer](https://semver.org/).
 
+## [Unreleased] — 2026-11-17
+
+### Changed — the atmosphere and the glass surfaces, then the history that carries them
+- **Version control bootstrap.** The repository was initialised and the existing working tree split into 15 layered
+  conventional commits, ordered so each one compiles on its own: `chore: project scaffolding` → `feat: site shell` →
+  `feat: daylight glass styles (css/)` → `feat: legacy cosmic liquid glass styles (v1_css/)` → `feat: core runtime` →
+  `feat: shell modules` → `feat: 34 tool modules (js/apps/)` → `feat: brand assets, fonts, icons, images and vendor
+  libs` → `docs: per-tool documentation and design system` → `chore: issue templates` → `chore: brand marks and final
+  validation shots`. No code changed in this step; 255 files moved from an untracked tree to `main` on
+  `github.com/Vistanology/aero-tools`.
+- **Atmosphere rebuilt as a living ocean** (`css/background.css`, 162 lines): a deep-to-luminous multilayer ramp,
+  volumetric sun shafts at lower blur, caustic pools, a foam line, and a visible sea that drifts under the sun's
+  column. Bubbles now sit at three depths — near spheres, micro-sparkle dust and drifting glass orbs — each on its own
+  tide. Every layer animates transform/opacity only, so the field stays off the layout path.
+- **Glass materiality unified across the shell** (`css/shell.css` 232 lines, `css/tokens.css` 16 new): tool tiles
+  become lit glass modules through five new tokens (`--tile-plate`, `--tile-rim`, `--tile-shadow`,
+  `--tile-hover-shadow`, `--sheen`), a refracted `mask-composite` rim, a hover sheen sweep, a press state and a crest
+  beam glow. The topbar capsule gains the Vista sheen band, and `aero-tube` and the world/featured cards join the same
+  glow language. The library stage reads brighter (.56 art) under a navy-family scrim with a specular lip, a category
+  beam and bubble specks; the search bar, chips and sort select (scoped to `.lib-controls`), the hub search input and
+  the favourite/recents strips all move to ocean glass, so every surface speaks one material.
+- **Library entrance staggers by tile index** (`js/shell/library.js`): cards ease in on a `--i` custom property
+  instead of arriving all at once.
+- **Cache token** `v58-vistanology-brand` → **`v59-aero-atmosphere`** (`sw.js`).
+- A `.gitignore` now keeps `_dev/` (QA scripts, validation reports, WIP screenshots), `node_modules/` and logs out of
+  the published history.
+
+### Documentation
+- This entry is the record of the 2026-11-17 pass; `docs/design-system/` and the per-tool docs were written on
+  2026-11-16 and describe the system as it stood then.
+
+### Validation — and what is still owed
+- The atmosphere and glass commits were reviewed in the browser at the time, but **no new validation captures or QA
+  reports were written on 2026-11-17**: the newest artefacts in `_dev/qoder-validation/` are from 2026-11-16 22:18.
+  The v59 pass therefore has no recorded responsive or contrast evidence of its own, and the cache bump is not covered
+  by a re-run of `_dev/qa-offline-qoder.js`.
+- `VT.version` (`js/app.js:2`) is still `0.25.0` while `sw.js` serves `v59-aero-atmosphere`; the two have not been
+  reconciled into a release, and no tag or CI/deploy workflow exists yet.
+- The QA scripts that `docs/design-system/quality.md` cites (`_dev/qa-*-qoder.js`) live under the ignored `_dev/`, so
+  a fresh clone cannot run the documented pipeline.
+
 ## [Unreleased] — 2026-11-16
 
 ### Changed
