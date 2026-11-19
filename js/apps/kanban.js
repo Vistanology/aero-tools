@@ -499,15 +499,33 @@ VT.modules['kanban'] = (() => {
     docs: {
       en: {
         summary: 'A drag-and-drop Kanban board: add columns and cards, drag cards between columns and reorder them, edit each card (title, description, tags, done) in a side panel, undo/redo the whole board, autosave to IndexedDB, reopen named projects, filter by search, and export the board as JSON or Markdown.',
-        usage: 'Add a column, then add cards to it. Drag a card onto another column or to a new position — a placeholder shows where it will land. Click a card to edit it in the right panel; the checkbox marks it done. Use Undo/Redo to step through changes, Save to store a named project, and Export JSON or Export Markdown to take the board with you. Search dims cards that do not match.',
+        usage: [
+          'Add a column with Add column, then rename it by typing in its title.',
+          'Add cards with + Add card (Enter commits the draft) and drag one to another column or a new position — a placeholder marks where it lands.',
+          'Open a card to edit Title, Description, Tags and the Done checkbox in the side panel.',
+          'Type in Search to dim what does not match, move or remove columns with ← / → / ×, and Export JSON or Export Markdown.'
+        ],
         privacy: 'The board is stored on-device (IndexedDB autosave + named projects) and never uploaded. All card and column text is rendered from a plain data model with HTML escaping — there is no eval, no raw-HTML passthrough and no network requests.',
-        limits: 'One active board at a time (named projects let you keep several). Drag uses pointer events, so it works with mouse, touch and pen; it is disabled on the card’s own buttons and inputs so you can still click them. Undo history is in-memory only and resets when you leave the tool.'
+        limits: [
+          'One active board at a time; named projects are how you keep several.',
+          'Dragging relies on Pointer Events (mouse, touch and pen all work) and is disabled over a card’s own buttons and inputs so they stay clickable.',
+          'There is no import — JSON and Markdown are one-way exports — and the undo stack is the shared in-memory history, so it resets when you leave the tool.'
+        ]
       },
       pt: {
         summary: 'Um quadro Kanban de arrastar-e-soltar: adicione colunas e cartões, arraste cartões entre colunas e reordene-os, edite cada cartão (título, descrição, tags, concluído) num painel lateral, desfaça/refaça o quadro inteiro, salve automaticamente no IndexedDB, reabra projetos nomeados, filtre pela busca e exporte o quadro como JSON ou Markdown.',
-        usage: 'Adicione uma coluna e depois cartões a ela. Arraste um cartão para outra coluna ou para uma nova posição — um espaço reservado mostra onde ele vai cair. Clique num cartão para editá-lo no painel da direita; a caixa o marca como concluído. Use Desfazer/Refazer para percorrer mudanças, Salvar para guardar um projeto nomeado e Exportar JSON ou Exportar Markdown para levar o quadro. A busca esmaece os cartões que não correspondem.',
+        usage: [
+          'Adicione uma coluna em Adicionar coluna e renomeie-a digitando no título.',
+          'Adicione cartões com + Adicionar cartão (Enter confirma o rascunho) e arraste um para outra coluna ou nova posição — um espaço reservado mostra onde ele vai cair.',
+          'Abra um cartão para editar Título, Descrição, Tags e a caixa Concluído no painel lateral.',
+          'Digite em Buscar para esmaecer o que não corresponde, mova ou remova colunas com ← / → / ×, e exporte JSON ou Markdown.'
+        ],
         privacy: 'O quadro é armazenado no dispositivo (autosave no IndexedDB + projetos nomeados) e nunca é enviado. Todo texto de cartão e coluna é renderizado a partir de um modelo de dados puro com escape de HTML — não há eval, não há passagem de HTML bruto e não há requisições de rede.',
-        limits: 'Um quadro ativo por vez (projetos nomeados permitem manter vários). O arraste usa eventos de ponteiro, então funciona com mouse, toque e caneta; fica desativado nos botões e campos do próprio cartão para que você ainda possa clicá-los. O histórico de desfazer é só em memória e é reiniciado ao sair da ferramenta.'
+        limits: [
+          'Um quadro ativo por vez; projetos nomeados são a forma de manter vários.',
+          'O arraste depende de Pointer Events (mouse, toque e caneta funcionam) e fica desativado sobre os botões e campos do próprio cartão para que continuem clicáveis.',
+          'Não há importação — JSON e Markdown são exportação apenas — e o histórico de desfazer é a pilha compartilhada em memória, zerada ao sair da ferramenta.'
+        ]
       }
     },
     mount, unmount

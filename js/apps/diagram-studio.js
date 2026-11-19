@@ -583,15 +583,35 @@ VT.modules['diagram-studio'] = (() => {
     docs: {
       en: {
         summary: 'Create and edit SVG flowcharts entirely on-device. Add typed nodes (rectangle, diamond, capsule, note), connect them with orthogonal arrows in a two-step Link flow, drag to reposition with grid snap, edit the label/size/colors of the selection, and tune the canvas. Undo/redo the whole diagram, autosave to IndexedDB and reopen where you left off, keep named projects, and export clean SVG markup or a 2x rasterized PNG from the same data model.',
-        usage: 'Click New or Sample to start. Use the Rect/Diamond/Capsule/Note buttons to add nodes, then click a node to select it and edit it in the side panel. To connect two nodes, select the first, press Link, then click the target node. Drag any node to move it (snapping to the grid). Use Delete for the selected node or edge, undo/redo with the buttons or Ctrl+Z / Ctrl+Shift+Z, and export SVG or PNG.',
+        usage: [
+          'Start from New or Sample, then add nodes with the Rectangle, Diamond, Capsule or Note buttons.',
+          'Select the first node, press Link, then click the target node to draw the arrow.',
+          'Edit the selection in the side panel: label, width and height, fill and stroke — an edge gives you its own label field.',
+          'Drag a node to move it (it snaps to the grid), zoom with − / + or Fit, and delete the selected node or edge with Delete.',
+          'Export SVG or a 2× PNG, undo/redo with the buttons or Ctrl+Z / Ctrl+Shift+Z, and reopen a named project where you left it.'
+        ],
         privacy: 'The diagram is stored on-device (IndexedDB autosave + named projects) and never uploaded. Node/edge labels are rendered as SVG text content and escaped in the exported markup; the export is built from the same validated model. There is no eval, no raw-HTML passthrough and no network call.',
-        limits: 'Orthogonal elbow routing keeps arrows axis-aligned; auto-routing may overlap on dense layouts. Node sizes are clamped to the canvas. Undo history is in-memory only and resets when you leave the tool.'
+        limits: [
+          'Arrows are auto-routed as three-segment orthogonal elbows with no manual waypoints, so a dense layout can overlap them.',
+          'Node size is clamped to 40–640 by 32–480 inside a canvas of 240–2000 by 200–1600, and zoom stays between 0.5× and 2×.',
+          'PNG is rasterized at a fixed 2× with no scale control, the diagram is kept only in IndexedDB, and undo history is the shared in-memory stack (100 snapshots) that resets when you leave the tool.'
+        ]
       },
       pt: {
-        summary: 'Crie e edite fluxogramas SVG inteiramente no dispositivo. Adicione nós tipados (retângulo, losango, cápsula, anotacao), conecte-os com setas ortogonais num fluxo Link em duas etapas, arraste para reposicionar com encaixe na grade, edite rotulo/tamanho/cores da selecao e ajuste a tela. Desfacce/refaca o diagrama, salve no IndexedDB, mantenha projetos nomeados e exporte SVG limpo ou PNG 2x do mesmo modelo.',
-        usage: 'Clique Novo ou Exemplo. Use Retangulo/Losango/Capsula/Anotacao para adicionar nos; clique num no para seleciona-lo e edita-lo no painel. Para conectar dois nos, selecione o primeiro, pressione Link e clique no alvo. Arraste qualquer no para move-lo. Use Excluir para o no ou aresta selecionada, desfazer com Ctrl+Z, e exporte SVG ou PNG.',
-        privacy: 'O diagrama e armazenado no dispositivo (autosave IndexedDB + projetos nomeados) e nunca e enviado. Rotulos de nos e arestas sao texto SVG escapado no markup exportado; a exportacao usa o mesmo modelo validado. Nao ha eval, passagem de HTML bruto nem chamada de rede.',
-        limits: 'O roteamento ortogonal mantem as setas alinhadas aos eixos; pode sobrepor em layouts densos. O tamanho dos nos e limitado a tela. O historico de desfazer e so em memoria.'
+        summary: 'Crie e edite fluxogramas SVG inteiramente no dispositivo. Adicione nós tipados (retângulo, losango, cápsula, anotação), conecte-os com setas ortogonais num fluxo Link em duas etapas, arraste para reposicionar com encaixe na grade, edite rótulo/tamanho/cores da seleção e ajuste a tela. Desfaça/refaça o diagrama, salve no IndexedDB, mantenha projetos nomeados e exporte SVG limpo ou PNG 2× do mesmo modelo.',
+        usage: [
+          'Comece em Novo ou Exemplo e adicione nós pelos botões Retângulo, Losango, Cápsula ou Anotação.',
+          'Selecione o primeiro nó, pressione Link e clique no nó de destino para desenhar a seta.',
+          'Edite a seleção no painel lateral: rótulo, largura e altura, preenchimento e traço — uma aresta oferece o próprio campo de rótulo.',
+          'Arraste um nó para movê-lo (ele encaixa na grade), amplie com − / + ou Ajustar, e exclua o nó ou a aresta selecionada com Delete.',
+          'Exporte SVG ou PNG 2×, desfaça/refaça pelos botões ou com Ctrl+Z / Ctrl+Shift+Z, e reabra um projeto nomeado de onde parou.'
+        ],
+        privacy: 'O diagrama é armazenado no dispositivo (salvamento automático no IndexedDB + projetos nomeados) e nunca é enviado. Os rótulos de nós e arestas são texto SVG escapado no markup exportado; a exportação usa o mesmo modelo validado. Não há eval, passagem de HTML bruto nem chamada de rede.',
+        limits: [
+          'As setas são roteadas automaticamente em cotovelos ortogonais de três trechos, sem waypoints manuais, então um layout denso pode sobrepor os trajetos.',
+          'O tamanho do nó é limitado a 40–640 por 32–480 dentro de uma tela de 240–2000 por 200–1600, e o zoom fica entre 0.5× e 2×.',
+          'O PNG é rasterizado em 2× fixo, sem controle de escala; o diagrama fica só no IndexedDB e o histórico de desfazer é a pilha compartilhada em memória (100 instantâneos), zerada ao sair da ferramenta.'
+        ]
       }
     },
     mount, unmount

@@ -349,15 +349,33 @@ VT.modules['playground'] = (() => {
     docs: {
       en: {
         summary: 'A local code playground. Type HTML, CSS and JS, run them in a sandboxed iframe, read the captured console, load templates, and export a single standalone .html file.',
-        usage: 'Pick a template or start blank, edit the three tabs, and press Run (or Ctrl/Cmd+Enter). Turn on Auto-run for live refresh as you type. Toggle the preview between a desktop and a mobile viewport. Copy HTML or Export .html to save a self-contained file. The console shows your log/warn/error output and runtime errors.',
+        usage: [
+          'Pick a template — Welcome, DOM & events, Canvas animation or Live clock — or start from the blank document.',
+          'Edit the HTML, CSS and JS tabs, then press Run or Ctrl/Cmd+Enter; tick Auto-run to refresh 600 ms after you stop typing.',
+          'Switch the frame between Desktop and Mobile to check the layout.',
+          'Read your log/warn/error output in the console (Clear empties it), then Copy HTML or Export .html.'
+        ],
         privacy: 'Your code runs only inside a sandboxed iframe with allow-scripts but never allow-same-origin, so it executes in a unique opaque origin: it cannot read or write this app, its storage or the page around it. Nothing is uploaded. No eval() is used — the frame is built by assigning its document and the console is captured through a serialized postMessage shim.',
-        limits: 'The sandbox blocks same-origin APIs, so localStorage, cookies and parent access are unavailable inside the preview by design. Network fetch from the preview is limited to what the browser allows for an opaque origin (many APIs will reject it) — keep demos self-contained. Very large or long-running scripts may use memory until the next Run.'
+        limits: [
+          'The frame is sandbox="allow-scripts" without allow-same-origin, so localStorage, cookies and any parent access are unavailable inside the preview by design.',
+          'Code you write can still make its own network requests: they leave from an opaque origin and are subject to CORS, which most third-party APIs reject — keep demos self-contained.',
+          'The console keeps the last 200 lines and serializes logged values as JSON, so functions and DOM nodes arrive lossy or as "[unserializable]".'
+        ]
       },
       pt: {
         summary: 'Um playground de código local. Digite HTML, CSS e JS, execute-os em um iframe isolado, leia o console capturado, carregue modelos e exporte um arquivo .html autônomo.',
-        usage: 'Escolha um modelo ou comece em branco, edite as três abas e pressione Executar (ou Ctrl/Cmd+Enter). Ative Execução automática para atualizar ao vivo enquanto digita. Alterne a prévia entre desktop e mobile. Copie o HTML ou Exporte .html para salvar um arquivo autossuficiente. O console mostra seu log/warn/erro e erros de execução.',
+        usage: [
+          'Escolha um modelo — Boas-vindas, DOM e eventos, Animação em canvas ou Relógio ao vivo — ou comece pelo documento em branco.',
+          'Edite as abas HTML, CSS e JS e pressione Executar ou Ctrl/Cmd+Enter; marque Execução automática para atualizar 600 ms depois de você parar de digitar.',
+          'Alterne o quadro entre Desktop e Celular para conferir o layout.',
+          'Leia sua saída de log/aviso/erro no console (Limpar esvazia), depois Copie o HTML ou exporte .html.'
+        ],
         privacy: 'Seu código roda apenas dentro de um iframe isolado com allow-scripts, mas nunca allow-same-origin, então executa em uma origem opaca única: não consegue ler nem escrever neste app, em seu armazenamento ou na página ao redor. Nada é enviado. Nenhum eval() é usado — o quadro é construído atribuindo seu documento e o console é capturado por um shim de postMessage serializado.',
-        limits: 'O sandbox bloqueia APIs de mesma origem, então localStorage, cookies e acesso ao pai não estão disponíveis na prévia por design. O fetch de rede na prévia é limitado ao que o navegador permite para uma origem opaca (muitas APIs rejeitam) — mantenha as demos autossuficientes. Scripts muito grandes ou de longa execução podem usar memória até a próxima Execução.'
+        limits: [
+          'O quadro é sandbox="allow-scripts" sem allow-same-origin, então localStorage, cookies e qualquer acesso ao pai ficam indisponíveis na prévia, por projeto.',
+          'O código que você escreve ainda pode fazer requisições próprias: elas saem de uma origem opaca e estão sujeitas a CORS, que a maioria das APIs de terceiros rejeita — mantenha as demos autossuficientes.',
+          'O console guarda as últimas 200 linhas e serializa os valores logados como JSON, então funções e nós do DOM chegam com perdas ou como "[unserializable]".'
+        ]
       }
     },
     mount, unmount

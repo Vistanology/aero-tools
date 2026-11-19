@@ -472,15 +472,33 @@ VT.modules['mind-map-studio'] = (function () {
     docs: {
       en: {
         summary: 'A local-first mind-map bench. Grow a tree from a central topic, add branches and sub-branches, collapse or expand any node, nudge nodes with the pointer, and edit the label and colour of the selection. Undo/redo the whole map, autosave to IndexedDB and reopen where you left off, keep named projects, and export clean SVG, a 2x PNG or the JSON tree.',
-        usage: 'Click New to start or Sample to load an example. Select a node and use Add branch to grow a child, or the on-node −/+ badge to collapse. Drag a node to nudge it (grid-snapped) and Tidy to snap everything back to the radial layout. Use the inspector to rename or recolour, then export.',
+        usage: [
+          'Start with New or Sample, then select a bubble.',
+          'Grow the tree with Add branch or Add sibling; the − / + badge on a node collapses or expands its children.',
+          'Drag a node to nudge it on the 8 px grid, then press Tidy to return everything to the radial layout.',
+          'Rename (up to 80 characters) and recolour the selection in the inspector, then export SVG, the 2× PNG or the JSON tree.'
+        ],
         privacy: 'The mind map is stored on-device (IndexedDB autosave + named projects) and never uploaded. Node labels are SVG text content and HTML-escaped in the exported markup; the export is built from the same validated model. No eval, no raw-HTML passthrough, no network call.',
-        limits: 'A radial layout with up to 12 levels deep and clamped label lengths. Exported PNG is rasterized at 2x (1600x1120) from the SVG. Manual node offsets persist until you press Tidy.'
+        limits: [
+          'The canvas is fixed at 800×560 and nodes are held 24 px inside it — there is no resize, pan or zoom.',
+          'Depth is truncated to 12 levels on load, labels are capped at 80 characters, and a colour that is not a valid #rrggbb falls back to the palette.',
+          'SVG and PNG export paint an opaque #F2FAFE background and skip collapsed subtrees, so a collapsed branch is not in the file you download.'
+        ]
       },
       pt: {
         summary: 'Uma bancada de mapas mentais local-first. Faça crescer uma árvore a partir de um tópico central, adicione ramos e sub-ramos, recolha ou expanda qualquer nó, ajuste a posição arrastando e edite o rótulo e a cor da seleção. Desfaça/refaça o mapa inteiro, salve automaticamente no IndexedDB e reabra de onde parou, mantenha projetos nomeados e exporte SVG limpo, PNG 2x ou a árvore em JSON.',
-        usage: 'Clique em Novo para começar ou Exemplo para carregar um mapa. Selecione um nó e use Adicionar ramo para criar um filho, ou o selo −/+ do nó para recolher. Arraste um nó para ajustá-lo (encaixe na grade) e pressione Organizar para voltar ao layout radial.',
-        privacy: 'O mapa e armazenado no dispositivo (autosave IndexedDB + projetos nomeados) e nunca e enviado. Os rotulos dos nos sao texto SVG escapado no markup exportado; a exportacao usa o mesmo modelo validado. Nao ha eval, passagem de HTML bruto nem chamada de rede.',
-        limits: 'Layout radial com ate 12 niveis e comprimento de rotulo limitado. O PNG exportado e rasterizado em 2x (1600x1120) a partir do SVG. Ajustes manuais de posicao persistem ate voce pressionar Organizar.'
+        usage: [
+          'Comece em Novo ou Exemplo e selecione um balão.',
+          'Faça a árvore crescer com Adicionar ramo ou Adicionar irmão; o selo − / + do nó recolhe ou expande os filhos.',
+          'Arraste um nó para deslocá-lo na grade de 8 px e pressione Organizar para devolver tudo ao layout radial.',
+          'Renomeie (até 80 caracteres) e recolora a seleção no inspetor, depois exporte SVG, o PNG 2× ou a árvore em JSON.'
+        ],
+        privacy: 'O mapa é armazenado no dispositivo (salvamento automático no IndexedDB + projetos nomeados) e nunca é enviado. Os rótulos dos nós são texto SVG escapado no markup exportado; a exportação usa o mesmo modelo validado. Não há eval, passagem de HTML bruto nem chamada de rede.',
+        limits: [
+          'A tela é fixa em 800×560 e os nós são mantidos 24 px para dentro — não há redimensionamento, deslocamento nem zoom.',
+          'A profundidade é truncada em 12 níveis ao carregar, os rótulos têm limite de 80 caracteres e uma cor que não seja #rrggbb válido volta para a paleta.',
+          'A exportação SVG e PNG pinta um fundo opaco #F2FAFE e ignora os ramos recolhidos, então um ramo fechado não aparece no arquivo baixado.'
+        ]
       }
     },
     mount: mount,

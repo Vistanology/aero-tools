@@ -417,15 +417,33 @@ VT.modules['favicon-studio'] = (() => {
     docs: {
       en: {
         summary: 'A local icon-set generator: feed it a raster image or a short monogram, choose a background (solid, gradient or transparent), a shape (square, rounded, circle), padding and colors, and it renders every standard size — 16, 32, 48, 64, 128, 180, 192, 512 — from one shared draw routine.',
-        usage: 'Pick a source (monogram or image), style it, and watch the size grid update live. Download any single size, Export all as PNGs, and copy or download a generated site.webmanifest that references the set. Undo/redo the styling, save named presets to IndexedDB, and your work autosaves and is restored on return.',
+        usage: [
+          'Choose a source tab — Monogram (up to 4 characters) or Image (pick, drop or paste onto the stage).',
+          'Set Fill (Solid, Gradient or Transparent), Shape (Square, Rounded or Circle), the corner radius, padding and foreground color.',
+          'Read the live size grid and Download the size you need, or use Export all for the eight PNGs.',
+          'Copy or download the generated site.webmanifest, and keep the styling as a named preset.'
+        ],
         privacy: 'Everything is drawn to a canvas in your browser and exported as files you keep. No image, text or settings are uploaded; there are no analytics or trackers. Presets and autosave live on-device via IndexedDB.',
-        limits: 'Outputs square PNG icons at the eight common sizes; the monogram path renders text (no custom vector glyph import). The manifest is generated as JSON you download — packaging all files into a single ZIP is out of scope to stay dependency-free.'
+        limits: [
+          'Fixed square sizes only — 16, 32, 48, 64, 128, 180, 192 and 512 — and PNG only: no ICO, no SVG, no custom sizes.',
+          'A source image is downscaled to at most 512 px and re-encoded as PNG, so the export is not byte-identical to your file.',
+          'The manifest references icons/icon-<size>.png paths you have to place yourself, Export all fires eight timed downloads a browser may block, and short_name is cut to 12 characters.'
+        ]
       },
       pt: {
         summary: 'Um gerador local de conjuntos de ícones: forneça uma imagem raster ou um monograma curto, escolha um fundo (sólido, gradiente ou transparente), uma forma (quadrado, arredondado, círculo), espaçamento e cores, e ele renderiza todos os tamanhos padrão — 16, 32, 48, 64, 128, 180, 192, 512 — a partir de uma única rotina de desenho.',
-        usage: 'Escolha uma fonte (monograma ou imagem), estilize-a e veja a grade de tamanhos atualizar ao vivo. Baixe qualquer tamanho único, Exporte todos como PNGs, e copie ou baixe um site.webmanifest gerado que referencia o conjunto. Desfaça/refaça o estilo, salve predefinições nomeadas no IndexedDB, e seu trabalho é salvo automaticamente e restaurado quando você volta.',
+        usage: [
+          'Escolha uma aba de origem — Monograma (até 4 caracteres) ou Imagem (selecione, solte ou cole na área).',
+          'Defina Preenchimento (Sólido, Gradiente ou Transparente), Forma (Quadrado, Arredondado ou Círculo), o raio do canto, o espaçamento e a cor do primeiro plano.',
+          'Leia a grade de tamanhos ao vivo e Baixe o tamanho necessário, ou use Exportar tudo para os oito PNGs.',
+          'Copie ou baixe o site.webmanifest gerado e guarde o estilo como uma predefinição nomeada.'
+        ],
         privacy: 'Tudo é desenhado num canvas no seu navegador e exportado como arquivos seus. Nenhuma imagem, texto ou configuração é enviada; não há analytics nem rastreadores. Predefinições e salvamento automático ficam no dispositivo via IndexedDB.',
-        limits: 'Gera ícones PNG quadrados nos oito tamanhos comuns; o caminho do monograma renderiza texto (sem importação de glifos vetoriais). O manifest é gerado como JSON que você baixa — empacotar todos os arquivos num único ZIP fica fora do escopo para manter tudo sem dependências.'
+        limits: [
+          'Só tamanhos quadrados fixos — 16, 32, 48, 64, 128, 180, 192 e 512 — e somente PNG: sem ICO, sem SVG, sem tamanho personalizado.',
+          'Uma imagem de origem é reduzida a no máximo 512 px e re-codificada como PNG, então a exportação não é byte a byte o seu arquivo.',
+          'O manifest aponta para caminhos icons/icon-<tamanho>.png que você precisa colocar no lugar, Exportar tudo dispara oito downloads cronometrados que o navegador pode bloquear, e short_name é cortado em 12 caracteres.'
+        ]
       }
     },
     mount, unmount

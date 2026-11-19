@@ -492,15 +492,35 @@ VT.modules['animation-studio'] = (() => {
     docs: {
       en: {
         summary: 'A visual CSS animation editor: set duration, delay, iteration, direction, fill and an easing curve (named or cubic-bezier), then shape keyframe stops with transform, opacity, color and radius. Preview it live and export the @keyframes + rule as plain CSS.',
-        usage: 'Pick a preset (Pulse, Spin, Bounce, Slide, Float, Shake) to start, tune the timing, and edit the selected stop with the property sliders. Add or remove stops to place keyframes, choose an easing (or a custom cubic-bezier and watch the curve), and Play/Pause or Restart the preview. Copy CSS or Export .css to save the stylesheet.',
+        usage: [
+          'Pick a preset — Pulse, Spin, Bounce, Slide in, Float or Shake — to load a full stop set.',
+          'Set the timing: Duration (200–4000 ms), Delay, Iterations, Direction, Fill mode and Easing.',
+          'Select a stop chip, add one with "+ Stop" or move it with At %, then tune Move X/Y, Rotate, Scale, Opacity, Color and Radius.',
+          'Choose the "cubic-bezier…" easing for four x1/y1/x2/y2 sliders and read the drawn curve; Play/Pause or Restart the preview.',
+          'Copy CSS or Export .css to take the @keyframes block with its rule.'
+        ],
         privacy: 'All editing and export run in your browser. The stylesheet is compiled from browser-validated control values (sliders, color pickers, fixed option lists) — no free-text CSS, no scripts, no eval. Animations autosave on-device via IndexedDB. Nothing is uploaded.',
-        limits: 'Animates a single sample target with the properties that cover most UI motion (translate, rotate, scale, opacity, background, border-radius). It exports @keyframes + one rule, not multi-element timelines. The preview uses standard CSS animations; the easing curve is a visual guide to the timing function.'
+        limits: [
+          'One hard-coded sample element and one @keyframes name — there is no multi-element timeline.',
+          'Input is range-bound: duration 200–4000 ms, delay 0–1000 ms, iterations limited to infinite/1/2/3, and Remove is disabled once the stop set is down to two.',
+          'The playhead reads Element.getAnimations() where available and otherwise falls back to a wall-clock timer, so the progress bar can drift on browsers without that API.'
+        ]
       },
       pt: {
         summary: 'Um editor visual de animação CSS: defina duração, atraso, iteração, direção, preenchimento e uma curva de easing (nomeada ou cubic-bezier) e, então, modele quadros com transformação, opacidade, cor e raio. Pré-visualize ao vivo e exporte os @keyframes + regra como CSS puro.',
-        usage: 'Escolha uma predefinição (Pulso, Giro, Quicar, Deslizar, Flutuar, Tremer) para começar, ajuste o tempo e edite o quadro selecionado com os sliders de propriedade. Adicione ou remova quadros para posicionar keyframes, escolha um easing (ou um cubic-bezier personalizado e veja a curva) e Reproduza/Pauseie ou Reinicie a prévia. Copie o CSS ou Exporte .css para salvar a folha.',
+        usage: [
+          'Escolha uma predefinição — Pulso, Giro, Quicar, Deslizar, Flutuar ou Tremer — para carregar o conjunto de quadros.',
+          'Ajuste o tempo: Duração (200–4000 ms), Atraso, Iterações, Direção, Preenchimento e Easing.',
+          'Selecione um quadro, adicione outro com "+ Quadro" ou reposicione com Em %, depois ajuste Mover X/Y, Girar, Escalar, Opacidade, Cor e Raio.',
+          'Escolha o easing "cubic-bezier…" para ter quatro controles x1/y1/x2/y2 e leia a curva desenhada; Reproduza/Pauseie ou Reinicie a prévia.',
+          'Copie o CSS ou exporte .css para levar o bloco @keyframes com sua regra.'
+        ],
         privacy: 'Toda a edição e exportação rodam no navegador. A folha é compilada a partir de valores validados pelo navegador (sliders, seletores de cor, listas de opções fixas) — sem CSS em texto livre, sem scripts, sem eval. As animações são salvas automaticamente no dispositivo via IndexedDB. Nada é enviado.',
-        limits: 'Anima um único alvo de exemplo com as propriedades que cobrem a maior parte do movimento de UI (transladar, girar, escalar, opacidade, fundo, raio). Exporta @keyframes + uma regra, não linhas do tempo com vários elementos. A prévia usa animações CSS padrão; a curva de easing é um guia visual da função de tempo.'
+        limits: [
+          'Um único elemento de exemplo e um único nome de @keyframes — não há linha do tempo com vários elementos.',
+          'A entrada é limitada por faixa: duração de 200–4000 ms, atraso de 0–1000 ms, iterações só entre infinitas/1/2/3, e Remover fica desabilitado quando o conjunto chega a dois quadros.',
+          'O indicador de progresso lê Element.getAnimations() quando disponível e, sem essa API, recorre a um relógio próprio, então a posição pode derrapar nesse navegador.'
+        ]
       }
     },
     mount, unmount

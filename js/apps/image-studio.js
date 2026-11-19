@@ -460,15 +460,35 @@ VT.modules['image-studio'] = (() => {
     docs: {
       en: {
         summary: 'Load any local image and edit it non-destructively: rotation, flips, center-crop aspect presets and a CSS-filter stack (brightness, contrast, saturate, hue-rotate, grayscale, sepia, blur). The live preview and the exported file use the same filter string, so the download matches what you see.',
-        usage: 'Choose a file, drag one in, paste from the clipboard, or start from a sample. Adjust the transform, crop and filter controls — the preview updates live. Toggle Compare to see the untouched original, undo/redo the edit stack, save named projects to IndexedDB, and Export PNG/JPEG/WebP (with a quality slider) at the image’s full resolution.',
+        usage: [
+          'Load an image: Choose image, drop one on the dropzone, paste from the clipboard, or start from Use sample.',
+          'Rotate with ⟲ / ⟳, flip with ↔ / ↕, then pick a Crop aspect ratio.',
+          'Drag the Brightness, Contrast, Saturation, Hue, Grayscale, Sepia and Blur sliders.',
+          'Hold Compare to see the untouched original; step through the edit stack with undo/redo.',
+          'Pick PNG, JPEG or WebP, set quality where the format allows it, then Export at full resolution — or save a named project.'
+        ],
         privacy: 'The image is decoded into a canvas in your browser and every edit is applied at draw time; the source pixels are never overwritten. No image data, keys or files are uploaded, and there are no analytics or trackers. Projects and autosave are stored on-device via IndexedDB.',
-        limits: 'Edits are the curated filter + transform set (not a full Photoshop toolchain); crop is center-based by aspect ratio rather than a free drag rectangle. Blur is applied at preview scale and at full resolution on export. Canvas filters require a browser that supports ctx.filter (all modern engines).'
+        limits: [
+          'Crop is center-based on fixed aspect presets rather than a free drag rectangle, and the edit set is the curated filter/transform list, not a full retouch toolchain.',
+          'Export is PNG, JPEG or WebP only; blur is computed at preview scale and again at full resolution on export, so a strong blur is slower there.',
+          'Editing needs canvas ctx.filter support, and autosave skips the pixels without warning when the canvas cannot be serialized (tainted or oversized source).'
+        ]
       },
       pt: {
         summary: 'Carregue qualquer imagem local e edite-a de forma não destrutiva: rotação, espelhamentos, predefinições de recorte por proporção e uma pilha de filtros CSS (brilho, contraste, saturação, matiz, escala de cinza, sépia, desfoque). A prévia ao vivo e o arquivo exportado usam a mesma string de filtros, então o download corresponde ao que você vê.',
-        usage: 'Escolha um arquivo, arraste um, cole da área de transferência ou comece por um exemplo. Ajuste os controles de transformação, recorte e filtros — a prévia atualiza ao vivo. Ative Comparar para ver o original intacto, desfaça/refaça a pilha de edições, salve projetos nomeados no IndexedDB e Exporte PNG/JPEG/WebP (com controle de qualidade) na resolução total da imagem.',
-        privacy: 'A imagem é decodificada em um canvas no seu navegador e cada edição é aplicada no momento da desenho; os pixels originais nunca são sobrescritos. Nenhum dado de imagem, chave ou arquivo é enviado, e não há analytics nem rastreadores. Projetos e salvamento automático ficam no dispositivo via IndexedDB.',
-        limits: 'As edições são o conjunto curado de filtros + transformação (não uma cadeia completa de Photoshop); o recorte é central por proporção, não um retângulo livre. O desfoque é aplicado na escala da prévia e em resolução total na exportação. Os filtros de canvas exigem um navegador com suporte a ctx.filter (todos os mecanismos modernos).'
+        usage: [
+          'Carregue uma imagem: Escolher imagem, solte uma na área de soltura, cole da área de transferência ou comece por Usar exemplo.',
+          'Gire com ⟲ / ⟳, espelhe com ↔ / ↕ e escolha uma proporção de Recorte.',
+          'Arraste os controles de Brilho, Contraste, Saturação, Matiz, Escala de cinza, Sépia e Desfoque.',
+          'Segure Comparar para ver o original intacto; percorra a pilha de edições com desfazer/refazer.',
+          'Escolha PNG, JPEG ou WebP, ajuste a qualidade quando o formato permitir e Exporte na resolução total — ou salve um projeto nomeado.'
+        ],
+        privacy: 'A imagem é decodificada em um canvas no seu navegador e cada edição é aplicada no momento do desenho; os pixels originais nunca são sobrescritos. Nenhum dado de imagem, chave ou arquivo é enviado, e não há analytics nem rastreadores. Projetos e salvamento automático ficam no dispositivo via IndexedDB.',
+        limits: [
+          'O recorte é central e sobre proporções fixas, não um retângulo livre de arrastar; o conjunto de edições é a lista curada de filtros e transformações, não uma cadeia completa de retoque.',
+          'A exportação é só PNG, JPEG ou WebP; o desfoque é calculado na escala da prévia e de novo em resolução total ao exportar, então um desfoque forte fica mais lento aí.',
+          'A edição exige suporte a ctx.filter no canvas, e o salvamento automático pula os pixels sem aviso quando o canvas não pode ser serializado (origem contaminada ou grande demais).'
+        ]
       }
     },
     mount, unmount

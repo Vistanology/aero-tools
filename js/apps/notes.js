@@ -374,15 +374,33 @@ VT.modules['notes'] = (() => {
     docs: {
       en: {
         summary: 'A Markdown notes workspace: many named notes stored in IndexedDB, a split editor/preview, tag filtering, full-text search, undo/redo over the body, autosave and session restore, and export to .md or copy as Markdown / rendered HTML.',
-        usage: 'Click New note, give it a title and optional comma-separated tags, and write Markdown in the editor — the preview renders live. Switch Write / Split / Preview, search notes or click a tag to filter, undo/redo the body, and Copy Markdown, Copy HTML or Export .md. Everything autosaves and your last note reopens when you return.',
+        usage: [
+          'Create a note with New note, then fill the title and, optionally, tags separated by commas.',
+          'Write Markdown in the body — the preview renders as you type, and Write / Split / Preview set how much of each you see.',
+          'Find a note by typing in Search notes… or by clicking a tag in the tag bar.',
+          'Undo/redo body edits, then Copy MD, Copy HTML or Export .md; each note is saved on its own.'
+        ],
         privacy: 'Notes are stored on-device via IndexedDB and never uploaded. The preview renders Markdown through an escape-all-then-format pipeline: all text is HTML-escaped first, raw HTML is not passed through, and only http/https/mailto/# link protocols are kept (javascript: and others become plain text). No eval, no scripts.',
-        limits: 'Supports a solid Markdown subset (headings, bold/italic/strike, inline and fenced code, links, ordered/unordered lists, blockquotes, horizontal rules, paragraphs). It is a notes bench, not a static-site generator; images from remote URLs are rendered as safe links rather than embedded to keep the preview network-free.'
+        limits: [
+          'The Markdown subset covers headings, bold/italic/strike, inline and fenced code, links, ordered/unordered lists, blockquotes, rules and paragraphs — there are no tables.',
+          'Images are never embedded: image syntax becomes a safe link, which keeps the preview network-free.',
+          'Everything depends on IndexedDB — with it unavailable, New note is blocked — and only the current note id and the view mode stay in localStorage.'
+        ]
       },
       pt: {
         summary: 'Uma bancada de notas Markdown: muitas notas nomeadas armazenadas no IndexedDB, editor/prévia divididos, filtro por tags, busca de texto completo, desfazer/refazer do corpo, salvamento automático e restauração da sessão, além de exportação para .md ou cópia como Markdown / HTML renderizado.',
-        usage: 'Clique em Nova nota, dê um título e tags opcionais separadas por vírgula, e escreva Markdown no editor — a prévia renderiza ao vivo. Alterne Escrita / Dividido / Prévia, busque notas ou clique numa tag para filtrar, desfaça/refaça o corpo, e Copie Markdown, Copie HTML ou Exporte .md. Tudo é salvo automaticamente e sua última nota reabre quando você volta.',
+        usage: [
+          'Crie uma nota em Nova nota e preencha o título e, opcionalmente, as tags separadas por vírgula.',
+          'Escreva Markdown no corpo — a prévia renderiza enquanto você digita, e Escrita / Dividido / Prévia definem quanto de cada você vê.',
+          'Encontre uma nota digitando em Buscar notas… ou clicando numa tag na barra de tags.',
+          'Desfaça/refaça edições do corpo e use Copiar MD, Copiar HTML ou Exportar .md; cada nota é salva individualmente.'
+        ],
         privacy: 'As notas ficam no dispositivo via IndexedDB e nunca são enviadas. A prévia renderiza Markdown por um fluxo de escapar-tudo-antes-de-formatar: todo texto é escapado em HTML primeiro, HTML bruto não passa, e apenas protocolos de link http/https/mailto/# são mantidos (javascript: e outros viram texto puro). Sem eval, sem scripts.',
-        limits: 'Suporta um subconjunto sólido de Markdown (títulos, negrito/itálico/tachado, código inline e em bloco, links, listas ordenadas/não ordenadas, citações, linhas horizontais, parágrafos). É uma bancada de notas, não um gerador de sites estáticos; imagens de URLs remotas são renderizadas como links seguros em vez de embutidas, para manter a prévia sem rede.'
+        limits: [
+          'O subconjunto de Markdown cobre títulos, negrito/itálico/tachado, código inline e em bloco, links, listas ordenadas/não ordenadas, citações, linhas horizontais e parágrafos — não há tabelas.',
+          'Imagens nunca são embutidas: a sintaxe de imagem vira um link seguro, o que mantém a prévia sem rede.',
+          'Tudo depende do IndexedDB — sem ele, Nova nota fica bloqueada — e só o id da nota atual e o modo de visão permanecem no localStorage.'
+        ]
       }
     },
     mount, unmount

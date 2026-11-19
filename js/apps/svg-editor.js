@@ -601,16 +601,36 @@ VT.modules['svg-editor'] = (() => {
     deps: [],
     docs: {
       en: {
-        summary: 'A visual SVG editor built on a small document model. Add primitive shapes, drag to move, resize from the corners, rotate around the center, snap to a grid, and style each shape (fill, stroke, width, opacity, corner radius). Layers can be reordered, hidden, renamed via save, and deleted.',
-        usage: 'Pick a shape to add it at the canvas center, then drag its body to move, its corner handles to resize, or the top handle to rotate. Use the arrow keys to nudge and Delete to remove. Edit properties in the side panel, reorder or hide layers, undo/redo the document, save named projects to IndexedDB, and Copy SVG, Download SVG or Download PNG.',
+        summary: 'A visual SVG editor built on a small document model. Add primitive shapes, drag to move, resize from the corners, rotate around the center, snap to a grid, and style each shape (fill, stroke, width, opacity, corner radius). Layers get automatic names such as “Rect 1” and can be reordered, hidden or deleted.',
+        usage: [
+          'Add a shape from Rect / Ellipse / Line / Triangle / Star; it lands at the canvas center.',
+          'Drag its body to move, a corner handle to resize, or the top handle to rotate; nudge with the arrow keys (Shift snaps 8 px) and remove with Delete.',
+          'Style the selected shape in the side panel (Width, Height, Rotation, Fill, Stroke, Stroke width, Opacity, Corner radius) and set canvas size and background above it.',
+          'Reorder or hide shapes in the Layers list with the forward/backward and visible controls.',
+          'Copy SVG, Download SVG, or Download PNG at 1×, 2× or 4×; save named projects to IndexedDB.'
+        ],
         privacy: 'The document is a plain data model rendered to an on-screen SVG and re-serialized for export — there is no eval and no free-form HTML. Nothing is uploaded; projects and autosave live on-device via IndexedDB. PNG export rasterizes your own markup locally.',
-        limits: 'Ships five well-crafted primitives (rect, ellipse, line, triangle, star) with per-shape transforms and styling; it is not a full pen/path node editor (use SVG Studio for importing, sanitizing and optimizing existing vector files). Boolean path operations are intentionally out of scope to stay dependency-free.'
+        limits: [
+          'Five primitives only (rect, ellipse, line, triangle, star): there is no pen or path-node editor and no boolean path operations, by design — use SVG Studio to import, sanitize and optimize existing vector files.',
+          'Canvas size is clamped to 16–4096 px and PNG export is limited to 1×, 2× or 4× scale.',
+          'Shape names are generated from the type and cannot be edited, and exported coordinates are rounded to two decimals.'
+        ]
       },
       pt: {
-        summary: 'Um editor visual de SVG construído sobre um pequeno modelo de documento. Adicione formas primitivas, arraste para mover, redimensione pelos cantos, gire em torno do centro, ajuste à grade e estilize cada forma (preenchimento, traço, largura, opacidade, raio do canto). As camadas podem ser reordenadas, ocultadas, renomeadas via salvar e excluídas.',
-        usage: 'Escolha uma forma para adicioná-la no centro do canvas e então arraste o corpo para mover, as alças dos cantos para redimensionar ou a alça superior para girar. Use as setas para ajustar e Delete para remover. Edite as propriedades no painel lateral, reordene ou oculte camadas, desfaça/refaça o documento, salve projetos nomeados no IndexedDB e Copie SVG, Baixe SVG ou Baixe PNG.',
+        summary: 'Um editor visual de SVG construído sobre um pequeno modelo de documento. Adicione formas primitivas, arraste para mover, redimensione pelos cantos, gire em torno do centro, ajuste à grade e estilize cada forma (preenchimento, traço, largura, opacidade, raio do canto). As camadas recebem nomes automáticos como “Retângulo 1” e podem ser reordenadas, ocultadas ou excluídas.',
+        usage: [
+          'Adicione uma forma em Retângulo / Elipse / Linha / Triângulo / Estrela; ela entra no centro do canvas.',
+          'Arraste o corpo para mover, uma alça de canto para redimensionar ou a alça superior para girar; ajuste com as setas (Shift encaixa de 8 px) e remova com Delete.',
+          'Estilize a forma selecionada no painel lateral (Largura, Altura, Rotação, Preenchimento, Traço, Largura do traço, Opacidade, Raio do canto) e defina acima o tamanho e o fundo do canvas.',
+          'Reordene ou oculte formas na lista de Camadas com os controles de trazer para frente/para trás e de visibilidade.',
+          'Copie o SVG, baixe o SVG ou baixe o PNG em 1×, 2× ou 4×; salve projetos nomeados no IndexedDB.'
+        ],
         privacy: 'O documento é um modelo de dados puro renderizado num SVG na tela e re-serializado para exportação — não há eval nem HTML livre. Nada é enviado; projetos e salvamento automático ficam no dispositivo via IndexedDB. A exportação PNG rasteriza seu próprio markup localmente.',
-        limits: 'Inclui cinco primitivas bem elaboradas (retângulo, elipse, linha, triângulo, estrela) com transformações e estilo por forma; não é um editor completo de nós de paths (use o SVG Studio para importar, sanitizar e otimizar arquivos vetoriais existentes). Operações booleanas de paths ficam fora do escopo para manter tudo sem dependências.'
+        limits: [
+          'Cinco primitivas apenas (retângulo, elipse, linha, triângulo, estrela): não há editor de nós de paths nem operações booleanas, por escolha — use o SVG Studio para importar, sanitizar e otimizar arquivos vetoriais existentes.',
+          'O tamanho do canvas é limitado a 16–4096 px e a exportação PNG só aceita escala 1×, 2× ou 4×.',
+          'Os nomes das formas são gerados a partir do tipo e não podem ser editados, e as coordenadas exportadas são arredondadas a duas casas decimais.'
+        ]
       }
     },
     mount, unmount

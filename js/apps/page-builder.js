@@ -543,15 +543,33 @@ VT.modules['page-builder'] = (() => {
     docs: {
       en: {
         summary: 'A drag-and-drop visual page builder with a typed block model, live canvas, properties panel, responsive preview, undo/redo, local projects and clean HTML export.',
-        usage: 'Drag a block from the palette onto the canvas (or click it to append), then reorder by dragging or with the up/down tools. Select a block and edit it in the right-hand properties panel. Switch desktop/tablet/mobile to preview responsiveness. Your work autosaves on-device; Copy HTML or Export .html to ship.',
+        usage: [
+          'Add a block from the Blocks palette: click a chip to append it, or drag it onto a drop line.',
+          'Select the block and edit its fields in the Properties panel; the canvas redraws as you type.',
+          'Reorder with the up/down tools on the block, or drag it to a new drop line.',
+          'Set Preview width to Desktop, Tablet or Mobile, then Copy HTML or Export .html.'
+        ],
         privacy: 'Composition, preview and export run entirely in your browser. Exported HTML is generated from a typed model with all text escaped — no scripts are ever injected or evaluated. Projects are stored on-device via IndexedDB.',
-        limits: 'Blocks cover common landing-page sections (heading, paragraph, button, image, quote, list, columns, divider, spacer). Image sources accept a URL or data: image; remote images load only if you add their URL. Export is static HTML + CSS, not a full site.'
+        limits: [
+          'Blocks cover common landing-page sections (heading, paragraph, button, image, quote, list, columns, divider, spacer); image blocks take a URL or a data: source, so a remote image loads only if you add its URL.',
+          'Export is one static .html file with inlined CSS — no scripts and no multi-page site.',
+          'The block document lives in IndexedDB and only the preview width stays in localStorage; drag to insert and drag to reorder require the HTML5 dataTransfer API.'
+        ]
       },
       pt: {
         summary: 'Um construtor visual de páginas com arrastar-e-soltar: modelo de blocos tipado, tela ao vivo, painel de propriedades, pré-visualização responsiva, desfazer/refazer, projetos locais e exportação de HTML limpo.',
-        usage: 'Arraste um bloco da paleta para a tela (ou clique para adicionar) e reordene arrastando ou com as setas. Selecione um bloco e edite no painel de propriedades à direita. Alterne desktop/tablet/celular para ver a responsividade. Seu trabalho é salvo automaticamente no dispositivo; Copie o HTML ou Exporte .html para publicar.',
+        usage: [
+          'Adicione um bloco pela paleta Blocos: clique no chip para acrescentá-lo ou arraste-o até uma linha de encaixe.',
+          'Selecione o bloco e edite os campos no painel de Propriedades; a tela é redesenhada enquanto você digita.',
+          'Reordene com as setas para cima/baixo do bloco, ou arraste-o para outra linha de encaixe.',
+          'Defina a Largura da prévia como Desktop, Tablet ou Celular e use Copiar HTML ou Exportar .html.'
+        ],
         privacy: 'Composição, pré-visualização e exportação rodam inteiramente no navegador. O HTML exportado é gerado de um modelo tipado com todo texto escapado — nenhum script é injetado ou avaliado. Projetos ficam no dispositivo via IndexedDB.',
-        limits: 'Os blocos cobrem seções comuns de landing page (título, parágrafo, botão, imagem, citação, lista, colunas, divisor, espaçador). Imagens aceitam URL ou data:; imagens remotas só carregam se você adicionar a URL. A exportação é HTML + CSS estático, não um site completo.'
+        limits: [
+          'Os blocos cobrem seções comuns de landing page (título, parágrafo, botão, imagem, citação, lista, colunas, divisor, espaçador); o bloco de imagem aceita URL ou data:, então uma imagem remota só carrega se você adicionar a URL.',
+          'A exportação é um único .html estático com CSS embutido — sem scripts e sem site multipágina.',
+          'O documento de blocos fica no IndexedDB e só a largura da prévia permanece no localStorage; arrastar para inserir e para reordenar exige a API dataTransfer do HTML5.'
+        ]
       }
     },
     mount, unmount

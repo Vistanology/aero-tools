@@ -469,15 +469,35 @@ VT.modules['document-workshop'] = (() => {
     docs: {
       en: {
         summary: 'A local-first document editor for print-ready output. Compose a document from ordered sections, each written in safe Markdown, with a cover header (title, author, date), an automatic table of contents, a serif or sans theme and an adjustable font size. Preview live, then export a standalone printable HTML file, export the source as Markdown, or send it to the browser print dialog (PDF via Save as PDF).',
-        usage: 'Type a title and optional author/date, choose a theme and size, then add sections. Write Markdown in each section (headings, bold/italic/strike, inline and fenced code, links, lists, task lists, blockquotes, rules). Reorder or delete sections, undo/redo the whole document, Save a named project, or New/Sample. Print opens the browser print dialog with print-only CSS.',
+        usage: [
+          'Fill the document fields — title, optional author and date — then choose the Serif or Sans theme and the font size (80–160 %).',
+          'Add a section, give it a heading and write Markdown in its body; reorder with ↑ / ↓ and remove with ×.',
+          'Switch Write / Split / Preview to check the layout; the table of contents appears once you have two or more sections.',
+          'Print opens the browser print dialog with print-only CSS, Export HTML gives a standalone file and Export Markdown the source.',
+          'Save a named project, or start over with New / Sample; undo/redo covers the whole document.'
+        ],
         privacy: 'The document is stored on-device (IndexedDB autosave + named projects) and never uploaded. Every user string is HTML-escaped and rendered from a plain data model via textContent and esc; only http/https/mailto/# link protocols are kept (javascript: and others become inert text). There is no eval and no raw-HTML passthrough. Print uses a same-document hidden iframe with your own generated, escaped markup.',
-        limits: 'One active document at a time (named projects let you keep several). Undo history is in-memory only and resets when you leave the tool. Auto headings in the body are capped to h3-h6 so they nest under each section h2.'
+        limits: [
+          'Headings written inside a section body are forced to h3–h6 so they nest under the section h2, and the Markdown subset has no images or tables.',
+          'The table of contents only renders when the document has two or more sections.',
+          'One active document at a time (named projects keep several), undo history is the shared in-memory stack that resets when you leave the tool, and a PDF depends on the browser print dialog: if it is blocked you get a notice instead, and the tool never converts the file itself.'
+        ]
       },
       pt: {
-        summary: 'Um editor de documentos local-first para saida pronta para impressao. Monte um documento a partir de secoes ordenadas, cada uma em Markdown seguro, com cabecalho (titulo, autor, data), sumario automatico, tema serifado ou sem serifa e tamanho de fonte ajustavel. Previa ao vivo e depois exporte um arquivo HTML autonomo para impressao, exporte a fonte como Markdown, ou envie para a caixa de impressao do navegador.',
-        usage: 'Digite um titulo e opcionalmente autor/data, escolha tema e tamanho e adicione secoes. Escreva Markdown em cada secao (cabecalhos, negrito/italico/tachado, codigo, links, listas, listas de tarefas, citacoes, regras). Reordene ou exclua secoes, desfacca/refaca o documento, Salve um projeto nomeado ou use Novo/Exemplo.',
-        privacy: 'O documento e armazenado no dispositivo (autosave no IndexedDB + projetos nomeados) e nunca e enviado. Todo texto do usuario e escapado em HTML e renderizado de um modelo de dados puro via textContent e esc; apenas protocolos http/https/mailto/# sao mantidos. Nao ha eval nem passagem de HTML bruto. A impressao usa um iframe oculto do mesmo documento com seu markup gerado e escapado.',
-        limits: 'Um documento ativo por vez (projetos nomeados permitem manter varios). O historico de desfazer e so em memoria. Cabecalhos do corpo sao limitados a h3-h6 para se aninharem sob o h2 de cada secao.'
+        summary: 'Um editor de documentos local-first para saída pronta para impressão. Monte um documento a partir de seções ordenadas, cada uma em Markdown seguro, com cabeçalho (título, autor, data), sumário automático, tema serifado ou sem serifa e tamanho de fonte ajustável. Prévia ao vivo e depois exporte um arquivo HTML autônomo para impressão, exporte a fonte como Markdown, ou envie para a caixa de impressão do navegador.',
+        usage: [
+          'Preencha os campos do documento — título, autor e data opcionais — e escolha o tema Serifado ou Sem serifa e o tamanho da fonte (80–160 %).',
+          'Adicione uma seção, dê um título a ela e escreva Markdown no corpo; reordene com ↑ / ↓ e remova com ×.',
+          'Alterne Escrita / Dividido / Prévia para conferir o layout; o sumário aparece a partir de duas seções.',
+          'Imprimir abre a caixa de impressão do navegador com CSS próprio de impressão; Exportar HTML gera um arquivo autônomo e Exportar Markdown, a fonte.',
+          'Salve um projeto nomeado, ou recomece com Novo / Exemplo; desfazer/refaça cobre o documento inteiro.'
+        ],
+        privacy: 'O documento é armazenado no dispositivo (salvamento automático no IndexedDB + projetos nomeados) e nunca é enviado. Todo texto do usuário é escapado em HTML e renderizado de um modelo de dados puro via textContent e esc; apenas protocolos http/https/mailto/# são mantidos. Não há eval nem passagem de HTML bruto. A impressão usa um iframe oculto do mesmo documento com seu markup gerado e escapado.',
+        limits: [
+          'Cabeçalhos escritos dentro do corpo de uma seção são forçados a h3–h6 para se aninharem sob o h2 da seção, e o subconjunto de Markdown não tem imagens nem tabelas.',
+          'O sumário só é renderizado quando o documento tem duas ou mais seções.',
+          'Um documento ativo por vez (projetos nomeados mantêm vários), o histórico de desfazer é a pilha compartilhada em memória, zerada ao sair da ferramenta, e o PDF depende da caixa de impressão do navegador: se ela for bloqueada você recebe um aviso, e a ferramenta nunca converte o arquivo por conta própria.'
+        ]
       }
     },
     mount, unmount
@@ -506,25 +526,25 @@ VT.modules['document-workshop'] = (() => {
       'dw.sampleH3': 'Code', 'dw.sampleB3': 'Render blocks exactly:\n\n```\nfunction greet(name) {\n  return "hello, " + name;\n}\n```'
     },
     pt: {
-      'dw.docDefault': 'Documento sem titulo', 'dw.sec1': 'Introducao', 'dw.sec1body': 'Comece a escrever esta secao em **Markdown**. A previa e o sumario se atualizam ao vivo.',
-      'dw.new': 'Novo', 'dw.sample': 'Exemplo', 'dw.newDone': 'Novo documento iniciado', 'dw.newSection': 'Nova secao',
-      'dw.modeWrite': 'Escrita', 'dw.modeSplit': 'Dividido', 'dw.modePreview': 'Previa',
-      'dw.mode': 'Visao do documento', 'dw.docMeta': 'Documento', 'dw.sections': 'Secoes', 'dw.preview': 'Previa do documento',
-      'dw.emptyTitle': 'Uma folha em branco ainda e um documento', 'dw.emptyBody': 'Escreva uma secao a esquerda ou abra o exemplo para ver o Markdown virar uma pagina pronta para impressao.', 'dw.emptyCta': 'Abrir o exemplo', 'dw.emptyUndo': 'desfazer · o documento inteiro e uma unica historia',
+      'dw.docDefault': 'Documento sem título', 'dw.sec1': 'Introdução', 'dw.sec1body': 'Comece a escrever esta seção em **Markdown**. A prévia e o sumário se atualizam ao vivo.',
+      'dw.new': 'Novo', 'dw.sample': 'Exemplo', 'dw.newDone': 'Novo documento iniciado', 'dw.newSection': 'Nova seção',
+      'dw.modeWrite': 'Escrita', 'dw.modeSplit': 'Dividido', 'dw.modePreview': 'Prévia',
+      'dw.mode': 'Visão do documento', 'dw.docMeta': 'Documento', 'dw.sections': 'Seções', 'dw.preview': 'Prévia do documento',
+      'dw.emptyTitle': 'Uma folha em branco ainda é um documento', 'dw.emptyBody': 'Escreva uma seção à esquerda ou abra o exemplo para ver o Markdown virar uma página pronta para impressão.', 'dw.emptyCta': 'Abrir o exemplo', 'dw.emptyUndo': 'desfazer · o documento inteiro é uma única história',
       'dw.print': 'Imprimir', 'dw.exportHtml': 'Exportar HTML', 'dw.exportMd': 'Exportar Markdown',
-      'dw.exportedHtml': 'Documento exportado como HTML', 'dw.exportedMd': 'Documento exportado como Markdown', 'dw.printBlocked': 'A impressao foi bloqueada pelo navegador.',
-      'dw.addSection': 'Adicionar secao', 'dw.secHeading': 'Titulo da secao', 'dw.secHeadingPh': 'Titulo da secao...', 'dw.secBody': 'Corpo da secao', 'dw.secBodyPh': 'Escreva Markdown...',
-      'dw.del': 'Excluir', 'dw.delSec': 'Excluir secao', 'dw.delSecQ': 'Excluir a secao "{name}"? Isso nao pode ser desfeito.', 'dw.up': 'Subir', 'dw.down': 'Descer',
-      'dw.docTitle': 'Titulo do documento', 'dw.docTitlePh': 'Titulo do documento...', 'dw.author': 'Autor', 'dw.authorPh': 'Autor', 'dw.date': 'Data', 'dw.theme': 'Tema', 'dw.themeSerif': 'Serifado', 'dw.themeSans': 'Sem serifa',
-      'dw.toc': 'Sumario', 'dw.noSections': 'Nenhuma secao ainda. Adicione uma para comecar.', 'dw.untitled': 'Sem titulo', 'dw.untitledSection': 'Secao sem titulo',
-      'dw.stats': '{words} palavras · {chars} caracteres · {sections} secao(es)',
+      'dw.exportedHtml': 'Documento exportado como HTML', 'dw.exportedMd': 'Documento exportado como Markdown', 'dw.printBlocked': 'A impressão foi bloqueada pelo navegador.',
+      'dw.addSection': 'Adicionar seção', 'dw.secHeading': 'Título da seção', 'dw.secHeadingPh': 'Título da seção...', 'dw.secBody': 'Corpo da seção', 'dw.secBodyPh': 'Escreva Markdown...',
+      'dw.del': 'Excluir', 'dw.delSec': 'Excluir seção', 'dw.delSecQ': 'Excluir a seção "{name}"? Isso não pode ser desfeito.', 'dw.up': 'Subir', 'dw.down': 'Descer',
+      'dw.docTitle': 'Título do documento', 'dw.docTitlePh': 'Título do documento...', 'dw.author': 'Autor', 'dw.authorPh': 'Autor', 'dw.date': 'Data', 'dw.theme': 'Tema', 'dw.themeSerif': 'Serifado', 'dw.themeSans': 'Sem serifa',
+      'dw.toc': 'Sumário', 'dw.noSections': 'Nenhuma seção ainda. Adicione uma para começar.', 'dw.untitled': 'Sem título', 'dw.untitledSection': 'Seção sem título',
+      'dw.stats': '{words} palavras · {chars} caracteres · {sections} seção(ões)',
       'dw.projects': 'Projetos', 'dw.save': 'Salvar', 'dw.open': 'Abrir', 'dw.projNamePh': 'Nome do projeto', 'dw.noProjects': 'Nenhum projeto salvo ainda.',
-      'dw.projSaved': 'Projeto "{name}" salvo', 'dw.projOpened': 'Projeto "{name}" aberto', 'dw.dbUnavailable': 'Armazenamento local indisponivel — o documento nao pode ser salvo.', 'dw.dbError': 'Nao foi possivel acessar o armazenamento local.',
-      'dw.privacy': 'Seu documento fica neste dispositivo (IndexedDB). Todo texto e escapado e renderizado de um modelo de dados — sem eval, sem HTML bruto, nada enviado.',
-      'dw.sampleTitle': 'Relatorio Trimestral', 'dw.sampleAuthor': 'Vistanology',
-      'dw.sampleH1': 'Resumo', 'dw.sampleB1': 'Este exemplo mostra o **Markdown** que a previa aceita: enfase, `codigo inline`, [links](https://example.com), listas e mais.\n\n- Receita doze por cento maior\n- Duas novas ferramentas principais entregues\n- Offline e orientado a privacidade',
-      'dw.sampleH2': 'Destaques', 'dw.sampleB2': '## Concluido neste trimestre\n\n- [x] Entregar o Quadro Kanban\n- [x] Entregar a Bancada de Documentos\n- [ ] Coletar feedback da comunidade\n\n> Tudo roda localmente no seu navegador.',
-      'dw.sampleH3': 'Codigo', 'dw.sampleB3': 'Renderize blocos exatamente assim:\n\n```\nfunction greet(nome) {\n  return "ola, " + nome;\n}\n```'
+      'dw.projSaved': 'Projeto "{name}" salvo', 'dw.projOpened': 'Projeto "{name}" aberto', 'dw.dbUnavailable': 'Armazenamento local indisponível — o documento não pode ser salvo.', 'dw.dbError': 'Não foi possível acessar o armazenamento local.',
+      'dw.privacy': 'Seu documento fica neste dispositivo (IndexedDB). Todo texto é escapado e renderizado de um modelo de dados — sem eval, sem HTML bruto, nada enviado.',
+      'dw.sampleTitle': 'Relatório Trimestral', 'dw.sampleAuthor': 'Vistanology',
+      'dw.sampleH1': 'Resumo', 'dw.sampleB1': 'Este exemplo mostra o **Markdown** que a prévia aceita: ênfase, `código inline`, [links](https://example.com), listas e mais.\n\n- Receita doze por cento maior\n- Duas novas ferramentas principais entregues\n- Offline e orientado à privacidade',
+      'dw.sampleH2': 'Destaques', 'dw.sampleB2': '## Concluído neste trimestre\n\n- [x] Entregar o Quadro Kanban\n- [x] Entregar a Bancada de Documentos\n- [ ] Coletar feedback da comunidade\n\n> Tudo roda localmente no seu navegador.',
+      'dw.sampleH3': 'Código', 'dw.sampleB3': 'Renderize blocos exatamente assim:\n\n```\nfunction greet(nome) {\n  return "olá, " + nome;\n}\n```'
     }
   });
 

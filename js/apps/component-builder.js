@@ -364,15 +364,33 @@ VT.modules['component-builder'] = (() => {
     docs: {
       en: {
         summary: 'A visual component composer: pick a type (button, badge, alert, card), edit its properties (label, variant, size, accent color, radius, icon), see it rendered live in the design identity, and export the markup and CSS.',
-        usage: 'Choose a component type, then adjust the properties — the preview and the HTML/CSS output update instantly. Undo/redo the whole component, save named components to IndexedDB, and Copy HTML, Copy CSS or Export .html for a self-contained file. Labels are escaped and colors/sizes/variants come from validated controls.',
+        usage: [
+          'Pick a type in the Component rail: Button, Badge, Alert or Card.',
+          'Edit Properties — Label, Body (alert and card), Variant, Size, the Accent color picker, the Radius slider and the With icon switch.',
+          'Read the markup and the stylesheet side by side in the HTML and CSS panes; the preview is rendered from the same values.',
+          'Copy HTML, Copy CSS or Export .html for a self-contained file, or save it by name under Saved.'
+        ],
         privacy: 'All editing and export run in your browser. Exported HTML escapes all user text; the stylesheet interpolates only browser-validated values (color pickers, numeric radius, fixed variant/size lists). No scripts, no eval, and nothing is uploaded. Components autosave on-device via IndexedDB.',
-        limits: 'Ships four well-crafted component types covering common UI needs; it exports a single component at a time, not a full library or framework binding. The exported CSS is plain, dependency-free CSS you can drop into any project.'
+        limits: [
+          'Four types and one component at a time — switching type replaces the current property model with that type’s defaults.',
+          'Soft badge, alert and card fills rely on color-mix(in srgb, …); a browser without it loses those tints.',
+          'Radius is capped at 40 px for button, alert and card, while badges go up to 999 px for pill shapes.'
+        ]
       },
       pt: {
         summary: 'Um compositor visual de componentes: escolha um tipo (botão, selo, alerta, cartão), edite suas propriedades (rótulo, variante, tamanho, cor de destaque, raio, ícone), veja-o renderizado ao vivo na identidade de design e exporte o markup e o CSS.',
-        usage: 'Escolha um tipo de componente e ajuste as propriedades — a prévia e a saída HTML/CSS atualizam ao instante. Desfaça/refaça todo o componente, salve componentes nomeados no IndexedDB, e Copie o HTML, Copie o CSS ou Exporte .html para um arquivo autossuficiente. Rótulos são escapados e cores/tamanhos/variantes vêm de controles validados.',
+        usage: [
+          'Escolha um tipo na barra Componente: Botão, Selo, Alerta ou Cartão.',
+          'Edite Propriedades — Rótulo, Corpo (alerta e cartão), Variante, Tamanho, o seletor de cor de destaque, o controle de Raio e a opção Com ícone.',
+          'Leia o markup e a folha lado a lado nos painéis HTML e CSS; a prévia é renderizada com os mesmos valores.',
+          'Copie o HTML, copie o CSS ou exporte .html para um arquivo autossuficiente, ou salve com nome em Salvos.'
+        ],
         privacy: 'Toda a edição e exportação rodam no navegador. O HTML exportado escapa todo texto do usuário; a folha interpola apenas valores validados pelo navegador (seletores de cor, raio numérico, listas fixas de variante/tamanho). Sem scripts, sem eval, e nada é enviado. Os componentes são salvos automaticamente no dispositivo via IndexedDB.',
-        limits: 'Inclui quatro tipos de componente bem elaborados que cobrem necessidades comuns de UI; exporta um componente por vez, não uma biblioteca completa ou vinculação a framework. O CSS exportado é puro e sem dependências, pronto para qualquer projeto.'
+        limits: [
+          'Quatro tipos e um componente por vez — trocar de tipo substitui o modelo de propriedades atual pelos padrões daquele tipo.',
+          'Os fundos suaves de selo, alerta e cartão dependem de color-mix(in srgb, …); um navegador sem esse recurso perde esses tons.',
+          'O raio é limitado a 40 px em botão, alerta e cartão, enquanto selos chegam a 999 px para o formato pílula.'
+        ]
       }
     },
     mount, unmount
