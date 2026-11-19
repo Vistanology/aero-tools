@@ -273,3 +273,46 @@ VT.i18n.add({
     'lib.eyebrow': 'Catálogo', 'lib.open': 'Abrir'
   }
 });
+
+VT.i18n.add({
+  en: {
+    'nav.modules': 'Modules', 'pal.go.modules': 'Go to Modules map',
+    'mod.eyebrow': 'System map', 'mod.title': 'Module map',
+    'mod.sub': 'Every registered tool, grouped by studio, with its version, its bundled dependencies and whether its documentation is complete in both languages.',
+    'mod.search': 'Search modules…',
+    'mod.count': '{n} modules', 'mod.count.one': '{n} module',
+    'mod.cluster.count': '{n}',
+    'mod.gaps.only': 'Docs gaps only',
+    'mod.cover': '{done} of {total} fully documented',
+    'mod.cover.sub': 'A tool counts as documented when summary, usage, privacy and limits exist in English and Portuguese. The badges below name exactly what is missing.',
+    'mod.cover.done': 'Docs complete', 'mod.cover.gap': 'Docs gap',
+    'mod.missing': 'Missing', 'mod.docs': 'Docs',
+    'mod.deps': 'Bundled dependencies', 'mod.deps.sub': 'Everything the app ships is local: no CDN, no remote asset, no build step.',
+    'mod.empty.title': 'No modules match', 'mod.empty.body': 'Try another search term or clear the category.',
+    'mod.empty.act': 'Show the whole map',
+    'mod.empty.gap.title': 'No documentation gaps', 'mod.empty.gap.body': 'Every registered tool documents summary, usage, privacy and limits in both languages.',
+    'docs.search': 'Filter the documentation…', 'docs.contents': 'On this page',
+    'docs.prev': 'Previous', 'docs.next': 'Next', 'docs.all': 'All tools',
+    'docs.count': '{n} of {total} tools', 'docs.empty': 'No document matches that filter.'
+  },
+  pt: {
+    'nav.modules': 'Módulos', 'pal.go.modules': 'Ir para o Mapa de módulos',
+    'mod.eyebrow': 'Mapa do sistema', 'mod.title': 'Mapa de módulos',
+    'mod.sub': 'Cada ferramenta registrada, agrupada por estúdio, com sua versão, suas dependências bundladas e se a documentação está completa nos dois idiomas.',
+    'mod.search': 'Buscar módulos…',
+    'mod.count': '{n} módulos', 'mod.count.one': '{n} módulo',
+    'mod.cluster.count': '{n}',
+    'mod.gaps.only': 'Só falhas de docs',
+    'mod.cover': '{done} de {total} com docs completas',
+    'mod.cover.sub': 'Uma ferramenta conta como documentada quando resumo, uso, privacidade e limites existem em inglês e português. Os selos abaixo dizem exatamente o que falta.',
+    'mod.cover.done': 'Docs completas', 'mod.cover.gap': 'Falha de docs',
+    'mod.missing': 'Falta', 'mod.docs': 'Docs',
+    'mod.deps': 'Dependências bundladas', 'mod.deps.sub': 'Tudo o que o app entrega é local: sem CDN, sem recurso remoto, sem etapa de build.',
+    'mod.empty.title': 'Nenhum módulo corresponde', 'mod.empty.body': 'Tente outro termo de busca ou limpe a categoria.',
+    'mod.empty.act': 'Mostrar o mapa inteiro',
+    'mod.empty.gap.title': 'Nenhuma falha de documentação', 'mod.empty.gap.body': 'Toda ferramenta registrada documenta resumo, uso, privacidade e limites nos dois idiomas.',
+    'docs.search': 'Filtrar a documentação…', 'docs.contents': 'Nesta página',
+    'docs.prev': 'Anterior', 'docs.next': 'Próxima', 'docs.all': 'Todas as ferramentas',
+    'docs.count': '{n} de {total} ferramentas', 'docs.empty': 'Nenhum documento corresponde a esse filtro.'
+  }
+});

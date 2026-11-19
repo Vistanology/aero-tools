@@ -20,7 +20,7 @@ VT.router = (() => {
     // parâmetro para que o substrato, o palco e o CSS de [data-view="library"] sejam
     // os mesmos, e a única coisa que mude seja o recorte do acervo.
     if (v === 'favorites') return { view: 'library', param: 'favorites' };
-    if (['library', 'open', 'settings'].includes(v)) return { view: v, param: null };
+    if (['library', 'modules', 'open', 'settings'].includes(v)) return { view: v, param: null };
     return { view: 'hub', param: null };
   }
 
@@ -44,6 +44,7 @@ VT.router = (() => {
       hub: 'Vistanology Open — ' + t('hub.title1') + ' ' + t('hub.title2'),
       library: (param === 'favorites' ? t('nav.favorites') : t('lib.title')) + ' — Vistanology Open',
       docs: t('docs.title') + ' — Vistanology Open',
+      modules: t('mod.title') + ' — Vistanology Open',
       open: t('open.title') + ' — Vistanology Open',
       settings: t('set.title') + ' — Vistanology Open'
     };

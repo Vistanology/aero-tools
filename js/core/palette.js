@@ -49,6 +49,7 @@ VT.palette = (() => {
       ['/', 'pal.go.home', I.arrowRight],
       ['/library', 'pal.go.library', I.layers],
       ['/docs', 'pal.go.docs', I.book],
+      ['/modules', 'pal.go.modules', I.grid],
       ['/open', 'pal.go.open', I.branch],
       ['/settings', 'pal.go.settings', I.settings]
     ];

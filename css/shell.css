@@ -630,9 +630,103 @@ body[data-view="hub"] .hero {
 .docs-article h1 { font-family: var(--font-display); font-size: 40px; color: var(--ice); font-weight: var(--weight-display); letter-spacing: -.026em; }
 .docs-meta { display: flex; gap: 8px; flex-wrap: wrap; }
 
+/* The docs filter lives inside the nav plate, so it borrows the search-bar material
+   and only re-takes the geometry: the shared .kbd keycap is not needed here. */
+.search-bar.is-nav { margin-bottom: 0; padding: 4px 10px 4px 14px; box-shadow: inset 0 1px 0 rgba(216, 252, 255, .34), inset 0 -1px 0 rgba(0, 60, 96, .4); }
+.search-bar.is-nav input { padding: 6px 0; font-size: 13px; }
+.dn-foot { margin: auto 0 0; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+
+/* Section index of the open document. These are scroll targets, not routes: the
+   app owns the hash, so an <a href="#sec"> would steal navigation. */
+.docs-toc { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 10px 12px; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--glass-1); }
+.docs-toc .dt-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); margin-right: 2px; }
+.docs-toc .dt-link { font: inherit; font-size: 12px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--chip-line); background: var(--chip-bg); color: var(--fg-2); cursor: pointer; transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease); }
+.docs-toc .dt-link:hover { color: var(--ice); border-color: var(--line-strong); }
+.docs-sec { scroll-margin-top: calc(var(--topbar-h) + 24px); }
+.docs-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.docs-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; border-top: 1px solid var(--line); padding-top: 14px; margin-top: 6px; }
+.docs-pager .dp-side { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.docs-pager .dp-side.is-next { text-align: right; align-items: flex-end; }
+.docs-pager .dp-dir { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.docs-pager .dp-dir svg { width: 14px; height: 14px; }
+.docs-pager .dp-name { font-size: 14px; color: var(--fg-2); overflow: hidden; text-overflow: ellipsis; }
+.docs-pager .dp-side:hover .dp-name { color: var(--cyan); text-decoration: none; }
+.docs-pager .dp-side.is-empty { border: 0; }
+.docs-none { font-size: 13px; color: var(--fg-3); }
+@media (max-width: 760px) {
+  .docs-pager { grid-template-columns: 1fr; }
+  .docs-pager .dp-side.is-next { text-align: left; align-items: flex-start; }
+}
+
+/* ---------- Modules map ---------- */
+/* The map is a catalogue view, so it borrows the Library's material language
+   (lit plate, ocean substrate, staggered entrance) instead of inventing a fourth. */
+.mod-stage {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end;
+  gap: 20px; overflow: hidden; border-radius: var(--r-xl); padding: 30px 34px 26px;
+  margin-bottom: 22px;
+}
+.mod-stage h1 { font-family: var(--font-display); font-size: var(--display-l); color: var(--on-field); line-height: var(--lead); letter-spacing: var(--track-display); font-weight: var(--weight-display); margin: 6px 0 0; }
+.mod-stage .ms-sub { color: var(--on-field-2); font-size: 14px; margin-top: 8px; max-width: 64ch; line-height: 1.6; }
+.mod-cover .mono, .mc-count .mono { font-family: var(--font-mono); font-size: 11px; color: var(--on-field-3); letter-spacing: .14em; text-transform: uppercase; }
+@media (max-width: 760px) {
+  .mod-stage { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+  .mod-cover .mono { align-self: flex-start; }
+}
+
+/* Coverage plate: the honest answer to "is every tool documented?". */
+.mod-cover { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border-radius: var(--r-lg); margin-bottom: 22px; }
+.mod-cover .mc-lead { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 550; color: var(--fg); }
+.mod-cover .mc-lead svg { width: 17px; height: 17px; color: var(--ok); flex: none; }
+.mod-cover .mc-sub { font-size: 12px; color: var(--fg-3); flex: 1 1 34ch; min-width: 0; }
+.mod-cover[data-gaps="true"] .mc-lead svg { color: var(--badge-warn); }
+
+.mod-clusters { display: flex; flex-direction: column; gap: 18px; }
+.mod-cluster { padding: 20px 22px; border-radius: var(--r-lg); display: flex; flex-direction: column; gap: 14px; }
+.mod-cluster .mc-head { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 12px; }
+.mod-cluster .mc-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; color: var(--dim); }
+.mod-cluster .mc-orb { width: 34px; height: 34px; }
+.mod-cluster .mc-head h2 { font-family: var(--font-display); font-size: 21px; color: var(--ice); font-weight: var(--weight-display); letter-spacing: -.02em; }
+.mod-cluster .mc-head p { font-size: 12px; color: var(--fg-3); margin-top: 2px; }
+.mod-cluster .mc-count { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.mod-cluster .mc-nodes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 10px; }
+
+.mod-node {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; align-items: start;
+  padding: 12px 14px; border-radius: var(--r-md); border: 1px solid var(--line);
+  background: var(--glass-1);
+  animation: tile-in 420ms var(--ease-aero) both;
+  animation-delay: calc(var(--i, 0) * 22ms);
+}
+.mod-node .orb { grid-row: span 2; width: 30px; height: 30px; }
+.mod-node .mn-text { min-width: 0; }
+.mod-node .mn-name { font-size: 13.5px; font-weight: 550; color: var(--ice); }
+.mod-node .mn-name:hover { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+.mod-node .mn-tag { font-size: 11.5px; color: var(--fg-3); margin-top: 2px; line-height: 1.45; }
+.mod-node .mn-meta { grid-column: 2; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.mod-node .mn-meta .badge { font-size: 10px; }
+.mod-node .mn-docs { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--fg-2); }
+.mod-node .mn-docs svg { width: 14px; height: 14px; }
+.mod-node .mn-docs:hover { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+.mod-node .mn-gaps { grid-column: 2; margin-top: 5px; font-size: 10.5px; line-height: 1.45; color: var(--fg-2); overflow-wrap: anywhere; }
+.mod-node.is-gap { border-color: var(--badge-warn-line); background: var(--badge-warn-bg); }
+
+.mod-deps { padding: 22px 24px; border-radius: var(--r-lg); margin-top: 4px; }
+.mod-deps h2 { font-family: var(--font-display); font-size: 21px; color: var(--ice); font-weight: var(--weight-display); display: flex; align-items: center; gap: 8px; }
+.mod-deps h2 svg { width: 18px; height: 18px; color: var(--cyan-soft); }
+.mod-deps .md-sub { font-size: 12px; color: var(--fg-3); margin: 4px 0 12px; }
+
+.chip-flag { font-family: inherit; }
+.chip-flag svg { width: 14px; height: 14px; }
+
+@media (prefers-reduced-motion: reduce) { .mod-node { animation: none; } }
+body[data-motion="reduced"] .mod-node { animation: none; }
+
 /* ---------- Open ---------- */
 .open-hero {
-  margin: 0 -22px 26px; padding: 26px 28px 24px; border-radius: var(--r-lg);
+  /* Same bleed contract as .app-masthead: the gutter is --view-pad-x, not a fixed 22px. */
+  margin: 0 calc(var(--view-pad-x) * -1) 26px; padding: 26px calc(var(--view-pad-x) + 4px) 24px;
+  border-radius: var(--r-lg);
   background: linear-gradient(180deg, rgba(0, 30, 52, .5), rgba(0, 22, 40, .3) 70%, rgba(0, 20, 38, 0));
 }
 .open-hero h1 { font-family: var(--font-display); font-size: var(--display-l); color: var(--on-field); font-weight: var(--weight-display); letter-spacing: var(--track-display); line-height: var(--lead); }

@@ -30,6 +30,7 @@ VT.settings = (() => {
           <a href="#/library" data-nav="library">${I.layers}<span>${t('nav.library')}</span></a>
           <a href="#/favorites" data-nav="favorites">${I.star}<span>${t('nav.favorites')}</span></a>
           <a href="#/docs" data-nav="docs">${I.book}<span>${t('nav.docs')}</span></a>
+          <a href="#/modules" data-nav="modules">${I.grid}<span>${t('nav.modules')}</span></a>
           <a href="#/open" data-nav="open">${I.branch}<span>${t('nav.open')}</span></a>
           <a class="mobile-settings" href="#/settings" data-nav="settings">${I.settings}<span>${t('nav.settings')}</span></a>
         </nav>
@@ -123,6 +124,7 @@ VT.settings = (() => {
   VT.router.register('library', VT.shell.library);
   VT.router.register('tool', VT.shell.appframe);
   VT.router.register('docs', VT.shell.docs);
+  VT.router.register('modules', VT.shell.modules);
   VT.router.register('open', VT.shell.open);
   VT.router.register('settings', VT.shell.settings);
 

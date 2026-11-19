@@ -25,7 +25,7 @@ const SHELL = [
   'css/components.css', 'css/shell.css', 'css/apps.css', 'css/responsive.css',
   'js/core/utils.js', 'js/core/storage.js', 'js/core/db.js', 'js/core/i18n.js', 'js/core/icons.js', 'js/core/ui.js',
   'js/core/registry.js', 'js/core/router.js', 'js/core/palette.js', 'js/core/workers.js', 'js/core/history.js', 'js/app.js',
-  'js/shell/hub.js', 'js/shell/library.js', 'js/shell/appframe.js', 'js/shell/docs.js',
+  'js/shell/hub.js', 'js/shell/library.js', 'js/shell/appframe.js', 'js/shell/docs.js', 'js/shell/modules.js',
   'js/shell/open.js', 'js/shell/settings.js',
   'assets/vendor/qrcode.js',
   'assets/fonts/instrument-serif-normal-400.woff2', 'assets/fonts/instrument-serif-italic-400.woff2',

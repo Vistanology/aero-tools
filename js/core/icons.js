@@ -12,6 +12,8 @@ VT.icons = (() => {
     settings: w('<path d="M4 7h10M18 7h2M4 12h4M12 12h8M4 17h10M18 17h2"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="16" cy="17" r="2"/><path class="ia" d="M4 7h6"/>'),
     globe: w('<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.3 3.9 5.2 3.9 8.5s-1.3 6.2-3.9 8.5c-2.6-2.3-3.9-5.2-3.9-8.5s1.3-6.2 3.9-8.5Z"/><path class="ia" d="M5 8.5h14"/>'),
     book: w('<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21Z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/><path class="ia" d="M8 7.5h8"/>'),
+    grid: w('<rect x="4" y="4" width="6.4" height="6.4" rx="1.6"/><rect x="13.6" y="4" width="6.4" height="6.4" rx="1.6"/><rect x="4" y="13.6" width="6.4" height="6.4" rx="1.6"/><rect class="ia" x="13.6" y="13.6" width="6.4" height="6.4" rx="1.6"/>'),
+    barcode: w('<path d="M3.5 6v12M6.5 6v12M9.5 6v8M12.5 6v12M15.5 6v8M18 6v12M20.5 6v12"/><path class="ia" d="M9.5 10v4"/>'),
     branch: w('<circle cx="6.5" cy="6" r="2.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="8" r="2.5"/><path d="M6.5 8.5v7"/><path d="M17.5 10.5c0 3-2.5 4.5-5.5 4.5H9"/><path class="ia" d="M15.5 8h2"/>'),
     shield: w('<path d="M12 3 5 5.8v5.4c0 4.4 3 8 7 9.8 4-1.8 7-5.4 7-9.8V5.8Z"/><path class="ia" d="m9 11.6 2.2 2.2L15.4 9.6"/>'),
     lock: w('<rect x="5.5" y="10.5" width="13" height="9.5" rx="2"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7"/><path class="ia" d="M12 14.5v2"/>'),
