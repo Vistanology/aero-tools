@@ -518,6 +518,11 @@ body[data-view="hub"] .hero {
   animation: tile-in 460ms var(--ease-aero) both;
   animation-delay: calc(var(--i, 0) * 36ms);
 }
+.tool-tile[style*="--skip-anim: 1"] {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+}
 /* Refracted rim: bright at the crown, aqua picking up the sea light at the base. */
 .tool-tile::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;

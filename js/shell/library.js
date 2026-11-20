@@ -1,7 +1,7 @@
 window.VT = window.VT || {};
 VT.shell = VT.shell || {};
 
-VT.shell.libraryState = { q: '', cat: 'all', fav: false, sort: 'collection', recent: false, transitioning: false };
+VT.shell.libraryState = { q: '', cat: 'all', fav: false, sort: 'collection', recent: false, transitioning: false, skipAnim: false };
 
 VT.shell.library = (el, param) => {
   const t = VT.i18n.t, L = VT.i18n.lang, I = VT.icons, R = VT.registry;
@@ -118,7 +118,7 @@ VT.shell.library = (el, param) => {
       return;
     }
     grid.innerHTML = list.map((m, i) => `
-      <div class="tool-tile" data-id="${m.id}" data-cat="${m.cat}" style="--i:${i}">
+      <div class="tool-tile" data-id="${m.id}" data-cat="${m.cat}" style="--i:${i}; --skip-anim: ${S.skipAnim ? 1 : 0}">
         <a class="tt-link" href="#/tool/${m.id}" aria-label="${VT.utils.esc(m.name[L])}">
           <div class="tt-crest">
             <span class="tt-mark" aria-hidden="true">${I[m.icon]}</span>
@@ -183,7 +183,12 @@ VT.shell.library = (el, param) => {
           // Wait for exit animation, then swap and animate in
           setTimeout(() => {
             S.cat = newCat;
-            showCollection(false);
+            // Update stage without re-rendering grid (syncStage handles stage)
+            syncStage();
+            // Update chip states only
+            VT.utils.$$('#lib-chips .chip', el).forEach((c) => {
+              c.setAttribute('aria-pressed', c.dataset.fav ? S.fav : (!S.fav && !S.recent && c.dataset.cat === S.cat));
+            });
             // Animate in
             requestAnimationFrame(() => {
               grid.style.setProperty('--cat-exit', '0');
@@ -201,6 +206,11 @@ VT.shell.library = (el, param) => {
                 stage.style.removeProperty('--cat-exit');
                 stage.style.removeProperty('--cat-enter');
                 S.transitioning = false;
+                // Now re-render grid with new category data (after transition completes)
+                S.skipAnim = true;
+                renderGrid();
+                // Clear flag after next frame so subsequent interactions animate normally
+                requestAnimationFrame(() => { S.skipAnim = false; });
               }, 420);
             });
           }, 200);
