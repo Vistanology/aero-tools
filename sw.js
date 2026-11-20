@@ -16,7 +16,7 @@ const ASSET_CACHE = 'vt-asset-' + VERSION;
 const APPS = [
   'qr-studio', 'color-studio', 'gradient-lab', 'font-preview', 'svg-studio', 'palette-extractor', 'password', 'uuid',
   'lorem-ipsum', 'barcode-studio', 'image-compress', 'image-convert', 'image-resize', 'image-meta', 'tone-lab', 'json-formatter', 'data-workspace',
-  'base64', 'url-toolkit', 'regex-tester', 'timestamp', 'text-diff', 'hash-generator', 'jwt-inspector', 'cron-lens', 'markdown-preview', 'page-builder', 'design-lab', 'playground', 'animation-studio', 'component-builder', 'image-studio', 'favicon-studio', 'svg-editor', 'notes', 'kanban', 'document-workshop', 'diagram-studio', 'mind-map-studio'
+  'base64', 'url-toolkit', 'regex-tester', 'timestamp', 'text-diff', 'hash-generator', 'jwt-inspector', 'cron-lens', 'subnet-scope', 'markdown-preview', 'page-builder', 'design-lab', 'playground', 'animation-studio', 'component-builder', 'image-studio', 'favicon-studio', 'svg-editor', 'notes', 'kanban', 'document-workshop', 'diagram-studio', 'mind-map-studio'
 ];
 
 const SHELL = [
