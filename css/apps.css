@@ -2427,6 +2427,57 @@ textarea.nt-body { flex: 1 1 auto; min-height: 260px; resize: none; font-family:
   .bc-grid { grid-template-columns: 1fr 1fr; }
 }
 
+/* ---------- Palette Extractor (pe) ---------- */
+/* The swatches are the product, so they carry the colour at full bleed and the
+   numbers are set in the colour's own ink (chosen by contrast in the app), while
+   everything around them stays on the shared substrate. */
+.pe-work { display: flex; flex-direction: column; gap: 14px; max-width: 940px; }
+.pe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; align-items: end; }
+.pe-stage {
+  display: flex; justify-content: center; align-items: center;
+  padding: 12px; border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--code-bg); overflow: auto;
+}
+.pe-stage img { max-width: 100%; max-height: 220px; border-radius: 2px; }
+.pe-status { margin: 10px 0 0; min-height: 18px; font-size: 12.5px; line-height: 1.5; color: var(--fg-2); }
+.pe-status.ok { color: var(--ok-ink); }
+.pe-status.bad { color: var(--err-ink); }
+.pe-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; }
+.pe-swatch {
+  display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
+  min-height: 84px; padding: 9px 10px; border: 1px solid var(--line); border-radius: var(--r-sm);
+  font: inherit; text-align: left; cursor: pointer;
+}
+.pe-swatch:hover { border-color: currentColor; }
+.pe-hex { font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: .02em; }
+.pe-share { font-family: var(--font-mono); font-size: 11.5px; opacity: .9; }
+.pe-hsl { font-family: var(--font-mono); font-size: 10.5px; opacity: .72; }
+.pe-sub { margin: 18px 0 4px; font-size: 13px; font-weight: 600; color: var(--fg-1); }
+.pe-summary { display: grid; max-width: 560px; margin-top: 14px; }
+.pe-row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 7px 0; border-bottom: 1px solid var(--line);
+  font-size: 12.5px; color: var(--fg-2);
+}
+.pe-row:last-child { border-bottom: 0; }
+.pe-row b {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--fg-1);
+  overflow-wrap: anywhere; text-align: right;
+}
+.pe-matrix { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px 14px; }
+.pe-pair {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 0; border-bottom: 1px solid var(--hair); font-size: 12px; color: var(--fg-2);
+}
+.pe-pair b { font-family: var(--font-mono); font-size: 12px; color: var(--fg-1); }
+.pe-dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--line); flex: none; }
+.pe-code { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; resize: vertical; }
+@media (max-width: 560px) {
+  .pe-grid { grid-template-columns: 1fr 1fr; }
+  .pe-swatches { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); }
+  .pe-matrix { grid-template-columns: 1fr; }
+}
+
 
 /* ---------- Narrow screens: a single-column bench never inherits its width from a <pre> ---------- */
 @media (max-width: 980px) {

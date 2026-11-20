@@ -37,11 +37,11 @@ Frutiger Aero como ponto de partida, não como fantasia. A meta é parecer Vista
 
 ---
 
-## Status · F2 complete · U1 offline-first · U2 project store · U3 command palette · U4 worker pipeline (+ U4b evidence-gated adoption) · U5 undo/redo (+ U5b JSON/SVG) · U6 flagship Data Workspace · U7 flagship Visual Page Builder · U8 flagship Design System Lab · U9 flagship Playground · U10 flagship CSS Animation Studio · U11 flagship Component Builder · U12 flagship Image Studio · U13 flagship Favicon & Icon Studio · U14 flagship SVG Editor · U15 flagship Notes Workspace · U16 flagship Kanban Board · U17 flagship Document Workshop · U18 flagship Diagram Studio · U19 flagship Mind Map Studio · AERO full visual redesign (0.24.0) · C design-system consolidation, key art and offline re-verification (0.25.0) — 36 tools (the 31-tool target is met and exceeded)
+## Status · F2 complete · U1 offline-first · U2 project store · U3 command palette · U4 worker pipeline (+ U4b evidence-gated adoption) · U5 undo/redo (+ U5b JSON/SVG) · U6 flagship Data Workspace · U7 flagship Visual Page Builder · U8 flagship Design System Lab · U9 flagship Playground · U10 flagship CSS Animation Studio · U11 flagship Component Builder · U12 flagship Image Studio · U13 flagship Favicon & Icon Studio · U14 flagship SVG Editor · U15 flagship Notes Workspace · U16 flagship Kanban Board · U17 flagship Document Workshop · U18 flagship Diagram Studio · U19 flagship Mind Map Studio · AERO full visual redesign (0.24.0) · C design-system consolidation, key art and offline re-verification (0.25.0) — 37 tools (the 31-tool target is met and exceeded)
 
 | Category | Shipped now | Planned |
 |---|---|---|
-| 01 Creative Studio | Color Studio, Gradient Lab, Font Preview, SVG Studio, SVG Editor, Diagram Studio, Mind Map Studio | — |
+| 01 Creative Studio | Color Studio, Palette Extractor, Gradient Lab, Font Preview, SVG Studio, SVG Editor, Diagram Studio, Mind Map Studio | — |
 | 02 Generators | QR Studio, Password, UUID, Lorem Ipsum, Barcode Studio, Favicon & Icon Studio | — |
 | 03 Media Lab | Compressor, Converter, Resizer, Metadata | — |
 | 04 Developer Tools | JSON, Base64, URL, Regex, Timestamp, Diff, Hash, JWT Inspector, Markdown | — |
@@ -114,6 +114,13 @@ legíveis e graváveis offline.
   vCard), colors, quiet zone, ECC, center logo (auto-locks ECC H), PNG/SVG export.
 - **[Color Studio](docs/color-studio.md)** — harmony palettes with per-swatch locks, precision
   inspector (HEX/RGB/HSL), WCAG 2.1 contrast checker, k-means image extraction, CSS/HEX/JSON export.
+- **[Palette Extractor](docs/palette-extractor.md)** — median cut over the pixels the browser samples:
+  2–16 colours with the share of the grid each one holds, the sampling resolution you control, transparency
+  skipped or counted, the WCAG ratio of every pair among the leading six, and `:root` CSS / JSON / hex-list
+  exports. Deterministic and locally provable — `_dev/probe-palette.js` runs the shipping `medianCut()` against
+  hand-computed cases, and the sample image is four flat quadrants whose palette is known before it is read.
+  (Color Studio's k-means answers "what dominates this image in six colours"; this answers "what is in the file,
+  how much of it is there, and can those colours carry text".)
 - **[Gradient Lab](docs/gradient-lab.md)** — linear/radial/conic gradients, live stage, up to eight
   editable stops, six presets, CSS copy and PNG (512/1024/2048) / SVG export verified pixel-for-pixel.
 - **[Font Preview](docs/font-preview.md)** — bundled/system/your-own fonts (local FontFace, never
