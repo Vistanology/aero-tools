@@ -9,7 +9,7 @@
  * (ex.: primeira visita a uma ferramenta nunca aberta), ela é buscada na rede e entra no cache.
  */
 
-const VERSION = 'v62-playground-hero';
+const VERSION = 'v63-three-new-tools';
 const SHELL_CACHE = 'vt-shell-' + VERSION;
 const ASSET_CACHE = 'vt-asset-' + VERSION;
 

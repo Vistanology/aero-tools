@@ -1,5 +1,5 @@
 window.VT = window.VT || {};
-VT.version = '0.25.0';
+VT.version = '0.26.0';
 
 VT.settings = (() => {
   const DEFAULTS = { motion: 'full', glass: 'liquid' };

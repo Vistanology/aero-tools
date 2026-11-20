@@ -3,6 +3,67 @@
 All notable changes to Vistanology Open are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [SemVer](https://semver.org/).
 
+## [0.26.0] — 2026-11-19
+
+Three tools, two new ways to read the whole collection, and a round of defects found by measurement rather than by
+looking. Note: the atmosphere and glass work recorded below as `[Unreleased]` (2026-11-17) ships inside this build; its
+`v59-aero-atmosphere` token was superseded by `v62-playground-hero` and now `v63-three-new-tools`, and the two open
+items it lists — no recorded responsive/contrast evidence for that pass, and `VT.version` left at 0.25.0 — are resolved
+here: the version is reconciled to **0.26.0**, and the current suite below re-measures every view, including theirs.
+
+### Added
+- **JWT Inspector** (`js/apps/jwt-inspector.js`, 04 Developer) — decodes header/payload/signature locally and verifies
+  HS256/HS384/HS512 through Web Crypto, with RS256 verification against a pasted JWK/PEM key.
+- **Barcode Studio** (`js/apps/barcode-studio.js`, 02 Generators) — EAN-13 and Code 128 drawn from the published symbol
+  tables (`_dev/extract-ean13.js`, `_dev/extract-code128.js`), check digit computed and verified, code sets chosen or
+  forced, module structure reported row by row, PNG and SVG exported from one geometry.
+- **Palette Extractor** (`js/apps/palette-extractor.js`, 01 Creative Studio) — median cut over the pixels the browser
+  samples: 2–16 colours with their share of the sampled grid, controllable resolution, transparency skipped or
+  counted, WCAG ratio for every pair among the leading six, and `:root` CSS / JSON / hex-list exports.
+- **`#/modules`** (`js/shell/modules.js`) — a map of every registered tool: category, dependencies, version, storage
+  footprint and docs link, so the collection can be read as a system instead of 37 separate tiles.
+- **Navigable Docs** (`js/shell/docs.js`) — a bilingual index that walks straight to any tool page, plus per-tool
+  `docs.usage[]` / `docs.limits[]` arrays in the registry so the pages are assembled from checked data instead of prose
+  blobs (37 pages now pass `_dev/qa-docs-all.js`).
+- **Documentation** — `docs/barcode-studio.md` and `docs/palette-extractor.md` with the evidence each claim rests on,
+  and screenshots at 1280 and 375 px.
+
+### Fixed
+- **Barcode Studio shipped three dead paths.** The symbology switch listened on `.bc-seg` while the markup emits
+  `.bench-seg`, so the control did nothing; the settings key was written as `vistanology:vistanology:barcode-studio`
+  because `VT.store` already prefixes, so nothing persisted; and a brace slip in `css/apps.css` (line 1093, from an
+  in-progress Playground rewrite) left roughly two hundred rules nested inside a `max-width: 980px` query, so the
+  Barcode bench rendered unstyled on a desktop. All three were found by the harness, not by looking.
+- **Median cut invented colours.** Cutting at half the pixel count bisects long runs of identical pixels: a
+  red/green/blue image with one transparent quadrant returned `#AA5500` as its 50 % dominant colour — a colour the
+  image never contained. The cut now moves to the nearest real colour boundary (`cutPoint`).
+- **Contrast was rounded up.** A 2.995:1 pair rendered as `3.00:1` under a *not readable* badge. Ratios are truncated
+  now, in the matrix and in the JSON, so the tool never claims more contrast than it measured.
+- **A failed decode left a stale bench.** Palette Extractor kept showing the previous palette next to the "could not
+  decode" error; the bench is cleared now, and an all-transparent image gets its own message instead of a decode
+  complaint.
+
+### Changed
+- The library replays its category transition once per switch instead of on every repaint; the Playground was rebuilt
+  with the live preview as the hero of the bench.
+- The offline suite reads the precache list from `sw.js` instead of asserting a frozen tool count and a frozen
+  `vt-shell-v58` cache prefix — both of which failed on every legitimate version bump and new tool.
+- Cache token `v62-playground-hero` → **`v63-three-new-tools`**; `VT.version` 0.25.0 → **0.26.0**; release notes carry
+  26 entries; the tool count is 37 and the docs contract covers 37 pages.
+
+### Verified
+- Barcode Studio — `_dev/qa-barcode-qoder.js` 109 assertions / 0 failed; `_dev/probe-barcode.js` 17,149 probes / 0
+  failed; the bars are re-decoded from the rendered pixels and from the downloaded SVG, never from the app's own bits.
+- Palette Extractor — `_dev/qa-palette-qoder.js` 155 assertions / 0 failed; `_dev/probe-palette.js` 384 probes / 0
+  failed against `medianCut()` sliced out of the shipping file.
+- Site-wide — `_dev/scan-i18n-parity.js` PARITY FAILURES: 0; `_dev/qa-docs-all.js` 37 pages / 0 failures;
+  `_dev/qa-newtool-responsive-qoder.js` 10/10 probes on each new tool; `_dev/probe-contrast2.js` 34 elements / 0
+  failures on the Palette view and 31 / 0 on the Barcode view; `_dev/qa-offline-qoder.js` green with 84 precached
+  entries, all 37 tools opening with the server stopped, and IndexedDB backup/restore preserved.
+- Still open, and not invented away: 8 site-wide contrast failures remain in views this round did not restyle (hub and
+  library mono counts, `.tt-cat` chips, the Docs "Overview" label, a Color Studio hint, the Modules heading, and the
+  Playground bench).
+
 ## [Unreleased] — 2026-11-17
 
 ### Changed — the atmosphere and the glass surfaces, then the history that carries them
