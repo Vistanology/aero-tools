@@ -550,6 +550,31 @@ body[data-view="hub"] .hero {
 .tool-tile:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 @keyframes tile-in { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: none; } }
 
+/* ── Section header inside "Todas" ────────────────────────────────────────── */
+/* When nothing is filtered, the grid splits into glass sections — one per
+   category — so thirty-odd tiles read as chapters instead of one pile. */
+.lib-section {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 16px;
+  margin: 10px 0 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  color: var(--fg-1);
+  font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  animation: tile-in 460ms var(--ease-aero) both;
+  animation-delay: calc(var(--i, 0) * 36ms);
+}
+.lib-section-mark {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: var(--cat, #58e6ff); color: #041626;
+  display: grid; place-items: center; font-size: 12px;
+  flex: 0 0 auto; box-shadow: 0 0 10px rgba(88,230,255,.35);
+}
+.lib-section-name { flex: 1; }
+.lib-section-count { opacity: .55; font-size: 11px; font-weight: 600; }
+
 /* ── Category Switch: Frutiger Aero transition ──────────────────────────── */
 /* The grid becomes a glass pane that dissolves into light, then reforms.
    Exit: tiles fade + scale down + a light sweep across the surface.

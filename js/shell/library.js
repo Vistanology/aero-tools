@@ -85,6 +85,30 @@ VT.shell.library = (el, param) => {
     else renderGrid();
   }
 
+  function tileMarkup(m, i) {
+    return `
+      <div class="tool-tile" data-id="${m.id}" data-cat="${m.cat}" style="--i:${i}; --skip-anim: ${S.skipAnim ? 1 : 0}">
+        <a class="tt-link" href="#/tool/${m.id}" aria-label="${VT.utils.esc(m.name[L])}">
+          <div class="tt-crest">
+            <span class="tt-mark" aria-hidden="true">${I[m.icon]}</span>
+            <span class="tt-cat">${t('cat.' + m.cat + '.name')}</span>
+          </div>
+          <div class="tt-body">
+            <div class="tt-top">
+              <span class="orb">${I[m.icon]}</span>
+              <span><span class="tt-name">${m.name[L]}</span><br><span class="tt-tag">${m.tagline[L]}</span></span>
+            </div>
+            <div class="tt-meta">
+              <span class="badge badge-aqua">v${m.version}</span>
+              <span class="local-seal">${I.shield} ${t('app.local')}</span>
+            </div>
+            <span class="tt-open">${t('lib.open')} ${I.arrowRight}</span>
+          </div>
+        </a>
+        <button class="btn btn-ghost btn-icon btn-sm tt-fav" type="button" data-fav-id="${m.id}" aria-pressed="${VT.favs.has(m.id)}" data-tip="${t(VT.favs.has(m.id) ? 'app.fav.remove' : 'app.fav.add')}" aria-label="${t(VT.favs.has(m.id) ? 'app.fav.remove' : 'app.fav.add')}">${VT.favs.has(m.id) ? I.starFill : I.star}</button>
+      </div>`;
+  }
+
   function renderGrid() {
     syncStage();
     const list = results();
@@ -117,27 +141,33 @@ VT.shell.library = (el, param) => {
       });
       return;
     }
-    grid.innerHTML = list.map((m, i) => `
-      <div class="tool-tile" data-id="${m.id}" data-cat="${m.cat}" style="--i:${i}; --skip-anim: ${S.skipAnim ? 1 : 0}">
-        <a class="tt-link" href="#/tool/${m.id}" aria-label="${VT.utils.esc(m.name[L])}">
-          <div class="tt-crest">
-            <span class="tt-mark" aria-hidden="true">${I[m.icon]}</span>
-            <span class="tt-cat">${t('cat.' + m.cat + '.name')}</span>
-          </div>
-          <div class="tt-body">
-            <div class="tt-top">
-              <span class="orb">${I[m.icon]}</span>
-              <span><span class="tt-name">${m.name[L]}</span><br><span class="tt-tag">${m.tagline[L]}</span></span>
-            </div>
-            <div class="tt-meta">
-              <span class="badge badge-aqua">v${m.version}</span>
-              <span class="local-seal">${I.shield} ${t('app.local')}</span>
-            </div>
-            <span class="tt-open">${t('lib.open')} ${I.arrowRight}</span>
-          </div>
-        </a>
-        <button class="btn btn-ghost btn-icon btn-sm tt-fav" type="button" data-fav-id="${m.id}" aria-pressed="${VT.favs.has(m.id)}" data-tip="${t(VT.favs.has(m.id) ? 'app.fav.remove' : 'app.fav.add')}" aria-label="${t(VT.favs.has(m.id) ? 'app.fav.remove' : 'app.fav.add')}">${VT.favs.has(m.id) ? I.starFill : I.star}</button>
-      </div>`).join('');
+
+    let html = '';
+    // "Todas" sem busca/filtros recentes/favoritos: agrupa por categoria
+    // para a lista não parecer um monte só de 37 itens.
+    const grouped = !S.fav && !S.recent && !S.q && S.cat === 'all';
+    if (grouped) {
+      const byCat = new Map();
+      for (const m of list) {
+        if (!byCat.has(m.cat)) byCat.set(m.cat, []);
+        byCat.get(m.cat).push(m);
+      }
+      const ordered = [];
+      for (const c of VT.cats) if (byCat.has(c.id)) ordered.push({ cat: c.id, items: byCat.get(c.id) });
+      for (const [cat, items] of byCat) if (!ordered.find(o => o.cat === cat)) ordered.push({ cat, items });
+      for (const g of ordered) {
+        const firstIcon = R.get(g.items[0].id)?.icon || 'code';
+        html += `<div class="lib-section" data-cat="${g.cat}" style="grid-column:1/-1">
+          <span class="lib-section-mark" aria-hidden="true">${I[firstIcon]}</span>
+          <span class="lib-section-name">${t('cat.' + g.cat + '.name')}</span>
+          <span class="lib-section-count">${g.items.length}</span>
+        </div>`;
+        g.items.forEach((m, i) => { html += tileMarkup(m, i); });
+      }
+    } else {
+      list.forEach((m, i) => { html += tileMarkup(m, i); });
+    }
+    grid.innerHTML = html;
 
     VT.utils.$$('.tt-fav', grid).forEach((b, index) => {
       b.addEventListener('click', () => {
