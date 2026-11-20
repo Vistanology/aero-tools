@@ -68,6 +68,8 @@ VT.icons = (() => {
     broom: w('<path d="m14 4-6 6"/><path d="M8 10c-3 1-4.5 3.5-4.5 7 3.5 0 6-1.5 7-4.5Z"/><path d="m10.5 12.5 3 3"/><path class="ia" d="M6 14c-.8.8-1.3 1.8-1.5 3"/>'),
     menu: w('<path d="M4 7h16M4 12h16M4 17h16"/><path class="ia" d="M4 7h8"/>'),
     undo: w('<path d="m8 6-4 4 4 4"/><path d="M4 10h10.5a5.5 5.5 0 0 1 0 11H9"/><path class="ia" d="M4 10h5"/>'),
-    redo: w('<path d="m16 6 4 4-4 4"/><path d="M20 10H9.5a5.5 5.5 0 0 0 0 11H15"/><path class="ia" d="M20 10h-5"/>')
+    redo: w('<path d="m16 6 4 4-4 4"/><path d="M20 10H9.5a5.5 5.5 0 0 0 0 11H15"/><path class="ia" d="M20 10h-5"/>'),
+    wave: w('<path d="M2.5 12c1.6-5.5 3.2-5.5 4.8 0s3.2 5.5 4.8 0 3.2-5.5 4.8 0 3.2 5.5 4.8 0"/><path class="ia" d="M7.3 12c1.6-5.5 3.2-5.5 4.8 0"/>'),
+    play: w('<path d="M7.5 5v14l12-7Z"/><path class="ia" d="M7.5 5v6"/>')
   };
 })();
