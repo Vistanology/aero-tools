@@ -1192,24 +1192,270 @@
 .pg-proj-info span { font-size: 10px; color: var(--dim); }
 .pg-snippets-list { display: flex; flex-direction: column; gap: 6px; }
 
-/* Responsive */
-@media (max-width: 1180px) {
-  .pg-work { grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.2fr) 240px; gap: 12px; }
-  .pg-editor textarea { height: 440px; }
+/* ========================================================================
+   PLAYGROUND — RESPONSIVE LAYOUT SYSTEM
+   Breakpoints: 1400 / 1200 / 1024 / 860 / 720 / 580 / 480 / 380
+   ======================================================================== */
+
+/* Large desktop: comfortable 3-col with breathing room */
+@media (max-width: 1400px) {
+  .pg-work { grid-template-columns: minmax(280px, 1.05fr) minmax(360px, 1.35fr) 260px; gap: 14px; }
+  .pg-editor textarea { height: 500px; }
 }
-@media (max-width: 980px) {
-  .pg-work { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
-  .pg-editors { order: 1; }
-  .pg-preview { order: 2; }
-  .pg-side { order: 3; }
-  .pg-editor textarea { height: 280px; }
+
+/* Standard desktop: tighter but still 3-col */
+@media (max-width: 1200px) {
+  .pg-work { grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.25fr) 230px; gap: 12px; }
+  .pg-editor textarea { height: 460px; }
+  .browser-address { max-width: 360px; }
+  .browser-search input { width: 140px; }
+}
+
+/* Laptop / small desktop: 3-col but sidebar compresses */
+@media (max-width: 1024px) {
+  .pg-work { grid-template-columns: minmax(250px, 1fr) minmax(300px, 1.2fr) 210px; gap: 10px; }
+  .pg-editor textarea { height: 420px; }
+  .pg-frame { min-height: 420px; }
+  .browser-address { max-width: 300px; }
+  .browser-search input { width: 120px; }
+  .browser-tabs { padding: 0 6px; }
+  .browser-tab { padding: 4px 10px; font-size: 9px; }
+  .pg-side { gap: 8px; }
+  .pg-proj-row { padding: 8px; }
+}
+
+/* Tablet landscape: stack sidebar, keep editors+preview side by side */
+@media (max-width: 860px) {
+  .pg-work { 
+    grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.3fr); 
+    grid-template-rows: 1fr auto;
+    grid-template-areas: 
+      "editors preview"
+      "side side";
+    gap: 12px;
+  }
+  .pg-editors { grid-area: editors; order: 1; }
+  .pg-preview { grid-area: preview; order: 2; }
+  .pg-side { grid-area: side; order: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pg-side-tabs { justify-content: center; }
+  .pg-editor textarea { height: 380px; }
   .pg-frame { min-height: 380px; }
+  .pg-proj-list { max-height: 220px; }
 }
-@media (max-width: 640px) {
-  .pg-toolbar { flex-direction: column; align-items: stretch; }
-  .pg-toolbar-right { margin-left: 0; justify-content: center; }
-  .pg-vp { justify-content: center; }
-  .pg-tabs { justify-content: center; }
+
+/* Tablet portrait / small laptop: stack everything vertically */
+@media (max-width: 720px) {
+  .pg-work { 
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 
+      "editors"
+      "preview"
+      "side";
+    gap: 14px;
+  }
+  .pg-editors { grid-area: editors; }
+  .pg-preview { grid-area: preview; }
+  .pg-side { grid-area: side; display: block; }
+  .pg-side-tabs { display: flex; gap: 2px; }
+  .pg-editor textarea { height: 320px; }
+  .pg-frame { min-height: 360px; }
+  .pg-side { gap: 10px; }
+  .pg-proj-list { max-height: none; }
+  
+  /* Toolbar: two-row layout */
+  .pg-toolbar { 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    padding: 10px 12px;
+  }
+  .pg-toolbar-left { order: 1; flex: 1 1 auto; }
+  .pg-toolbar-center { order: 3; flex: 0 0 100%; display: flex; justify-content: center; }
+  .pg-toolbar-right { order: 2; margin-left: 0; flex: 1 1 auto; justify-content: flex-end; }
+  .pg-vp { order: 4; flex: 0 0 100%; justify-content: center; margin-top: 4px; }
+  .pg-select { min-width: 160px; max-width: 280px; }
+}
+
+/* Mobile landscape: compact toolbar, smaller chrome */
+@media (max-width: 580px) {
+  .pg-stage { padding: 12px; gap: 10px; }
+  .pg-toolbar { padding: 8px 10px; gap: 6px; }
+  .pg-toolbar-left { gap: 6px; }
+  .pg-toolbar-left .btn { padding: 6px 10px; font-size: 12px; }
+  .pg-toolbar-left .btn span { display: none; } /* icon only */
+  .pg-toolbar-left .btn svg { width: 18px; height: 18px; }
+  .pg-toggle span { font-size: 11px; }
+  .pg-sep { display: none; }
+  .pg-vp .btn { padding: 5px 8px; }
+  .pg-vp .btn svg { width: 16px; height: 16px; }
+  .pg-select { min-width: 140px; font-size: 12px; padding: 4px 8px; }
+  .pg-toolbar-right .btn { padding: 5px 8px; font-size: 11px; }
+  .pg-toolbar-right .btn span { display: none; }
+  .pg-toolbar-right .btn svg { width: 16px; height: 16px; }
+  
+  .pg-hint { font-size: 11px; min-height: 16px; }
+  
+  .pg-tabs { gap: 1px; }
+  .pg-tab { padding: 5px 10px; font-size: 10px; }
+  .pg-tab svg { width: 12px; height: 12px; }
+  
+  .pg-editor-wrapper { border-radius: var(--r-sm); }
+  .pg-gutter { width: 40px; padding: 10px 6px 10px 2px; font-size: 10px; }
+  .pg-editor textarea { 
+    height: 280px; 
+    padding: 10px 8px 10px 52px; 
+    font-size: 12px; 
+    line-height: 1.5; 
+  }
+  
+  .pg-frame { min-height: 320px; }
+  .browser-titlebar { padding: 5px 10px; }
+  .browser-title { font-size: 10px; }
+  .browser-btn { width: 16px; height: 16px; font-size: 9px; }
+  .browser-toolbar { padding: 5px 8px; gap: 6px; }
+  .nav-btn { width: 24px; height: 24px; font-size: 10px; }
+  .browser-address { max-width: 100%; flex: 1; }
+  .browser-address input { padding: 4px 8px; font-size: 11px; }
+  .browser-search input { width: 100px; padding: 4px 8px; font-size: 10px; }
+  .browser-search button { padding: 4px 8px; font-size: 10px; }
+  .browser-tabs { padding: 0 4px; }
+  .browser-tab { padding: 4px 8px; font-size: 9px; }
+  .browser-tab-new { width: 20px; height: 20px; font-size: 12px; }
+  .pg-frame-wrap { padding: 6px; }
+  .pg-frame { min-height: 300px; border-radius: 4px; }
+  .browser-statusbar { padding: 2px 8px; font-size: 9px; }
+  .browser-zoom button { width: 18px; height: 18px; font-size: 10px; }
+  
+  .pg-con-head { font-size: 8px; padding: 4px 8px; }
+  .pg-con-clear { font-size: 9px; padding: 1px 6px; }
+  .pg-console { height: 140px; font-size: 10px; padding: 6px 8px; }
+  .pg-con-tag { font-size: 7.5px; min-width: 28px; }
+  
+  .pg-side-tabs { padding: 1px; }
+  .pg-side-tab { padding: 4px 8px; font-size: 9px; }
+  .pg-proj-save { gap: 4px; }
+  .pg-proj-save .input { font-size: 12px; padding: 6px 8px; }
+  .pg-proj-save .btn { padding: 5px 8px; font-size: 11px; }
+  .pg-proj-row { padding: 8px; gap: 8px; }
+  .pg-proj-info strong { font-size: 11px; }
+  .pg-proj-info span { font-size: 9px; }
+  
+  .privacy-line { font-size: 10px; padding: 8px; }
+}
+
+/* Mobile portrait: ultra compact */
+@media (max-width: 480px) {
+  .pg-stage { padding: 10px; gap: 8px; border-radius: var(--r-md); }
+  .pg-toolbar { padding: 6px 8px; gap: 4px; border-radius: var(--r-sm); }
+  .pg-toolbar-left { gap: 4px; }
+  .pg-toolbar-left .btn { padding: 5px 8px; }
+  .pg-toggle { gap: 4px; }
+  .pg-vp { gap: 2px; }
+  .pg-vp .btn { padding: 4px 6px; }
+  .pg-select { min-width: 120px; padding: 3px 6px; font-size: 11px; }
+  
+  .pg-hint { font-size: 10px; }
+  
+  .pg-tabs { border-radius: var(--r-xs) var(--r-xs) 0 0; }
+  .pg-tab { padding: 4px 8px; font-size: 9px; gap: 4px; }
+  .pg-tab svg { width: 11px; height: 11px; }
+  
+  .pg-gutter { width: 36px; padding: 8px 4px 8px 2px; font-size: 9px; }
+  .pg-editor textarea { 
+    height: 240px; 
+    padding: 8px 6px 8px 46px; 
+    font-size: 11.5px; 
+    line-height: 1.45; 
+  }
+  
+  .pg-frame { min-height: 280px; }
+  .browser-titlebar { padding: 4px 8px; }
+  .browser-icon { width: 14px; height: 14px; margin-right: 6px; font-size: 12px; }
+  .browser-title { font-size: 9px; }
+  .browser-btn { width: 14px; height: 14px; font-size: 8px; }
+  .browser-toolbar { padding: 4px 6px; gap: 4px; }
+  .nav-btn { width: 22px; height: 22px; font-size: 9px; }
+  .browser-address input { padding: 3px 6px; font-size: 10px; }
+  .browser-search { display: none; } /* hide search on tiny screens */
+  .browser-tabs { padding: 0 2px; }
+  .browser-tab { padding: 3px 6px; font-size: 8px; }
+  .browser-tab-new { width: 18px; height: 18px; font-size: 11px; }
+  .pg-frame-wrap { padding: 4px; }
+  .pg-frame { min-height: 260px; border-radius: 3px; }
+  .browser-statusbar { padding: 2px 6px; font-size: 8px; }
+  .browser-zoom { gap: 4px; }
+  .browser-zoom button { width: 16px; height: 16px; font-size: 9px; }
+  .browser-zoom span { font-size: 9px; }
+  
+  .pg-con-head { font-size: 7.5px; padding: 3px 6px; }
+  .pg-con-clear { font-size: 8.5px; padding: 1px 5px; }
+  .pg-console { height: 120px; font-size: 9.5px; padding: 5px 6px; }
+  .pg-con-tag { font-size: 7px; min-width: 26px; }
+  .pg-con-msg { font-size: 9.5px; }
+  
+  .pg-side-tabs { padding: 1px; }
+  .pg-side-tab { padding: 3px 6px; font-size: 8.5px; gap: 4px; }
+  .pg-side-tab svg { width: 11px; height: 11px; }
+  .pg-proj-save { flex-direction: column; gap: 4px; }
+  .pg-proj-save .input { width: 100%; }
+  .pg-proj-save .btn { width: 100%; justify-content: center; }
+  .pg-proj-row { flex-direction: column; align-items: flex-start; gap: 6px; padding: 8px; }
+  .pg-proj-info { width: 100%; }
+  .pg-proj-info strong { font-size: 11px; }
+  
+  .privacy-line { font-size: 9.5px; padding: 6px 8px; }
+}
+
+/* Very small screens (iPhone SE, etc) */
+@media (max-width: 380px) {
+  .pg-stage { padding: 8px; gap: 6px; }
+  .pg-toolbar { padding: 5px 6px; }
+  .pg-toolbar-left .btn { padding: 4px 6px; }
+  .pg-toolbar-left .btn svg { width: 16px; height: 16px; }
+  .pg-vp .btn { padding: 3px 5px; }
+  .pg-vp .btn svg { width: 14px; height: 14px; }
+  .pg-select { min-width: 100px; padding: 3px 5px; font-size: 10.5px; }
+  .pg-toolbar-right .btn { padding: 4px 6px; }
+  .pg-toolbar-right .btn svg { width: 14px; height: 14px; }
+  
+  .pg-tab { padding: 3px 6px; font-size: 8.5px; }
+  .pg-tab svg { width: 10px; height: 10px; }
+  
+  .pg-gutter { width: 32px; font-size: 8.5px; }
+  .pg-editor textarea { 
+    height: 220px; 
+    padding: 6px 5px 6px 42px; 
+    font-size: 11px; 
+  }
+  
+  .pg-frame { min-height: 240px; }
+  .browser-address input { padding: 3px 5px; font-size: 9.5px; }
+  .browser-tab { padding: 2px 5px; font-size: 7.5px; }
+  .pg-frame { min-height: 220px; }
+  
+  .pg-console { height: 100px; font-size: 9px; }
+  .pg-con-tag { font-size: 6.5px; min-width: 24px; }
+  
+  .pg-side-tab { padding: 3px 5px; font-size: 8px; }
+  .pg-side-tab svg { width: 10px; height: 10px; }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .pg-editor textarea { height: 200px; }
+  .pg-frame { min-height: 200px; }
+  .pg-console { height: 100px; }
+  .pg-hint { min-height: 14px; }
+}
+
+/* Print styles */
+@media print {
+  .pg-toolbar, .pg-tabs, .pg-side, .browser-titlebar, .browser-toolbar, 
+  .browser-tabs, .browser-statusbar, .pg-con-head, .privacy-line { display: none !important; }
+  .pg-work { display: block !important; }
+  .pg-editors, .pg-preview, .pg-side { display: block !important; page-break-inside: avoid; }
+  .pg-frame { box-shadow: none !important; border: 1px solid #ccc !important; min-height: 400px !important; }
+  .pg-editor textarea { height: auto !important; min-height: 300px; }
 }
 
 /* ---------- U10 · CSS Animation Studio ---------- */
