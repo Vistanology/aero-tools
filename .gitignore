@@ -8,3 +8,6 @@ Thumbs.db
 
 # Dependencies
 node_modules/
+
+# Backup preservado localmente — não entra no bundle de produção
+old_hub/
