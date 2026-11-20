@@ -166,9 +166,16 @@ VT.shell.library = (el, param) => {
       S.recent = false;
       if (chip.dataset.fav) {
         showCollection(!S.fav);
-      } else if (chip.dataset.cat !== S.cat) {
+      } else if (chip.dataset.cat !== S.cat || S.fav) {
         // Category switch with Frutiger Aero transition
         const newCat = chip.dataset.cat;
+        // A category chip also leaves the favourites/recents cut: the old path
+        // went through the router and remounted the whole view mid-transition,
+        // so the hash is rewritten in place and the cut flag cleared here.
+        if (S.fav) {
+          S.fav = false;
+          try { history.replaceState(null, '', location.pathname + location.search + '#/library'); } catch { /* hash-only site */ }
+        }
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
                               document.body.dataset.motion === 'reduced';
         if (!prefersReduced) {
