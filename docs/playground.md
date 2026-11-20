@@ -92,9 +92,18 @@ Run in Chromium against `http://localhost:8735` (increment evidence in [`checkli
 - **Named snippets** — saved “Teste Aero”, reopened it from the list. · Snippets nomeados conferidos.
 - **Export** — downloads `vistanology-playground.html`. · Exportação conferida.
 - **Keyboard** — `Ctrl+Enter` re-runs; `Esc` closes the console tab first, then the editor. · Atalhos conferidos.
+- **Live site** — the same run was repeated on `https://vistanology.github.io/aero-tools/` after deploy, with the
+  service worker unregistered and both cache generations deleted: mount clean, four templates clean, console, viewport,
+  zoom and export all behave as above. · A mesma verificação foi repetida no site publicado, com o service worker
+  desregistrado e os caches apagados.
 
 ### Pending · Limitações do ambiente de teste
 
 - The embedded browser viewport is ~1280 px, so the 1180/980/860/720/580/480/380 px breakpoints were verified by
   DOM/computed-style checks and code review rather than physical device captures. · A janela embutida tem ~1280 px;
   os breakpoints foram verificados por DOM/estilo computado e revisão de código, não em dispositivos físicos.
+- The mobile screenshot is still missing: the in-app Browser surface could not be held visible long enough to capture
+  a phone-width view, so only the desktop shot below exists. · A captura em 390 px continua pendente.
+
+Screenshots: [`shots/playground-desktop.png`](shots/playground-desktop.png) (1280 px, Aero Lab live preview with the
+editor panel open).
